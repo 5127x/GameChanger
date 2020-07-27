@@ -1,9 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env pybricks-micropython
+from pybricks.hubs import EV3Brick as ev3
+from pybricks.ev3devices import ColorSensor, GyroSensor, MediumMotor, LargeMotor
+from pybricks.parameters import Port
+'''
 from ev3dev2.motor import MoveSteering, MoveTank, MediumMotor, LargeMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D
 from ev3dev2.sensor.lego import TouchSensor, ColorSensor, GyroSensor
 from ev3dev2.sensor import INPUT_1, INPUT_2, INPUT_3, INPUT_4
-from ev3dev2.button import Button
-import xml.etree.ElementTree as ET
+from ev3dev2.button import Button'''
+import ujson
 import threading
 import time
 from sys import stderr
@@ -11,6 +15,8 @@ import os
 
 # import the functions 
 '''
+from program import function
+
 from functions.Do_nothing import Do_nothing
 from functions.off import off
 from functions.Delay_seconds import Delay_seconds
@@ -36,19 +42,18 @@ from functions.squareOnLine import squareOnLine
 from functions.squareOnLineWhite import squareOnLineWhite
 '''
 # define the different sensors, motors and motor blocks
-button = Button()
+colourAttachment = ColorSensor(Port.S4)
+colourRight = ColorSensor(Port.S2)
+colourLeft = ColorSensor(Port.S3)
+gyro = GyroSensor(Port.S1)
+largeMotor_Left= LargeMotor(Port.B)
+largeMotor_Right= LargeMotor(Port.C)
+mediumMotor = MediumMotor(Port.D)
 
-colourAttachment = ColorSensor(INPUT_4)
-colourLeft = ColorSensor(INPUT_3) 
-colourRight = ColorSensor(INPUT_2)
-gyro = GyroSensor(INPUT_1)
-
-largeMotor_Left= LargeMotor(OUTPUT_B)
-largeMotor_Right= LargeMotor(OUTPUT_C)
-mediumMotor = MediumMotor(OUTPUT_D)
-
+'''
 steering_drive = MoveSteering(OUTPUT_B, OUTPUT_C)
 tank_block = MoveTank(OUTPUT_B, OUTPUT_C)
+'''
 
 # check if the key has been removed
 def isKeyTaken(rProgram, gProgram, bProgram): 
@@ -110,7 +115,14 @@ def colourAttachment_values():
 def launchStep(stop, action):
     # compare the 'name' to the functions and start a thread with the matching function
     # return the thread to be added to the threadPool
-    name = action.get('action')
+    name = action["step"]
+
+    if name == '': # (list of variables)
+        print(name, file=stderr)
+        thread = threading.Thread(target=, args=(stop, variables))
+        thread.start()
+        return thread
+
     '''
     if name == 'Do_nothing': # (stop)
         print("Do_nothing", file= stderr)
@@ -298,65 +310,72 @@ def launchStep(stop, action):
 def main():
     # create dictionaries and variables
     threadPool = []
-    actions = []
     stopProcessing = False
-    # open and read the overall XML file 
-    programXML = ET.parse('overall_programming.xml')
-    programs = programXML.getroot()
     attachment_values = colourAttachment_values()
-    while True:
-        # reset stopProcessing each repetition
-        stopProcessing = False
-        # collect the raw rgb light values from colourAttachment and the overall XML file
-        rgb = colourAttachment.raw
-        for program in programs:
-            programName = program.get('name')
-            colourValue = int(program.get('colourValue'))
-            # use the calibrated values in comparison 
-            colourProgram = attachment_values[colourValue]
-            rProgram = colourProgram[0]
-            gProgram = colourProgram[1]
-            bProgram = colourProgram[2]
-            rColourSensor = rgb[0]
-            gColourSensor = rgb[1]
-            bColourSensor = rgb[2]
-            # compare the sets of values
-            # if the values match, run the corresponding program
-            if abs(rColourSensor - rProgram) < 12 and abs(gColourSensor - gProgram) < 12 and abs(bColourSensor - bProgram) < 12:
-                mediumMotor.reset 
-                # read the relevant program XML
-                fileName = program.get('fileName')
-                print(fileName,file=stderr)
-                dataXML = ET.parse(fileName)
-                steps = dataXML.getroot()
-                # run each step individually unless they are run in parallel
-                for step in steps:
-                    action = step.get('action')
-                    # loop through actions that should be run in parallel
-                    if action == 'launchInParallel':
-                        for subSteps in step:
-                            thread = launchStep(lambda:stopProcessing, subSteps)
-                            threadPool.append(thread)
-                    # run each action that isn't run in parrallel idividually
-                    else:
-                        thread = launchStep(lambda:stopProcessing, step)
-                        threadPool.append(thread)
-                    while not stopProcessing:
-                        # if there are no threads running start the next action
-                        if not threadPool:
-                            break
-                        # remove any completed threads from the pool
-                        for thread in threadPool:
-                            if not thread.isAlive():
-                                threadPool.remove(thread)
-                        # if the robot has been lifted or t=
-                        # '?e key removed then stop everything
-                        if isKeyTaken(rProgram, gProgram, bProgram):
-                            stopProcessing = True
-                            break
-                    # if the 'stopProcessing' flag has been set then finish the whole loop
-                    if stopProcessing:
-                        off()
-                        break
+    # open and read the overall XML file 
+    with open('overall_programming.json') as f:
+        parsed = ujson.load(f)
+        programsList = parsed["programs"]
+    
+        while True:
+            # reset stopProcessing each repetition
+            stopProcessing = False
+            # collect the raw rgb light values from colourAttachment and the overall XML file
+            rgb = colourAttachment.raw
+            
+            for x in range(0, len(programsList)):
+                program = programsList[x]
+                programName = program["name"]
+                colourValue = int(program["colourValue"])
+                
+                # use the calibrated values in comparison 
+                colourProgram = attachment_values[colourValue]
+                rProgram = colourProgram[0]
+                gProgram = colourProgram[1]
+                bProgram = colourProgram[2]
+                rColourSensor = rgb[0]
+                gColourSensor = rgb[1]
+                bColourSensor = rgb[2]
+                # compare the sets of values
+                # if the values match, run the corresponding program
+                if abs(rColourSensor - rProgram) < 12 and abs(gColourSensor - gProgram) < 12 and abs(bColourSensor - bProgram) < 12:
+                    mediumMotor.reset 
+
+                    # read the relevant program XML
+                    fileName = program["fileName"]
+                    print(fileName,file=stderr)
+                    with open(FileName) as f:
+                        parsed = ujson.load(f)
+                        steps = parsed[""]
+
+                        # run each step individually unless they are run in parallel
+                        for step in steps:
+                            action = step["step"]
+                            # loop through actions that should be run in parallel
+                            if action == 'launchInParallel':
+                                for step in range(0, len(action)):
+                                    thread = launchStep(lambda:stopProcessing, step)
+                                    threadPool.append(thread)
+                            # run each action that isn't run in parrallel idividually
+                            else:
+                                thread = launchStep(lambda:stopProcessing, step)
+                                threadPool.append(thread)
+#----------------------------------------------------------------------------------------------
+                            while not stopProcessing:
+                                # if there are no threads running start the next action
+                                if not threadPool:
+                                    break
+                                # remove any completed threads from the pool
+                                for thread in threadPool:
+                                    if not thread.isAlive():
+                                        threadPool.remove(thread)
+                                # if the robot has been lifted or the key removed then stop everything
+                                if isKeyTaken(rProgram, gProgram, bProgram):
+                                    stopProcessing = True
+                                    break
+                            # if the 'stopProcessing' flag has been set then finish the whole loop
+                            if stopProcessing:
+                                off()
+                                break
 
 main()
