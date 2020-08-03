@@ -4,7 +4,7 @@
     {"step": "launchInParallel", 
         "steps": [
             {"step": "", "variable": "", "variable2": ""},
-            {"step": "", "variable": "", "variable2": ""},
+            {"step": "", "variable": "", "variable2": ""}
     ]},
     {"step": "", "variable": "", "variable2": ""}
 ]}
