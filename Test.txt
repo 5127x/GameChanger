@@ -18,4 +18,10 @@ The purpose of a storyteller is not to tell you how to think but to give you que
 Function b() {
 
 The point of stories is not that they are objectively true but that the should of the story is truer than reality. Those who mock fiction do so because they fear the truth
+
+Flectere si nequeo superos, Acheronta movebo.
+
+“They say time heals all wounds, but that presumes the source of the grief is finite”
+-Will Herondale
+
 }
