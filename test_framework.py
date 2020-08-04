@@ -14,6 +14,7 @@ from sys import stderr
 import os
 
 # import the functions 
+from Testing_programs.RLI_testing2 import RLI_testing2
 
 # define the different sensors, motors and motor blocks
 colourAttachment = ColorSensor(Port.S4)
