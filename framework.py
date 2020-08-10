@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick as ev3
-from pybricks.ev3devices import ColorSensor, GyroSensor, MediumMotor, LargeMotor
+from pybricks.ev3devices import ColorSensor, GyroSensor #, MediumMotor, LargeMotor (nned to find how to actually do this)
 from pybricks.parameters import Port
 '''
 from ev3dev2.motor import MoveSteering, MoveTank, MediumMotor, LargeMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D
@@ -14,7 +14,7 @@ from sys import stderr
 import os
 
 # import the functions 
-'''
+''' # will be updated list soon
 from program import function
 
 from functions.Do_nothing import Do_nothing
@@ -42,16 +42,16 @@ from functions.squareOnLine import squareOnLine
 from functions.squareOnLineWhite import squareOnLineWhite
 '''
 # define the different sensors, motors and motor blocks
-colourAttachment = ColorSensor(Port.S4)
+'''colourAttachment = ColorSensor(Port.S4)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
 gyro = GyroSensor(Port.S1)
 largeMotor_Left= LargeMotor(Port.B)
 largeMotor_Right= LargeMotor(Port.C)
-mediumMotor = MediumMotor(Port.D)
+mediumMotor = MediumMotor(Port.D)'''
 
-'''
-steering_drive = MoveSteering(OUTPUT_B, OUTPUT_C)
+''' # dont know what the new python version is 
+steering_drive = MoveSteering(OUTPUT_B, OUTPUT_C) 
 tank_block = MoveTank(OUTPUT_B, OUTPUT_C)
 '''
 
@@ -117,11 +117,11 @@ def launchStep(stop, action):
     # return the thread to be added to the threadPool
     name = action["step"]
 
-    if name == '': # (list of variables)
+    '''if name == '': # (list of variables)
         print(name, file=stderr)
-        thread = threading.Thread(target=, args=(stop, variables))
+        thread = threading.Thread(target=, args=(stop,))
         thread.start()
-        return thread
+        return thread'''
 
     '''
     if name == 'Do_nothing': # (stop)

@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick as ev3
-from pybricks.ev3devices import ColorSensor, GyroSensor, MediumMotor, LargeMotor
+from pybricks.ev3devices import ColorSensor, GyroSensor, Motor
 from pybricks.parameters import Port
 '''
 from ev3dev2.motor import MoveSteering, MoveTank, MediumMotor, LargeMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D
@@ -17,13 +17,13 @@ import os
 from Testing_programs.RLI_testing2 import RLI_testing2
 
 # define the different sensors, motors and motor blocks
-colourAttachment = ColorSensor(Port.S4)
-colourRight = ColorSensor(Port.S2)
-colourLeft = ColorSensor(Port.S3)
-gyro = GyroSensor(Port.S1)
+'''colourAttachment = ColorSensor(Port.S4)
+colourRight = ColorSensor(Port.S2)'''
+colourLeft = ColorSensor(Port.S2) # should be S3
+'''gyro = GyroSensor(Port.S1)
 largeMotor_Left= LargeMotor(Port.B)
 largeMotor_Right= LargeMotor(Port.C)
-mediumMotor = MediumMotor(Port.D)
+mediumMotor = MediumMotor(Port.D)'''
 
 # launch actions using threads
 def launchStep(stop, action):
@@ -231,7 +231,6 @@ def main():
     # create dictionaries and variables
     threadPool = []
     stopProcessing = False
-    attachment_values = colourAttachment_values()
     # open and read the overall XML file 
     while True:
         # reset stopProcessing each repetition
@@ -250,9 +249,9 @@ def main():
                         threadPool.append(thread)
                             # run each action that isn't run in parrallel idividually
                 else:
+                    print('launch thread', file=stderr)
                     thread = launchStep(lambda:stopProcessing, step)
                     threadPool.append(thread)
-#----------------------------------------------------------------------------------------------
                 while not stopProcessing:
                     # if there are no threads running start the next action
                     if not threadPool:
