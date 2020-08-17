@@ -6,8 +6,8 @@ colourLeft = ColorSensor(INPUT_2)
 largeMotor_Left= LargeMotor(OUTPUT_B)
 largeMotor_Right= LargeMotor(OUTPUT_C)
 
-target_RLI = 40
-
+target_RLI = 45
+steering_drive = MoveSteering(OUTPUT_B, OUTPUT_C)
 
 def line_following(speed_value,correction):
     while True:
@@ -16,7 +16,7 @@ def line_following(speed_value,correction):
         steering = (error * correction)#error * correction
         steering_drive.on(speed=speed_value,steering = steering)
 
-line_following(speed_value = 10, correction = .25)
+line_following(speed_value =65, correction = .2)
 
 #____________
 # This program was created on the 10/8/2020 it's purpose is to compare with it's twin micropython program 
