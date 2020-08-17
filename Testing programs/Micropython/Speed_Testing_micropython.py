@@ -1,6 +1,7 @@
+#!/usr/bin/env pybricks-micropython
 #11.8.20 Speed_Testing_ev3dev.py -- > Speed_Testing_micropython.py
 
-#!/usr/bin/env pybricks-micropython
+
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor
 from pybricks.parameters import Port, Color

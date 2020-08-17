@@ -1,6 +1,6 @@
+#!/usr/bin/env python3
 #11.8.20 Speed_Testing_ev3dev.py -- > Speed_Testing_micropython.py
 
-#!/usr/bin/env python3
 from ev3dev2.motor import MoveSteering, LargeMotor,OUTPUT_B, OUTPUT_C
 from ev3dev2.sensor.lego import ColorSensor
 from ev3dev2.sensor import INPUT_2
