@@ -220,7 +220,7 @@ def launchStep(stop, action):
     '''
     if name == 'RLI_testing2': #(stop, )
         print("RLI_testing2", file=stderr)
-        thread = threading.Thread(target=RLI_testing2)
+        thread = threading.Thread(target = RLI_testing2)
         thread.start()
         return thread
         
@@ -232,41 +232,40 @@ def main():
     threadPool = []
     stopProcessing = False
     # open and read the overall XML file 
-    while True:
-        # reset stopProcessing each repetition
-        stopProcessing = False
-        # collect the raw rgb light values from colourAttachment and the overall XML file
-        with open('testing.json') as f:
-            parsed = ujson.load(f)
-            steps = parsed["steps"]
-            # run each step individually unless they are run in parallel
-            for step in steps:
-                action = step["step"]
-                # loop through actions that should be run in parallel
-                if action == 'launchInParallel':
-                    for step in range(0, len(action)):
-                        thread = launchStep(lambda:stopProcessing, step)
-                        threadPool.append(thread)
-                            # run each action that isn't run in parrallel idividually
-                else:
-                    print('launch thread', file=stderr)
+    
+    # reset stopProcessing each repetition
+    stopProcessing = False
+    # collect the raw rgb light values from colourAttachment and the overall XML file
+    with open('testing.json') as f:
+        parsed = ujson.load(f)
+        steps = parsed["steps"]
+        # run each step individually unless they are run in parallel
+        for step in steps:
+            action = step["step"]
+            print(action, file=stderr)
+            print(steps, file=stderr)
+            # loop through actions that should be run in parallel
+            if action == 'launchInParallel':
+                for step in range(0, len(action)):
                     thread = launchStep(lambda:stopProcessing, step)
                     threadPool.append(thread)
-                while not stopProcessing:
-                    # if there are no threads running start the next action
-                    if not threadPool:
-                        break
-                    # remove any completed threads from the pool
-                    for thread in threadPool:
-                        if not thread.isAlive():
-                            threadPool.remove(thread)
-                    # if the robot has been lifted or the key removed then stop everything
-                    if isKeyTaken(rProgram, gProgram, bProgram):
-                        stopProcessing = True
-                        break
-                # if the 'stopProcessing' flag has been set then finish the whole loop
-                if stopProcessing:
-                    off()
+                        # run each action that isn't run in parrallel idividually
+            else:
+                print('launch thread', file=stderr)
+                thread = launchStep(lambda:stopProcessing, step)
+                threadPool.append(thread)
+            while not stopProcessing:
+                # if there are no threads running start the next action
+                if not threadPool:
                     break
+                # remove any completed threads from the pool
+                for thread in threadPool:
+                    if not thread.is_alive():
+                        threadPool.remove(thread)
+                #print("threads: {}".format(threadPool),file=stderr)
+            # if the 'stopProcessing' flag has been set then finish the whole loop
+            if stopProcessing:
+                off()
+                break
 
 main()
