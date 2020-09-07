@@ -218,23 +218,23 @@ def launchStep(stop, action):
         thread.start()
         return thread
     '''
-    if name == 'RLI_testing2': #(stop, )
+    if name == 'RLI_testing2': #(threadKey, )
         print("RLI_testing2", file=stderr)
-        thread = threading.Thread(target = RLI_testing2)
+        thread = threading.Thread(target = RLI_testing2, args=(threadKey, ))
         thread.start()
         return thread
-        
 
 
+is_complete = 0
 # main section of the program
 def main():
     # create dictionaries and variables
-    threadPool = []
+    threadPool = {}
     stopProcessing = False
-    # open and read the overall XML file 
+    global is_complete
+    threadKey = 1
     
-    # reset stopProcessing each repetition
-    stopProcessing = False
+    
     # collect the raw rgb light values from colourAttachment and the overall XML file
     with open('testing.json') as f:
         parsed = ujson.load(f)
@@ -248,21 +248,22 @@ def main():
             if action == 'launchInParallel':
                 for step in range(0, len(action)):
                     thread = launchStep(lambda:stopProcessing, step)
-                    threadPool.append(thread)
-                        # run each action that isn't run in parrallel idividually
+                    threadPool[threadKey] = thread        
             else:
                 print('launch thread', file=stderr)
                 thread = launchStep(lambda:stopProcessing, step)
-                threadPool.append(thread)
+                print(thread, file=stderr)
+                threadPool[threadKey] = thread
+            
             while not stopProcessing:
                 # if there are no threads running start the next action
                 if not threadPool:
                     break
                 # remove any completed threads from the pool
-                for thread in threadPool:
-                    if not thread.is_alive():
-                        threadPool.remove(thread)
-                #print("threads: {}".format(threadPool),file=stderr)
+                if is_complete != 0:
+                    del threadPool[is_complete]
+                    is_complete = 0
+                
             # if the 'stopProcessing' flag has been set then finish the whole loop
             if stopProcessing:
                 off()
