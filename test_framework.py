@@ -26,14 +26,14 @@ largeMotor_Right= LargeMotor(Port.C)
 mediumMotor = MediumMotor(Port.D)'''
 
 # launch actions using threads
-def launchStep(stop, action):
+def launchStep(stop, threadKey, action):
     # compare the 'name' to the functions and start a thread with the matching function
     # return the thread to be added to the threadPool
     name = action["step"]
 
     '''if name == '': # (list of variables)
         print(name, file=stderr)
-        thread = threading.Thread(target=, args=(stop, variables))
+        thread = threading.Thread(target=, args=(stop, threadKey, variables))
         thread.start()
         return thread'''
 
@@ -226,13 +226,14 @@ def launchStep(stop, action):
 
 
 is_complete = 0
+os.environ['IS_COMPLETE'] = str(is_complete)
 # main section of the program
 def main():
     # create dictionaries and variables
     threadPool = {}
     stopProcessing = False
-    global is_complete
     threadKey = 1
+    is_complete = os.environ['IS_COMPLETE']
     
     
     # collect the raw rgb light values from colourAttachment and the overall XML file
@@ -243,26 +244,34 @@ def main():
         for step in steps:
             action = step["step"]
             print(action, file=stderr)
-            print(steps, file=stderr)
+            print(step, file=stderr)
             # loop through actions that should be run in parallel
             if action == 'launchInParallel':
-                for step in range(0, len(action)):
-                    thread = launchStep(lambda:stopProcessing, step)
-                    threadPool[threadKey] = thread        
+                subSteps = step["subSteps"]
+                for subStep in subSteps:
+                    print('substep {}'.format(subStep))
+                    thread = launchStep(lambda:stopProcessing, threadKey, subStep)
+                    threadPool[threadKey] = thread
+                    threadKey = threadKey+1        
             else:
-                print('launch thread', file=stderr)
-                thread = launchStep(lambda:stopProcessing, step)
-                print(thread, file=stderr)
+                #print('launch thread', file=stderr)
+                thread = launchStep(lambda:stopProcessing, threadKey, step)
+                #print(thread, file=stderr)
                 threadPool[threadKey] = thread
-            
+                threadKey = threadKey+1        
             while not stopProcessing:
                 # if there are no threads running start the next action
                 if not threadPool:
                     break
                 # remove any completed threads from the pool
-                if is_complete != 0:
+                is_complete = int(os.environ['IS_COMPLETE'])
+                if is_complete != 0: 
                     del threadPool[is_complete]
                     is_complete = 0
+                    os.environ['IS_COMPLETE'] = str(is_complete)
+                    print("deleted thread", file=stderr)
+
+                    print("threadpool {}".format(threadPool), file=stderr)
                 
             # if the 'stopProcessing' flag has been set then finish the whole loop
             if stopProcessing:
