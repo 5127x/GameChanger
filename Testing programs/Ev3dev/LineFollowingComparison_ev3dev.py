@@ -16,7 +16,7 @@ def line_following(speed_value,correction):
         steering = (error * correction)#error * correction
         steering_drive.on(speed=speed_value,steering = steering)
 
-line_following(speed_value =65, correction = .2)
+line_following(speed_value =65, correction = 0.875)
 
 #____________
 # This program was created on the 10/8/2020 it's purpose is to compare with it's twin micropython program 

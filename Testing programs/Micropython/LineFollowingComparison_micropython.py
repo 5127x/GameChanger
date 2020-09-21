@@ -11,7 +11,7 @@ right_motor = Motor(Port.C)
 ev3 = EV3Brick()
 robot = DriveBase(left_motor, right_motor, wheel_diameter=55.5, axle_track=104)
 
-target_RLI = 45
+target_RLI = 45 
 def line_following(speed_value, correction):
     while True:
         current_RLI = colourLeft.reflection()
@@ -19,7 +19,7 @@ def line_following(speed_value, correction):
         steering = (error * correction)#error * correction
         robot.drive(speed_value,steering)
 
-line_following(speed_value = 5, correction = 0.875)
+line_following(speed_value = 600, correction = 0.2)
 
 #____________
 # This program was created on the 10/8/2020 it's purpose is to compare with it's twin ev3dev program 
