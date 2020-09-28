@@ -6,8 +6,9 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
-
-extramotor = Motor(Port.A)
+import os
+'''
+#extramotor = Motor(Port.A)
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -16,14 +17,21 @@ gyro = GyroSensor(Port.S1)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
 colourkey = ColorSensor(Port.S4)
-
+'''
 
 ev3 = EV3Brick()
-robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
+#robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 #_________________________________________________________________________________________________________________________________
 
-def motor_onForRotations(stop, motor, speed, rotations, gearRatio): 
+def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio): 
     print("In onForRotations", file=stderr)
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    if motor == "extension":
+        motor =  Motor(Port.A)
+
     # read the motor position (degrees since there isn't a way to read rotations)
     current_degrees = motor.angle() 
     # take the gearRatio into account
@@ -53,8 +61,10 @@ def motor_onForRotations(stop, motor, speed, rotations, gearRatio):
                 break
             if current_degrees >= target_rotations:
                 break
-    robot.drive(turn_rate = 0 , speed = 0)
+    motor.stop()
     print('Leaving onForRotations', file=stderr)
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
 
 #lambda:stopProcessing,
 #stopProcessing=False
