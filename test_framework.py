@@ -63,7 +63,7 @@ def launchStep(stop, threadKey, action):
         sensor = action['sensor']
         lineSide = action['lineSide']
         correction = float(action['correction'])
-        thread = threading.Thread(target = blackline_rotations, args=(stop, speed, rotations, sensor, lineSide, correction))
+        thread = threading.Thread(target = blackline_rotations, args=(stop,threadKey, speed, rotations, sensor, lineSide, correction))
         thread.start()
         return thread
 
@@ -73,13 +73,13 @@ def launchStep(stop, threadKey, action):
         sensor = action['sensor']
         lineSide = action['lineSide']
         correction = float(action['correction'])
-        thread = threading.Thread(target = blackline_to_line, args=(stop, speed, sensor, lineSide, correction))
+        thread = threading.Thread(target = blackline_to_line, args=(stop, threadKey, speed, sensor, lineSide, correction))
         thread.start()
         return thread
 
     if name == 'do_nothing': # (stop)
         print("do_nothing", file= stderr)
-        thread = threading.Thread(target=Do_nothing, args=(stop,))
+        thread = threading.Thread(target=Do_nothing, args=(stop,threadKey))
         thread.start()
         return thread
 
@@ -87,7 +87,7 @@ def launchStep(stop, threadKey, action):
         print("Starting gyro_current", file=stderr)
         speed = float(action['speed'])
         rotations = float(action['rotations'])
-        thread = threading.Thread(target=gyro_current, args=(stop, speed, rotations))
+        thread = threading.Thread(target=gyro_current, args=(stop,threadKey, speed, rotations))
         thread.start()
         return thread
 
@@ -97,7 +97,7 @@ def launchStep(stop, threadKey, action):
         rotations = float(action['rotations'])
         target = float(action[target])
         whiteOrBlack = action['whiteOrBlack']
-        thread = threading.Thread(target=gyro_target_to_line, args=(stop, speed, rotations, target, whiteOrBlack))
+        thread = threading.Thread(target=gyro_target_to_line, args=(stop, threadKey, speed, rotations, target, whiteOrBlack))
         thread.start()
         return thread
 
@@ -106,7 +106,7 @@ def launchStep(stop, threadKey, action):
         speed = float(action['speed'])
         rotations = float(action['rotations'])
         target = float(action['target'])
-        thread = threading.Thread(target=gyro_target, args=(stop, speed, rotations, target))
+        thread = threading.Thread(target=gyro_target, args=(stop,threadKey, speed, rotations, target))
         thread.start()
         return thread
 
@@ -114,7 +114,7 @@ def launchStep(stop, threadKey, action):
         print("Starting gyro_turning", file=stderr)
         speed = float(action['speed'])
         degrees = float(action['degrees'])
-        thread = threading.Thread(target = gyro_turning, args=(stop, speed, degrees))
+        thread = threading.Thread(target = gyro_turning, args=(stop, threadKey, speed, degrees))
         thread.start()
         return thread
 
@@ -130,20 +130,20 @@ def launchStep(stop, threadKey, action):
             motorToUse = largeMotor_Right
         if (motor == "panel"):
             motorToUse = panel
-        thread = threading.Thread(target=motor_onForRotations, args=(stop, motorToUse, speed, rotations, gearRatio))
+        thread = threading.Thread(target=motor_onForRotations, args=(stop,threadKey, motorToUse, speed, rotations, gearRatio))
         thread.start()
         return thread
 
     if name == 'off': # ()
         print("Motors off", file=stderr)
-        thread = threading.Thread(target=off)
+        thread = threading.Thread(target=off, args=(threadKey,))
         thread.start()
         return thread
 
 
     if name == 'reset_gyro': # ()
         print("Starting Reset_gyro", file=stderr)
-        thread = threading.Thread(target=reset_gyro)
+        thread = threading.Thread(target=reset_gyro, args=(threadKey,))
         thread.start()
         return thread
 
@@ -152,8 +152,7 @@ def launchStep(stop, threadKey, action):
         speed = float(action['speed'])
         rotations = float(action['rotations'])
         steering = float(action['steering'])
-
-        thread = threading.Thread(target=steering_rotations, args=(stop, speed, rotations, steering))
+        thread = threading.Thread(target=steering_rotations, args=(stop,threadKey, speed, rotations, steering))
         thread.start()
         return thread
 
@@ -162,14 +161,14 @@ def launchStep(stop, threadKey, action):
         speed = float(action[speed])
         seconds = float(action['seconds'])
         steering = float(action['steering'])
-        thread = threading.Thread(target=Steering_seconds, args= (stop, speed, steering))
+        thread = threading.Thread(target=Steering_seconds, args= (stop, threadKey, speed, steering))
         thread.start()
         return thread
 
     if name == 'waiting': # (stop, seconds) 
         print("Starting waiting", file=stderr)
         seconds = float(action['seconds'])
-        thread = threading.Thread(target=waiting, args=(stop, seconds))
+        thread = threading.Thread(target=waiting, args=(stop, threadKey, seconds))
         thread.start()
         return thread
 
@@ -215,6 +214,7 @@ def main():
                     break
                 # remove any completed threads from the pool
                 is_complete = int(os.environ['IS_COMPLETE'])
+
                 if is_complete != 0: 
                     del threadPool[is_complete]
                     is_complete = 0
@@ -222,10 +222,9 @@ def main():
                     print("deleted thread", file=stderr)
 
                     print("threadpool {}".format(threadPool), file=stderr)
-                
+                    print('')
             # if the 'stopProcessing' flag has been set then finish the whole loop
             if stopProcessing:
-                off()
                 break
   
 

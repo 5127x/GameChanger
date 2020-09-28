@@ -6,6 +6,7 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -24,8 +25,13 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def steering_seconds(stop, speed, seconds, steering): 
+def steering_seconds(stop, threadKey, speed, seconds, steering): 
     print("In Steering_seconds", file=stderr)
+
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     start_time = time.time()
     robot.drive(steering=steering, speed=speed)
 
@@ -34,6 +40,10 @@ def steering_seconds(stop, speed, seconds, steering):
             break
     robot.drive(turn_rate = 0 , speed = 0)
     print('Leaving Steering_seconds', file=stderr)
+
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
 #Steering_seconds(lambda:stopProcessing, speed=30, seconds=3, steering=0)

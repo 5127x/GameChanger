@@ -6,6 +6,7 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -24,7 +25,13 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def blackline_to_line(stop, speed, sensor, lineSide, correction):
+def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
+
+    print("In blackline_to_line", file= stderr)
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     #rotations = rotations*360
     #currentDegrees_left = largeMotor_Left.angle()
     #currentDegrees_right = largeMotor_Right.angle()
@@ -107,5 +114,7 @@ def blackline_to_line(stop, speed, sensor, lineSide, correction):
                 robot.drive(speed=speed, turn_rate = steering)
                 if stop():
                     break
-    largeMotor_Right.stop()
-    largeMotor_Left.stop()
+    motor.off()
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)

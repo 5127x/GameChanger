@@ -6,6 +6,7 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -23,8 +24,13 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def steering_rotations(stop, speed, rotations, steering):
+def steering_rotations(stop, threadKey, speed, rotations, steering):
     print("In Steering_rotations", file=stderr)
+
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     current_degrees_left = largeMotor_Left.angle() # there isnt a way to read rotations
     current_degrees_right = largeMotor_Right.angle()
     target_rotations = rotations * 360 # convert to degrees bcs its simpler
@@ -80,5 +86,9 @@ def steering_rotations(stop, speed, rotations, steering):
     robot.drive(turn_rate = 0 , speed = 0)
 
     print('Leaving Steering_rotations', file=stderr)
+
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
 
 #steering_rotations(speed = 10, rotations = 1, steering = 0)

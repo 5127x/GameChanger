@@ -6,6 +6,7 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -23,8 +24,14 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 #- - - - - - - - - - - - - - - - - - 
-def  blackline_rotations(stop, speed, rotations, sensor, lineSide, correction):
+def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, correction):
+
     print("In BlackLine_rotations", file=stderr)
+
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     # calculate how far to drive in degrees
     rotations = rotations*360
     # saves the current positions of the motors
@@ -109,8 +116,13 @@ def  blackline_rotations(stop, speed, rotations, sensor, lineSide, correction):
                 # if stop is true then exit the function
                 if stop():
                      break
-    robot.drive.off()
+    robot.stop()
     print("Leaving BlackLine_rotations", file=stderr)
-stopProcessing=False
+
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
+
+#stopProcessing=False
 #blackline_rotations(lambda:stopProcessing, 10, 10, 'RIGHT', 'RIGHT', 50)
 
