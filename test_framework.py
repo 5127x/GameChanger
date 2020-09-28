@@ -24,18 +24,22 @@ from Functions_Completed.gyro_turning import gyro_turning
 from Functions_Completed.motor_onForRotations import motor_onForRotations
 from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
+from Functions_Completed.steering_rotations import steering_rotations
 from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
 
 
 # define the different sensors, motors and motor blocks
-'''colourAttachment = ColorSensor(Port.S4)
-colourRight = ColorSensor(Port.S2)'''
-colourLeft = ColorSensor(Port.S2) # should be S3
-'''gyro = GyroSensor(Port.S1)
-largeMotor_Left= LargeMotor(Port.B)
-largeMotor_Right= LargeMotor(Port.C)
-mediumMotor = MediumMotor(Port.D)'''
+extention = Motor(Port.A)
+largeMotor_Right = Motor(Port.B)
+largeMotor_Left = Motor(Port.C)
+panel = Motor(Port.D)
+
+gyro = GyroSensor(Port.S1)
+colourRight = ColorSensor(Port.S2)
+colourLeft = ColorSensor(Port.S3)
+colourkey = ColorSensor(Port.S4)
+
 
 # launch actions using threads
 def launchStep(stop, threadKey, action):
@@ -51,24 +55,24 @@ def launchStep(stop, threadKey, action):
         return thread
     
     '''
-
+    
     if name == 'blackline_rotations':# (stop, speed, rotations, sensor, lineSide, correction)
         print("Starting BlackLine_rotations", file=stderr)
-        speed = float(action[‘speed‘])
-        rotations = float(action[‘rotations’])
-        sensor = action[‘sensor’]
-        lineSide = action[‘lineSide’]
-        correction = float(action[‘correction’])
+        speed = float(action['speed'])
+        rotations = float(action['rotations'])
+        sensor = action['sensor']
+        lineSide = action['lineSide']
+        correction = float(action['correction'])
         thread = threading.Thread(target = blackline_rotations, args=(stop, speed, rotations, sensor, lineSide, correction))
         thread.start()
         return thread
 
     if name == 'blackline_to_line': #stop, speed, sensor, lineSide, correction
         print("Starting blackline_to_line", file = stderr)
-        speed = float(action[‘speed’])
-        sensor = action[‘sensor’]
-        lineSide = action[‘lineSide’]
-        correction = float(action[‘correction’])
+        speed = float(action['speed'])
+        sensor = action['sensor']
+        lineSide = action['lineSide']
+        correction = float(action['correction'])
         thread = threading.Thread(target = blackline_to_line, args=(stop, speed, sensor, lineSide, correction))
         thread.start()
         return thread
@@ -99,7 +103,7 @@ def launchStep(stop, threadKey, action):
 
     if name == 'gyro_target': # (stop, speed, rotations, target)
         print("Starting gyro_target", file=stderr)
-        speed = float(action[speed])
+        speed = float(action['speed'])
         rotations = float(action['rotations'])
         target = float(action['target'])
         thread = threading.Thread(target=gyro_target, args=(stop, speed, rotations, target))
@@ -107,25 +111,25 @@ def launchStep(stop, threadKey, action):
         return thread
 
     if name == 'gyro_turning': # (stop, speed, degrees)
-        print("Starting gyro_target", file=stderr)
+        print("Starting gyro_turning", file=stderr)
         speed = float(action['speed'])
         degrees = float(action['degrees'])
-        thread = threading.Thread(target = gyro_target, args=(stop, speed, degrees))
+        thread = threading.Thread(target = gyro_turning, args=(stop, speed, degrees))
         thread.start()
         return thread
 
-    if name == ‘motor_onForRotations’: # (stop, motor, speed, rotations, gearRatio)
+    if name == 'motor_onForRotations': # (stop, motor, speed, rotations, gearRatio)
         print("Starting Motor_onForRotations", file=stderr)
-        motor = action.get(‘motor’)
-        speed = float(action.get(‘speed’))
-        rotations = float(action.get(‘rotations’))
-        gearRatio = float(action.get(‘gearRatio’))
-        if (motor == “largeMotor_Left”):
+        motor = action.get('motor')
+        speed = float(action['speed'])
+        rotations = float(action['rotations'])
+        gearRatio = float(action['gearRatio'])
+        if (motor == "largeMotor_Left"):
             motorToUse = largeMotor_Left
-        if (motor == “largeMotor_Right”):
+        if (motor == "largeMotor_Right"):
             motorToUse = largeMotor_Right
-        if (motor == “mediumMotor”):
-            motorToUse = mediumMotor
+        if (motor == "panel"):
+            motorToUse = panel
         thread = threading.Thread(target=motor_onForRotations, args=(stop, motorToUse, speed, rotations, gearRatio))
         thread.start()
         return thread
@@ -148,8 +152,8 @@ def launchStep(stop, threadKey, action):
         speed = float(action['speed'])
         rotations = float(action['rotations'])
         steering = float(action['steering'])
-        brake = bool(action['brake'])
-        thread = threading.Thread(target=Steering_rotations, args=(stop, speed, rotations, steering))
+
+        thread = threading.Thread(target=steering_rotations, args=(stop, speed, rotations, steering))
         thread.start()
         return thread
 
@@ -223,5 +227,6 @@ def main():
             if stopProcessing:
                 off()
                 break
+  
 
 main()

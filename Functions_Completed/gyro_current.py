@@ -36,23 +36,23 @@ def gyro_current(stop, speed, rotations):
         if stop(): 
             break
         #recording the gyro reading  and the current rotations
-        current_gyro_reading=gyro.angle
+        current_gyro_reading=gyro.angle()
         current_degrees = largeMotor_Left.angle()
 
         # if the gyro reading is smaller than the target (Going to the right)
-        if current_gyro_reading < target:
+        if float(current_gyro_reading) < target:
             correction = target - current_gyro_reading #figure out correction by target gyro reading - the current reading
             correction = correction * .25 # find a 1/4 of the correction 
             robot.drive(turn_rate = -correction , speed = speed) #turns by the corrrection
 
         # if the gyro reading is larger than the target (Going to the left)
-        if current_gyro_reading > target:
+        if float(current_gyro_reading) > target:
             correction = target - current_gyro_reading#figure out correction by target gyro reading - the current reading
             correction = correction * .25 # find a 1/4 of the correction 
             robot.drive(turn_rate = -correction , speed = speed) #turns by the corrrection
 
         # if the current gyro = the target just continue straight
-        if current_gyro_reading == target:
+        if float(current_gyro_reading) == target:
             robot.drive(turn_rate = 0 , speed = speed)
 
         #if the current rotations is larger than the target break which will stop the loop

@@ -16,8 +16,9 @@ off.py
 do_nothing.py
 waiting.py
 
+//{"step": "blackline_to_line", "speed": "300", "sensor":"LEFT", "lineSide":"RIGHT", "correction":"0.2"}
 
-'''
+
 #!/usr/bin/env pybricks-micropython
 # - Micropython (new) -
 from pybricks.hubs import EV3Brick
@@ -56,3 +57,5 @@ gyro = GyroSensor(INPUT_1)
 colourRight = ColorSensor(INPUT_2)
 colourLeft = ColorSensor(INPUT_3)
 colourkey = ColorSensor(INPUT_4)
+
+'''

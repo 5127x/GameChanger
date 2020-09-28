@@ -25,11 +25,11 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 #- - - - - - - - - - - - - - - - - - 
 
 def blackline_to_line(stop, speed, sensor, lineSide, correction):
-    rotations = rotations*360
-    currentDegrees_left = largeMotor_Left.angle()
-    currentDegrees_right = largeMotor_Right.angle()
-    target_left = currentDegrees_left + rotations
-    target_right = currentDegrees_right + rotations
+    #rotations = rotations*360
+    #currentDegrees_left = largeMotor_Left.angle()
+    #currentDegrees_right = largeMotor_Right.angle()
+    #target_left = currentDegrees_left + rotations
+    #target_right = currentDegrees_right + rotations
     right_RLI = colourRight.reflection()
     left_RLI = colourLeft.reflection()
     target_RLI = 40
@@ -107,4 +107,5 @@ def blackline_to_line(stop, speed, sensor, lineSide, correction):
                 robot.drive(speed=speed, turn_rate = steering)
                 if stop():
                     break
-    robot.drive.off()
+    largeMotor_Right.stop()
+    largeMotor_Left.stop()

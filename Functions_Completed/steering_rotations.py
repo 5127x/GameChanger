@@ -76,7 +76,9 @@ def steering_rotations(stop, speed, rotations, steering):
                 break
             if current_degrees_left <= target_rotations_left or current_degrees_right <= target_rotations_right:
                 break
-    robot.drive.off()
+    
+    robot.drive(turn_rate = 0 , speed = 0)
+
     print('Leaving Steering_rotations', file=stderr)
 
-#stopProcessing=False
+#steering_rotations(speed = 10, rotations = 1, steering = 0)

@@ -112,5 +112,5 @@ def  blackline_rotations(stop, speed, rotations, sensor, lineSide, correction):
     robot.drive.off()
     print("Leaving BlackLine_rotations", file=stderr)
 stopProcessing=False
-blackline_rotations(lambda:stopProcessing, 10, 10, 'RIGHT', 'RIGHT', 50)
+#blackline_rotations(lambda:stopProcessing, 10, 10, 'RIGHT', 'RIGHT', 50)
 

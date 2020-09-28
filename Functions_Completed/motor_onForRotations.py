@@ -53,7 +53,7 @@ def motor_onForRotations(stop, motor, speed, rotations, gearRatio):
                 break
             if current_degrees >= target_rotations:
                 break
-    motor.off()
+    robot.drive(turn_rate = 0 , speed = 0)
     print('Leaving onForRotations', file=stderr)
 
 #lambda:stopProcessing,
