@@ -4,6 +4,7 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
+import os
 
 from sys import stderr
 import os
@@ -38,6 +39,7 @@ def waiting(stop, threadKey, seconds):
         if stop():
             break
     print('Leaving Delay_seconds', file=stderr)
+
+    #tells framework the function is completed 
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
-

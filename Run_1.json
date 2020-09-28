@@ -1,6 +1,6 @@
 {"steps": [
     
-    {"step": "blackline_to_line", "speed": "200", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":"0"},
+    {"step": "blackline_rotations", "speed": "200", "rotations": "2", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":"0"},
     {"step": "steering_rotations", "speed": "200", "rotations":"1", "steering": "0"}
 
 ]}

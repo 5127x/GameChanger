@@ -6,6 +6,7 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -24,9 +25,14 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def gyro_turning(stop, speed, degrees): 
+def gyro_turning(stop, threadKey, speed, degrees): 
     # create the target degrees
     print("In Turn_degrees", file=stderr)
+
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     #read in the current gyro
     current_gyro_reading = gyro.angle
     target_degrees = current_gyro_reading + degrees
@@ -46,6 +52,10 @@ def gyro_turning(stop, speed, degrees):
 
     tank_block.off()
     print('Leaving Turn_degrees', file= stderr)
+
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
 #Turn_degrees(lambda:stopProcessing, speed=30, degrees=90)

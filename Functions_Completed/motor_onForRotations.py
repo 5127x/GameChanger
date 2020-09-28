@@ -63,6 +63,8 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
                 break
     motor.stop()
     print('Leaving onForRotations', file=stderr)
+    
+    #tells framework the function is completed 
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 

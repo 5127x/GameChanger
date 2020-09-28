@@ -4,6 +4,7 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -22,11 +23,20 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 import time
 #- - - - - - - - - - - - - - - - - - 
 
-def reset_gyro():
+def reset_gyro(threadKey):
     # calibrate the gyro by changing modes
     print("In Reset_gyro", file=stderr)
+
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     time.sleep(0.5)
     gyro.mode = 'GYRO-RATE'
     gyro.mode = 'GYRO-ANG'
     time.sleep(0.5)
     print('Leaving Reset_gyro', file=stderr)
+
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)

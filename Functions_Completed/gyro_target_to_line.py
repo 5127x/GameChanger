@@ -6,6 +6,7 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
 import time
+import os
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -24,9 +25,14 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def gyro_target_to_line(stop, speed, rotations, target, whiteOrBlack):
+def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack):
 
     print("In StraightGyro_target_toLine", file=stderr)
+
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
     current_degrees = largeMotor_Left.angle() 
     rotations = rotations * 360
     target_rotations= current_degrees + rotations
@@ -87,6 +93,10 @@ def gyro_target_to_line(stop, speed, rotations, target, whiteOrBlack):
 
     tank_block.off()
     print('Leaving StraightGyro_target_toLine', file=stderr)
+
+    #tells framework the function is completed 
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
 #StraightGyro_target_toLine(lambda:stopProcessing, speed=30, rotations=3, target=45, whiteOrBlack="WHITE")
