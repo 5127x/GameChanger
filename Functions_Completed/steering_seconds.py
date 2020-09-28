@@ -4,6 +4,8 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
+from sys import stderr
+import time
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -19,14 +21,19 @@ ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-import time
+
 #- - - - - - - - - - - - - - - - - - 
 
-def Reset_gyro():
-    # calibrate the gyro by changing modes
-    print("In Reset_gyro", file=stderr)
-    time.sleep(0.5)
-    gyro.mode = 'GYRO-RATE'
-    gyro.mode = 'GYRO-ANG'
-    time.sleep(0.5)
-    print('Leaving Reset_gyro', file=stderr)
+def steering_seconds(stop, speed, seconds, steering): 
+    print("In Steering_seconds", file=stderr)
+    start_time = time.time()
+    robot.drive(steering=steering, speed=speed)
+
+    while time.time() < start_time + seconds:
+        if stop():
+            break
+    robot.drive.off()
+    print('Leaving Steering_seconds', file=stderr)
+
+#stopProcessing=False
+#Steering_seconds(lambda:stopProcessing, speed=30, seconds=3, steering=0)

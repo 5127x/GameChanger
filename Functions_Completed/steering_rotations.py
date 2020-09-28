@@ -80,5 +80,3 @@ def steering_rotations(stop, speed, rotations, steering):
     print('Leaving Steering_rotations', file=stderr)
 
 #stopProcessing=False
-steering_rotations(lambda:stopProcessing, speed=30, rotations=5, steering=0)
-w

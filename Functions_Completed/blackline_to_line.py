@@ -24,7 +24,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def BlackLine_colourStop(stop, speed, sensor, lineSide, correction):
+def blackline_to_line(stop, speed, sensor, lineSide, correction):
     rotations = rotations*360
     currentDegrees_left = largeMotor_Left.angle()
     currentDegrees_right = largeMotor_Right.angle()

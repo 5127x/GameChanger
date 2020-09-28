@@ -24,7 +24,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def Turn_degrees(stop, speed, degrees): 
+def gyro_turning(stop, speed, degrees): 
     # create the target degrees
     print("In Turn_degrees", file=stderr)
     #read in the current gyro

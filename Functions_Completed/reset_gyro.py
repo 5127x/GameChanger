@@ -14,18 +14,19 @@ colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
 colourkey = ColorSensor(Port.S4)
 
+
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
+import time
 #- - - - - - - - - - - - - - - - - - 
 
-def Delay_seconds(stop, seconds):
-    # wait for a certain number of seconds
-    print("In Delay_seconds", file=stderr)
-    start_time = time.time()
-    while time.time() < start_time + seconds:
-        if stop():
-            break
-    print('Leaving Delay_seconds', file=stderr)
+def reset_gyro():
+    # calibrate the gyro by changing modes
+    print("In Reset_gyro", file=stderr)
+    time.sleep(0.5)
+    gyro.mode = 'GYRO-RATE'
+    gyro.mode = 'GYRO-ANG'
+    time.sleep(0.5)
+    print('Leaving Reset_gyro', file=stderr)

@@ -23,45 +23,47 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 #- - - - - - - - - - - - - - - - - - 
-def StraightGyro_current(stop, speed, rotations):
-    print("In StraightGyro_current", file=stderr)
+
+def gyro_target(stop, speed, rotations, target):
+    print("In StraightGyro_target", file=stderr)
     current_degrees = largeMotor_Left.angle() 
     rotations = rotations * 360
     target_rotations= current_degrees + rotations
-    target = gyro.angle
-    current_gyro_reading = target
+    current_gyro_reading = gyro.angle
     # print("Current Gyro Reading: {}".format(current_gyro_reading))
-
-    while float(current_degrees) < target_rotations: # if the currentm rotations is smaller than the target rotations
+    while float(current_degrees) < target_rotations:
         if stop(): 
             break
-        #recording the gyro reading  and the current rotations
+
+        # reading in current gyro and  rotations
         current_gyro_reading=gyro.angle
         current_degrees = largeMotor_Left.angle()
 
-        # if the gyro reading is smaller than the target (Going to the right)
+        #if the gyro is smaller than the target
         if current_gyro_reading < target:
-            correction = target - current_gyro_reading #figure out correction by target gyro reading - the current reading
-            correction = correction * .25 # find a 1/4 of the correction 
-            robot.drive(turn_rate = -correction , speed = speed) #turns by the corrrection
+            correction = target - current_gyro_reading # calculate full error by target - gyro
+            correction = correction * .25 # 1/4 of the correction (so the robot doesn't over correct)
+            robot.drive(turn_rate = -correction , speed = speed) # turn by the correctuion and doesn't over correct
 
-        # if the gyro reading is larger than the target (Going to the left)
+        #if the gyro is larger than the target
         if current_gyro_reading > target:
-            correction = target - current_gyro_reading#figure out correction by target gyro reading - the current reading
-            correction = correction * .25 # find a 1/4 of the correction 
-            robot.drive(turn_rate = -correction , speed = speed) #turns by the corrrection
+            correction = target - current_gyro_reading # calculate full error by target - gyro
+            correction = correction * .25  # 1/4 of the correction (so the robot doesn't over correct)
+            robot.drive(turn_rate = -correction , speed = speed) # turn by the correctuion and doesn't over correct
 
-        # if the current gyro = the target just continue straight
+        #if the gyro is == to the target just go straight
         if current_gyro_reading == target:
             robot.drive(turn_rate = 0 , speed = speed)
 
-        #if the current rotations is larger than the target break which will stop the loop
+        # if the current rotations is larger than the target then break the loop which will stop the robot
         if float(current_degrees) >= target_rotations:
             break
+
         if stop():
             break
+
     tank_block.off()
-    print('Leaving StraightGyro_current', file=stderr)
+    print('Leaving StraightGyro_target', file=stderr)
 
 #stopProcessing=False
-#StraightGyro_current(lambda:stopProcessing, speed=30, rotations=3)
+#StraightGyro_target(lambda:stopProcessing, speed=30, rotations=3)

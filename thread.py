@@ -128,6 +128,6 @@ main2()
 # .remove(thread) works
 # line 1092 of threading
 ''' 
- https://sites.google.com/site/ev3python/learn_ev3_python/threads 
- https://www.programiz.com/python-programming/global-local-nonlocal-variables
+https://sites.google.com/site/ev3python/learn_ev3_python/threads
+https://www.programiz.com/python-programming/global-local-nonlocal-variables
 '''

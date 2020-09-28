@@ -24,7 +24,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def StraightGyro_target_toLine(stop, speed, rotations, target, whiteOrBlack):
+def gyro_target_to_line(stop, speed, rotations, target, whiteOrBlack):
 
     print("In StraightGyro_target_toLine", file=stderr)
     current_degrees = largeMotor_Left.angle() 
