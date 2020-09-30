@@ -6,6 +6,10 @@ from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 import os
 
+from sys import stderr
+import os
+import time
+
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -22,7 +26,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def waiting(stop,threadKey, seconds):
+def waiting(stop, threadKey, seconds):
     # wait for a certain number of seconds
     print("In Delay_seconds", file=stderr)
 

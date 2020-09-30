@@ -150,7 +150,7 @@ def launchStep(stop, threadKey, action):
 
     if name == 'motor_onForRotations': # (stop, motor, speed, rotations, gearRatio)
         print("Starting Motor_onForRotations", file=stderr)
-        motor = action.get('motor')
+        motor = action['motor']
         speed = float(action['speed'])
         rotations = float(action['rotations'])
         gearRatio = float(action['gearRatio'])
@@ -158,9 +158,12 @@ def launchStep(stop, threadKey, action):
             motorToUse = largeMotor_Left
         if (motor == "largeMotor_Right"):
             motorToUse = largeMotor_Right
-        if (motor == "panel"):
+        if (motor == "extension"):
+            motorToUse = motor
+        if motor == "panel":
             motorToUse = panel
-        thread = threading.Thread(target=motor_onForRotations, args=(stop,threadKey, motorToUse, speed, rotations, gearRatio))
+
+        thread = threading.Thread(target=motor_onForRotations, args=(stop, threadKey, motorToUse, speed, rotations, gearRatio))
         thread.start()
         return thread
 
@@ -227,11 +230,9 @@ def main():
     threadPool = {}
     stopProcessing = False
     threadKey = 1
-    is_complete = os.environ['IS_COMPLETE']
-    
     
     # collect the raw rgb light values from colourAttachment and the overall XML file
-    with open('Run_1.json') as f:
+    with open('testing.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel
