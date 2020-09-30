@@ -5,6 +5,7 @@ from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 import os
+from sys import stderr
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -32,8 +33,9 @@ def reset_gyro(threadKey):
         is_complete = int(os.environ['IS_COMPLETE'])
 
     time.sleep(0.5)
-    gyro.mode = 'GYRO-RATE'
-    gyro.mode = 'GYRO-ANG'
+    gyro.reset_angle(0)
+    #gyro.mode = 'GYRO-RATE'
+    #gyro.mode = 'GYRO-ANG'
     time.sleep(0.5)
     print('Leaving Reset_gyro', file=stderr)
 

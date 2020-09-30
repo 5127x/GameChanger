@@ -1,6 +1,20 @@
 {"steps": [
+    {"step": "reset_gyro"},
     
-    {"step": "blackline_rotations", "speed": "200", "rotations": "2", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":"0"},
-    {"step": "steering_rotations", "speed": "200", "rotations":"1", "steering": "0"}
+    {"step": "gyro_target", "speed": "200", "rotations":"3", "target": "-.1", "correction": "1"},
+    {"step": "blackline_to_line", "speed": "150", "sensor":"LEFT", "lineSide":"RIGHT", "correction":"0"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":".25", "speed": "-400"},
 
+    {"step": "steering_seconds", "speed": "30", "seconds":"7", "steering": "0"},
+    {"step": "steering_seconds", "speed": "20", "seconds":"1.5", "steering": "0"},
+
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
+    {"step": "steering_seconds", "speed": "-300", "seconds":"1.7", "steering": "0"},
+    {"step": "gyro_turning", "speed": "100", "degrees":"-20"},
+
+    {"step": "steering_rotations", "speed": "200", "rotations":"1.2", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
+
+    {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":"0"}
 ]}
+

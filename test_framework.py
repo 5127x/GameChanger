@@ -1,7 +1,8 @@
 #!/usr/bin/env pybricks-micropython
-from pybricks.hubs import EV3Brick as ev3
+from pybricks.hubs import EV3Brick 
 from pybricks.ev3devices import ColorSensor, GyroSensor, Motor
 from pybricks.parameters import Port
+from pybricks.media.ev3dev import SoundFile
 '''
 from ev3dev2.motor import MoveSteering, MoveTank, MediumMotor, LargeMotor, OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D
 from ev3dev2.sensor.lego import TouchSensor, ColorSensor, GyroSensor
@@ -13,6 +14,7 @@ import time
 from sys import stderr
 import os
 
+
 # import the functions 
 from Functions_Completed.blackline_rotations import blackline_rotations
 from Functions_Completed.blackline_to_line import blackline_to_line
@@ -20,29 +22,47 @@ from Functions_Completed.do_nothing import do_nothing
 from Functions_Completed.gyro_current import gyro_current
 from Functions_Completed.gyro_target_to_line import gyro_target_to_line
 from Functions_Completed.gyro_target import gyro_target
+from Functions_Completed.gyro_turn_to_target import gyro_turn_to_target
 from Functions_Completed.gyro_turning import gyro_turning
 from Functions_Completed.motor_onForRotations import motor_onForRotations
+from Functions_Completed.motor_onForSeconds import motor_onForSeconds
 from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
 from Functions_Completed.steering_rotations import steering_rotations
 from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
 
-
 # define the different sensors, motors and motor blocks
 extention = Motor(Port.A)
+print("Port A Connected", file = stderr)
+
 largeMotor_Right = Motor(Port.B)
+print("Port B Connected", file = stderr)
+
 largeMotor_Left = Motor(Port.C)
+print("Port C Connected", file = stderr)
+
 panel = Motor(Port.D)
+print("Port D Connected", file = stderr)
 
 gyro = GyroSensor(Port.S1)
-colourRight = ColorSensor(Port.S2)
-colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
+print("Port 1 Connected", file = stderr)
 
+colourRight = ColorSensor(Port.S2)
+print("Port 2 Connected", file = stderr)
+
+colourLeft = ColorSensor(Port.S3)
+print("Port 3 Connected", file = stderr)
+
+colourkey = ColorSensor(Port.S4)
+print("Port 4 Connected", file = stderr)
+print("")
+ev3 = EV3Brick()
 
 # launch actions using threads
 def launchStep(stop, threadKey, action):
+    
+    
     # compare the 'name' to the functions and start a thread with the matching function
     # return the thread to be added to the threadPool
     name = action["step"]
@@ -83,11 +103,12 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    if name == 'gyro_current': # (stop, speed, rotations)
+    if name == 'gyro_current': # (stop, speed, rotations, correction)
         print("Starting gyro_current", file=stderr)
         speed = float(action['speed'])
         rotations = float(action['rotations'])
-        thread = threading.Thread(target=gyro_current, args=(stop,threadKey, speed, rotations))
+        correction = float(action['correction'])
+        thread = threading.Thread(target=gyro_current, args=(stop,threadKey, speed, rotations, correction))
         thread.start()
         return thread
 
@@ -101,12 +122,21 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    if name == 'gyro_target': # (stop, speed, rotations, target)
+    if name == 'gyro_target': # (stop, speed, rotations, target, correction)
         print("Starting gyro_target", file=stderr)
         speed = float(action['speed'])
         rotations = float(action['rotations'])
         target = float(action['target'])
-        thread = threading.Thread(target=gyro_target, args=(stop,threadKey, speed, rotations, target))
+        correction = float(action['correction'])
+        thread = threading.Thread(target=gyro_target, args=(stop,threadKey, speed, rotations, target, correction))
+        thread.start()
+        return thread
+
+    if name == 'gyro_turn_to_target': # (stop, speed, degrees)
+        print("Starting gyro_turn_to_target", file=stderr)
+        speed = float(action['speed'])
+        degrees = float(action['degrees'])
+        thread = threading.Thread(target = gyro_turn_to_target, args=(stop, threadKey, speed, degrees))
         thread.start()
         return thread
 
@@ -134,9 +164,24 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
+    if name == 'motor_onForSeconds': # (stop, motor, speed, rotations)
+        print("Starting motor_onForSeconds", file=stderr)
+        motor = action.get('motor')
+        speed = float(action['speed'])
+        seconds = float(action['seconds'])
+        if (motor == "largeMotor_Left"):
+            motmotorToUse = largeMotor_Left
+        if (motor == "largeMotor_Right"):
+            motorToUse = largeMotor_Right
+        if (motor == "panel"):
+            motorToUse = panel
+        thread = threading.Thread(target=motor_onForSeconds, args=(stop,threadKey, motorToUse, speed, seconds))
+        thread.start()
+        return thread
+ 
     if name == 'off': # ()
         print("Motors off", file=stderr)
-        thread = threading.Thread(target=off, args=(threadKey,))
+        thread = threading.Thread(target=off, args=(threadKey,)) 
         thread.start()
         return thread
 
@@ -158,10 +203,10 @@ def launchStep(stop, threadKey, action):
 
     if name == 'steering_seconds': # (stop, speed, seconds, steering)
         print("Starting Steering_seconds", file=stderr)
-        speed = float(action[speed])
+        speed = float(action['speed'])
         seconds = float(action['seconds'])
         steering = float(action['steering'])
-        thread = threading.Thread(target=Steering_seconds, args= (stop, threadKey, speed, steering))
+        thread = threading.Thread(target=steering_seconds, args= (stop, threadKey, speed, seconds, steering))
         thread.start()
         return thread
 
@@ -192,8 +237,7 @@ def main():
         # run each step individually unless they are run in parallel
         for step in steps:
             action = step["step"]
-            print(action, file=stderr)
-            print(step, file=stderr)
+            print ('{} {}'.format(action,step), file = stderr)
             # loop through actions that should be run in parallel
             if action == 'launchInParallel':
                 subSteps = step["subSteps"]
@@ -227,5 +271,8 @@ def main():
             if stopProcessing:
                 break
   
+  
+#play sound to know that the framework is about to run. (helps makek you aware that the program is about to start)
+ev3.speaker.play_file(SoundFile.CONFIRM)
 
 main()

@@ -39,6 +39,7 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
 
     robot.drive(turn_rate = steering, speed= speed) # turn the robot on forever calling the parameters from above
 
+    print(current_degrees_right, file = stderr)
     if current_degrees_left < target_rotations_left and current_degrees_right < target_rotations_right:
         #print("1", file=stderr)
         while current_degrees_left < target_rotations_left or current_degrees_right < target_rotations_right: # how its done in tank onForRotations
@@ -83,7 +84,7 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
             if current_degrees_left <= target_rotations_left or current_degrees_right <= target_rotations_right:
                 break
     
-    robot.drive(turn_rate = 0 , speed = 0)
+    robot.stop()
 
     print('Leaving Steering_rotations', file=stderr)
 
@@ -91,4 +92,4 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
-#steering_rotations(speed = 10, rotations = 1, steering = 0)
+#steering_rotations(speed = 10, rotations = 1, steering = 5)

@@ -32,25 +32,46 @@ def gyro_turning(stop, threadKey, speed, degrees):
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
+    
 
     #read in the current gyro
-    current_gyro_reading = gyro.angle
+
+
+    current_gyro_reading = gyro.angle()
     target_degrees = current_gyro_reading + degrees
-    if current_gyro_reading > target_degrees: # if the current reading is smaller than the target 
-        tank_block(right_speed = -speed, left_speed = speed) # turn
-        while current_gyro_reading > target_degrees: #while the gyro is bigger than the target rotations
-            current_gyro_reading = gyro.angle
+
+    while target_degrees > current_gyro_reading: # so you know to turn left 
+        print(speed, file = stderr)
+
+        largeMotor_Right.run(speed=-speed)
+        largeMotor_Left.run(speed=speed) #same concept as a tank block however bc we dont have access had to turn on both motors
+        
+        #print(current_gyro_reading,file=stderr)
+
+        if target_degrees > current_gyro_reading:
+            current_gyro_reading = gyro.angle()
+            if current_gyro_reading == target_degrees:
+                break
             if stop():
                 break
 
-    elif current_gyro_reading < target_degrees:  # if the current reading is larger than the target 
-        tank_block(right_speed = speed, left_speed = -speed) # turn
-        while current_gyro_reading < target_degrees: #while the gyro is smaller than the target rotations
-            current_gyro_reading = gyro.angle
+    #_______________________________________________-
+    while target_degrees < current_gyro_reading: # so you know to turn right 
+        largeMotor_Right.run(speed=speed)
+        largeMotor_Left.run(speed=-speed)
+        
+        #print(current_gyro_reading,file=stderr)
+
+        if target_degrees <current_gyro_reading:
+            current_gyro_reading = gyro.angle()
+            if current_gyro_reading == target_degrees:
+                break
             if stop():
                 break
 
-    tank_block.off()
+
+
+    robot.stop()
     print('Leaving Turn_degrees', file= stderr)
 
     #tells framework the function is completed 

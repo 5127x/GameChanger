@@ -59,7 +59,7 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
                 break
             if current_degrees >= target_rotations:
                 break
-    motor.off()
+    robot.stop()
     print('Leaving onForRotations', file=stderr)
 
     #tells framework the function is completed 
