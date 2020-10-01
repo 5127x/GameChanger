@@ -1,0 +1,16 @@
+{"steps": [
+    {"step": "reset_gyro"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":".25", "speed": "400"},
+
+    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":".0000000000000001", "speed": "-400"},
+    {"step": "gyro_turning", "speed": "100", "degrees":"-15"},
+    {"step": "steering_seconds", "speed": "60", "seconds":"4", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
+
+
+    {"step": "steering_seconds", "speed": "60", "seconds":"4", "steering": "0"},
+    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":"2", "speed": "600"}
+
+
+]}
+

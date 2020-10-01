@@ -33,7 +33,7 @@ from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
 
 # define the different sensors, motors and motor blocks
-extention = Motor(Port.A)
+extramotor = Motor(Port.A)
 print("Port A Connected", file = stderr)
 
 largeMotor_Right = Motor(Port.B)
@@ -76,14 +76,14 @@ def launchStep(stop, threadKey, action):
     
     '''
     
-    if name == 'blackline_rotations':# (stop, speed, rotations, sensor, lineSide, correction)
+    if name == 'blackline_rotations':# (stop, speed, rotations, sensor, lineSide,correction)
         print("Starting BlackLine_rotations", file=stderr)
         speed = float(action['speed'])
         rotations = float(action['rotations'])
         sensor = action['sensor']
         lineSide = action['lineSide']
         correction = float(action['correction'])
-        thread = threading.Thread(target = blackline_rotations, args=(stop,threadKey, speed, rotations, sensor, lineSide, correction))
+        thread = threading.Thread(target = blackline_rotations, args=(stop,threadKey, speed, rotations, sensor, lineSide,correction))
         thread.start()
         return thread
 
@@ -106,7 +106,7 @@ def launchStep(stop, threadKey, action):
     if name == 'gyro_current': # (stop, speed, rotations, correction)
         print("Starting gyro_current", file=stderr)
         speed = float(action['speed'])
-        rotations = float(action['rotations'])
+        rotations = floxat(action['rotations'])
         correction = float(action['correction'])
         thread = threading.Thread(target=gyro_current, args=(stop,threadKey, speed, rotations, correction))
         thread.start()
@@ -178,6 +178,8 @@ def launchStep(stop, threadKey, action):
             motorToUse = largeMotor_Right
         if (motor == "panel"):
             motorToUse = panel
+        if (motor == "extramotor"):
+            motorToUse = extramotor
         thread = threading.Thread(target=motor_onForSeconds, args=(stop,threadKey, motorToUse, speed, seconds))
         thread.start()
         return thread
@@ -232,12 +234,12 @@ def main():
     threadKey = 1
     
     # collect the raw rgb light values from colourAttachment and the overall XML file
-    with open('testing.json') as f:
+    with open('Run_1.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel
         for step in steps:
-            action = step["step"]
+            action = step["step"] 
             print ('{} {}'.format(action,step), file = stderr)
             # loop through actions that should be run in parallel
             if action == 'launchInParallel':

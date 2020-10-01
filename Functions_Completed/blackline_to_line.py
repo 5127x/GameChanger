@@ -8,6 +8,7 @@ from sys import stderr
 import time
 import os
 
+
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -49,7 +50,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 #testing if your robot can see the black line with the left sensor
                 #if left_RLI >= 85:
                     #print("White line detected", file = stderr)
-                if left_RLI <= 10:
+                if left_RLI <= 15:
                     print("Black line deteted. BREAK", file = stderr)
                     break
 
@@ -63,7 +64,6 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 if stop():
                     break
 
-                sleep(0.01)
 
         # if on the right side of the lien
         elif lineSide == "RIGHT":
@@ -75,9 +75,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 #testing if your robot can see the black line with the left sensor
                 #if left_RLI >= 85:
                 #   print("White line detected", file = stderr)
-                if left_RLI <= 10:
+                if left_RLI <= 15:
                     print("Black line deteted. BREAK", file = stderr)
                     break
+
 
 
                 # calculates the error
@@ -131,6 +132,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 if right_RLI <= 15:
                     print("Black line deteted. BREAK", file = stderr)
                     break
+
 
 
                 # calculates the error

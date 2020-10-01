@@ -31,57 +31,63 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    current_degrees_left = largeMotor_Left.angle() # there isnt a way to read rotations
-    current_degrees_right = largeMotor_Right.angle()
-    target_rotations = rotations * 360 # convert to degrees bcs its simpler
-    target_rotations_left = current_degrees_left + target_rotations
-    target_rotations_right = current_degrees_right + target_rotations
+    current_rotations_left = largeMotor_Left.angle() # there isnt a way to read rotations
+    current_rotations_right = largeMotor_Right.angle()
+    target_rotations = rotations * 360 # convert to rotations bcs its simpler
+    target_rotations_left = current_rotations_left + target_rotations
+    target_rotations_right = current_rotations_right + target_rotations
 
     robot.drive(turn_rate = steering, speed= speed) # turn the robot on forever calling the parameters from above
 
-    print(current_degrees_right, file = stderr)
-    if current_degrees_left < target_rotations_left and current_degrees_right < target_rotations_right:
-        #print("1", file=stderr)
-        while current_degrees_left < target_rotations_left or current_degrees_right < target_rotations_right: # how its done in tank onForRotations
+    if speed < 0: 
+        target_rotations_left = -target_rotations_left
+        target_rotations_right = -target_rotations_right
+
+
+
+    if current_rotations_left < target_rotations_left and current_rotations_right < target_rotations_right:
+        print("1", file=stderr)
+        while current_rotations_left < target_rotations_left or current_rotations_right < target_rotations_right: # how its done in tank onForRotations
             #reading in the current rotations of the left and right motor
-            current_degrees_left = largeMotor_Left.angle() 
-            current_degrees_right = largeMotor_Right.angle()
+            current_rotations_left = largeMotor_Left.angle() 
+            current_rotations_right = largeMotor_Right.angle()
             if stop():
                 break
             #if the current rotations of the motor on either left or right side is larger than there specific target then cancel the program or break
-            if current_degrees_left >= target_rotations_left or current_degrees_right >= target_rotations_right:
+            if current_rotations_left >= target_rotations_left or current_rotations_right >= target_rotations_right:
                 break
     # < >
-    elif current_degrees_left < target_rotations_left and current_degrees_right > target_rotations_right:
-        #print("2", file=stderr)
-        while current_degrees_left < target_rotations_left or current_degrees_right > target_rotations_right: # how its done in tank onForRotations
-            current_degrees_left = largeMotor_Left.angle() 
-            current_degrees_right = largeMotor_Right.angle()
+    elif current_rotations_left < target_rotations_left and current_rotations_right > target_rotations_right:
+        print("2", file=stderr)
+        while current_rotations_left < target_rotations_left or current_rotations_right > target_rotations_right: # how its done in tank onForRotations
+            current_rotations_left = largeMotor_Left.angle() 
+            current_rotations_right = largeMotor_Right.angle()
             if stop():
                 break
-            if current_degrees_left >= target_rotations_left or current_degrees_right <= target_rotations_right:
+            if current_rotations_left >= target_rotations_left or current_rotations_right <= target_rotations_right:
                 break
     # if left motor's current rotations is larger and the right current rotations are smaller do the code
-    elif current_degrees_left > target_rotations_left and current_degrees_right < target_rotations_right:
-        #print("3", file=stderr)
-        while current_degrees_left > target_rotations_left or current_degrees_right < target_rotations_right: # how its done in tank onForRotations
-            current_degrees_left = largeMotor_Left.angle() 
-            current_degrees_right = largeMotor_Right.angle()
+    elif current_rotations_left > target_rotations_left and current_rotations_right < target_rotations_right:
+        print("3", file=stderr)
+        while current_rotations_left > target_rotations_left or current_rotations_right < target_rotations_right: # how its done in tank onForRotations
+            current_rotations_left = largeMotor_Left.angle() 
+            current_rotations_right = largeMotor_Right.angle()
             if stop():
                 break
-            if current_degrees_left <= target_rotations_left or current_degrees_right >= target_rotations_right:
+            if current_rotations_left <= target_rotations_left or current_rotations_right >= target_rotations_right:
                 break
     # > > 
     # if left motor's current rotations is larger and the right current rotations are larger do the code
-    elif current_degrees_left > target_rotations_left and current_degrees_right > target_rotations_right:
-        #print("4", file=stderr)
-        while current_degrees_left > target_rotations_left or current_degrees_right > target_rotations_right: # how its done in tank onForRotations
+    elif current_rotations_left > target_rotations_left and current_rotations_right > target_rotations_right:
+        print("4", file=stderr)
+        while current_rotations_left > target_rotations_left or current_rotations_right > target_rotations_right: # how its done in tank onForRotations
             #re reading in the current rotations into the variable
-            current_degrees_left = largeMotor_Left.angle() 
-            current_degrees_right = largeMotor_Right.angle()
+            current_rotations_left = largeMotor_Left.angle() 
+            current_rotations_right = largeMotor_Right.angle()
+            print("Right {}{}, Left {}{}".format(current_rotations_right, target_rotations_right, current_rotations_left, target_rotations_left),file = stderr)
             if stop():
                 break
-            if current_degrees_left <= target_rotations_left or current_degrees_right <= target_rotations_right:
+            if current_rotations_left <= target_rotations_left or current_rotations_right <= target_rotations_right:
                 break
     
     robot.stop()
@@ -92,4 +98,4 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
-#steering_rotations(speed = 10, rotations = 1, steering = 5)
+#steering_rotations(lambda:stopProcessing, threadKey = 0, speed = 10, rotations = 1, steering = 5)
