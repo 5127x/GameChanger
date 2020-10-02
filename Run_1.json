@@ -5,6 +5,7 @@
     {"step": "blackline_to_line", "speed": "160", "sensor":"LEFT", "lineSide":"RIGHT", "correction":".2"},
     {"step": "motor_onForSeconds","motor": "panel", "seconds":".25 ", "speed": "-400"},
 
+    {"step": "steering_seconds", "speed": "27", "seconds":"7", "steering": "0"},
     {"step": "steering_seconds", "speed": "20", "seconds":".5", "steering": "0"},
 
     {"step": "steering_seconds", "speed": "-120", "seconds":"3", "steering": "0"},
