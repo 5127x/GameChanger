@@ -37,6 +37,8 @@ def reset_gyro(threadKey):
     #gyro.mode = 'GYRO-RATE'
     #gyro.mode = 'GYRO-ANG'
     time.sleep(0.5)
+    current_gyro_reading = gyro.angle()
+    print(current_gyro_reading, file = stderr)
     print('Leaving Reset_gyro', file=stderr)
 
     #tells framework the function is completed 

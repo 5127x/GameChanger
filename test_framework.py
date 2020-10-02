@@ -116,7 +116,7 @@ def launchStep(stop, threadKey, action):
         print("Starting gyro_target_to_line", file=stderr)
         speed = float(action['speed'])
         rotations = float(action['rotations'])
-        target = float(action[target])
+        target = float(action['target'])
         whiteOrBlack = action['whiteOrBlack']
         thread = threading.Thread(target=gyro_target_to_line, args=(stop, threadKey, speed, rotations, target, whiteOrBlack))
         thread.start()
@@ -233,8 +233,8 @@ def main():
     stopProcessing = False
     threadKey = 1
     
-    # collect the raw rgb light values from colourAttachment and the overall XML file
-    with open('Run_1.json') as f:
+    # collect the raw rgcb light values from colourAttachment and the overall XML file
+    with open('Run1.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel

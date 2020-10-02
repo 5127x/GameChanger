@@ -1,41 +1,37 @@
 {"steps": [
     {"step": "reset_gyro"},
 
-    {"step": "gyro_target", "speed": "170", "rotations":"3", "target": ".5", "correction": "1"},
-    {"step": "blackline_to_line", "speed": "120", "sensor":"LEFT", "lineSide":"RIGHT", "correction":".2"},
-    {"step": "motor_onForSeconds","motor": "panel", "seconds":".25", "speed": "-400"},
+    {"step": "gyro_target", "speed": "180", "rotations":"2.9", "target": "0 ", "correction": ".8"},
+    {"step": "blackline_to_line", "speed": "160", "sensor":"LEFT", "lineSide":"RIGHT", "correction":".2"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":".25 ", "speed": "-400"},
 
-    {"step": "steering_seconds", "speed": "25", "seconds":"8", "steering": "0"},
-    {"step": "steering_seconds", "speed": "10", "seconds":"1.5", "steering": "0"},
-
-    {"step": "steering_seconds", "speed": "-60", "seconds":".5", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
-    {"step": "steering_seconds", "speed": "60", "seconds":".4", "steering": "0"},
+    {"step": "steering_seconds", "speed": "20", "seconds":".5", "steering": "0"},
 
     {"step": "steering_seconds", "speed": "-120", "seconds":"3", "steering": "0"},
-    {"step": "gyro_turning", "speed": "100", "degrees":"-30"},
+    {"step": "gyro_turn_to_target", "speed": "200", "degrees":"-90"},
 
-    {"step": "steering_rotations", "speed": "150", "rotations":".8", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
+    {"step": "steering_seconds", "speed": "-300", "seconds":".5", "steering": "0"},
+    {"step": "steering_rotations", "speed": "220", "rotations":".5", "steering": "0"},
+    
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-25"},
 
-    {"step": "blackline_rotations", "speed": "100", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".6"},
-    {"step": "blackline_rotations", "speed": "100", "rotations": "1", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "2"},
-    {"step": "blackline_rotations", "speed": "100", "rotations": ".5", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".6"},
+    {"step": "blackline_rotations", "speed": "120", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".6"},
+    {"step": "blackline_rotations", "speed": "120", "rotations": "2.2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "1.5"},
     {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"LEFT", "correction":".2"},
+   
+
 
     {"step": "motor_onForSeconds","motor": "panel", "seconds":".25", "speed": "400"},
-
-    {"step": "gyro_turning", "speed": "100", "degrees":"-20"},
-    {"step": "steering_seconds", "speed": "60", "seconds":"4", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "120", "degrees":"-10"},
+    
+    {"step": "steering_seconds", "speed": "60", "seconds":"3", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
 
-    {"step": "steering_seconds", "speed": "60", "seconds":"4", "steering": "0"},
-    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":"1", "speed": "-600"},
-    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":"3", "speed": "600"}
 
-    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":"1", "speed": "-600"},
-    {"step": "steering_seconds", "speed": "-600", "seconds":"5", "steering": "2"}
-    
-   
+    {"step": "steering_seconds", "speed": "60", "seconds":"2", "steering": "0"},
+    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":"1", "speed": "-400"},
+    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":"2", "speed": "600"},
+    {"step": "motor_onForSeconds","motor": "extramotor", "seconds":".1", "speed": "-10"},
+    {"step": "steering_seconds", "speed": "-500", "seconds":"6", "steering": "0"}
 ]}
 

@@ -36,12 +36,13 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
     rotations = rotations * 360
     target_rotations= current_rotations + rotations
     current_gyro_reading = gyro.angle()
+
     # print("Current Gyro Reading: {}".format(current_gyro_reading))
     while float(current_rotations) < target_rotations:
         if stop(): 
             break
         
-        
+        #print(current_gyro_reading, file = stderr)
 
         # reading in current gyro and  rotations
         current_gyro_reading=gyro.angle()
