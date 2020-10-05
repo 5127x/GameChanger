@@ -89,7 +89,7 @@ def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack
             
             #otherwise continue straight BUT go slower so the colours are easier to detect
             robot.drive(steering = 0 , speed = speed / 2)                
-
+    
 
     robot.stop()
     print('Leaving StraightGyro_target_toLine', file=stderr)

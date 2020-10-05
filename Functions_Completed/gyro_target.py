@@ -42,7 +42,7 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
         if stop(): 
             break
         
-        #print(current_gyro_reading, file = stderr)
+        print(current_gyro_reading, file = stderr)
 
         # reading in current gyro and  rotations
         current_gyro_reading=gyro.angle()

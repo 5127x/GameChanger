@@ -34,30 +34,26 @@ from Functions_Completed.waiting import waiting
 
 # define the different sensors, motors and motor blocks
 extramotor = Motor(Port.A)
-print("Port A Connected", file = stderr)
-
 largeMotor_Right = Motor(Port.B)
-print("Port B Connected", file = stderr)
-
 largeMotor_Left = Motor(Port.C)
-print("Port C Connected", file = stderr)
-
 panel = Motor(Port.D)
-print("Port D Connected", file = stderr)
+print("Motors Connected", file = stderr)
 
 gyro = GyroSensor(Port.S1)
-print("Port 1 Connected", file = stderr)
-
 colourRight = ColorSensor(Port.S2)
-print("Port 2 Connected", file = stderr)
-
 colourLeft = ColorSensor(Port.S3)
-print("Port 3 Connected", file = stderr)
-
 colourkey = ColorSensor(Port.S4)
-print("Port 4 Connected", file = stderr)
-print("")
+print("Sensors Connected", file = stderr)
+
+
 ev3 = EV3Brick()
+current_battery = ev3.battery.voltage()
+battery_percent = current_battery/9
+print("Current Battery Percent: {}".format(battery_percent),file = stderr)
+print("")
+
+# ________________________
+
 
 # launch actions using threads
 def launchStep(stop, threadKey, action):
@@ -230,18 +226,18 @@ os.environ['IS_COMPLETE'] = str(is_complete)
 def main():
     # create dictionaries and variables
     threadPool = {}
-    stopProcessing = False
+    stopProcessing = False 
     threadKey = 1
     
     # collect the raw rgcb light values from colourAttachment and the overall XML file
-    with open('Run1.json') as f:
+    with open('Run_1.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel
         for step in steps:
             action = step["step"] 
             print ('{} {}'.format(action,step), file = stderr)
-            # loop through actions that should be run in parallel
+            # loop through actions  that should be run in parallel
             if action == 'launchInParallel':
                 subSteps = step["subSteps"]
                 for subStep in subSteps:
@@ -277,5 +273,6 @@ def main():
   
 #play sound to know that the framework is about to run. (helps makek you aware that the program is about to start)
 ev3.speaker.play_file(SoundFile.CONFIRM)
+
 
 main()
