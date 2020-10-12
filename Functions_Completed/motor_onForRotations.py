@@ -38,7 +38,10 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
     rotations = rotations*gearRatio
     # create target rotations
     target_rotations = rotations * 360
-    target_rotations = current_degrees + target_rotations
+    if speed > 0:
+        target_rotations = current_degrees + target_rotations
+    elif speed < 0:
+        target_rotations = current_degrees - target_rotations
     # turn the motor on until current_degrees matches target_rotations
     motor.run(speed=speed)
     
@@ -68,6 +71,6 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
-#lambda:stopProcessing,
+#panel = Motor(Port.D)
 #stopProcessing=False
-#Motor_onForRotations(stopProcessing=False, motor=panel, speed=30, rotations=2, gearRatio=1.4)
+#motor_onForRotations(lambda:stopProcessing, threadKey=0, motor=panel, speed=-30, rotations=2, gearRatio=1)

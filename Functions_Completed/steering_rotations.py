@@ -34,8 +34,12 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     current_degrees_left = largeMotor_Left.angle() # there isnt a way to read rotations
     current_degrees_right = largeMotor_Right.angle()
     target_rotations = rotations * 360 # convert to degrees bcs its simpler
-    target_rotations_left = current_degrees_left + target_rotations
-    target_rotations_right = current_degrees_right + target_rotations
+    if speed < 0:
+        target_rotations_left = current_degrees_left - target_rotations
+        target_rotations_right = current_degrees_right - target_rotations
+    elif speed > 0:
+        target_rotations_left = current_degrees_left + target_rotations
+        target_rotations_right = current_degrees_right + target_rotations
 
     robot.drive(turn_rate = steering, speed= speed) # turn the robot on forever calling the parameters from above
 
@@ -83,7 +87,7 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
             if current_degrees_left <= target_rotations_left or current_degrees_right <= target_rotations_right:
                 break
     
-    robot.drive(turn_rate = 0 , speed = 0)
+    robot.stop()
 
     print('Leaving Steering_rotations', file=stderr)
 
@@ -91,4 +95,5 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
-#steering_rotations(speed = 10, rotations = 1, steering = 0)
+#stopProcessing = False
+#steering_rotations(lambda:stopProcessing, 0, -20, 2, 0)

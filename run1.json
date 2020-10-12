@@ -2,7 +2,7 @@
     {"step": "", "variable": "", "variable2": ""},
     {"step": "", "variable": "", "variable2": ""},
     {"step": "launchInParallel", 
-        "steps": [
+        "subSteps": [
             {"step": "", "variable": "", "variable2": ""},
             {"step": "", "variable": "", "variable2": ""}
     ]},
