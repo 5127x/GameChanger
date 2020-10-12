@@ -33,17 +33,17 @@ def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    current_degrees = largeMotor_Left.angle() 
+    current_rotations = largeMotor_Left.angle() 
     rotations = rotations * 360
-    target_rotations= current_degrees + rotations
-    current_gyro_reading = gyro.angle
+    target_rotations= current_rotations + rotations
+    current_gyro_reading = gyro.angle()
     # print("Current Gyro Reading: {}"(current_gyro_reading))
 
-    while float(current_degrees) < target_rotations:
+    while float(current_rotations) < target_rotations:
         if stop(): 
             break
-        current_gyro_reading = gyro.angle
-        current_degrees = largeMotor_Left.angle()
+        current_gyro_reading = gyro.angle()
+        current_rotations = largeMotor_Left.angle()
 
         if current_gyro_reading < target: # If gyro reading is smaller than target reaading turn Right
             correction = target - current_gyro_reading # calculate the correction by the target - current
@@ -61,7 +61,7 @@ def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack
             robot.drive(turn_rate = 0 , speed = speed)
 
         #if the current rotations is larger than target quit out of code
-        if float(current_degrees) >= target_rotations:
+        if float(current_rotations) >= target_rotations:
             break
 
         if stop():
@@ -89,9 +89,9 @@ def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack
             
             #otherwise continue straight BUT go slower so the colours are easier to detect
             robot.drive(steering = 0 , speed = speed / 2)                
+    
 
-
-    tank_block.off()
+    robot.stop()
     print('Leaving StraightGyro_target_toLine', file=stderr)
 
     #tells framework the function is completed 

@@ -37,7 +37,7 @@ def steering_seconds(stop, threadKey, speed, seconds, steering):
     while time.time() < start_time + seconds:
         if stop():
             break
-    robot.drive(turn_rate = 0 , speed = 0)
+    robot.stop()
     print('Leaving Steering_seconds', file=stderr)
 
     #tells framework the function is completed 

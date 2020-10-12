@@ -5,9 +5,11 @@ from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 from sys import stderr
-import time
+import time 
 import os
 
+
+#extramotor = Motor(Port.A)
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -24,7 +26,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 #- - - - - - - - - - - - - - - - - - 
-def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, correction):
+def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide,correction):
 
     print("In BlackLine_rotations", file=stderr)
 
@@ -44,7 +46,8 @@ def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, co
     right_RLI = colourRight.reflection()
     left_RLI = colourLeft.reflection()
     # RLI it should be reading if following the line
-    target_RLI = 40
+    target_RLI = 22
+    steering = 0
 
     if sensor == "RIGHT": # if using the right sensor 
         if lineSide == "LEFT": # if on left side of the line
@@ -54,15 +57,17 @@ def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, co
                 right_RLI = colourRight.reflection()
                 # calulate the error
                 error = right_RLI - target_RLI
-                steering = 0
-                steering = error * 0.5
+                #print(error, file = stderr )
+                
+
+                steering = error * correction
                 robot.drive(speed=speed, turn_rate = steering)
                 
                 # if stop is True then exit the function
                 if stop():
                     break
-
-                sleep(0.01)
+                time.sleep(0.001)
+                
         # if on the right side of the lien
         elif lineSide == "RIGHT":
             while currentDegrees_left < target_left and currentDegrees_right < target_right:
@@ -72,8 +77,8 @@ def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, co
                 right_RLI = colourRight.reflection()
                 # calculates the error
                 error = target_RLI - right_RLI
-                steering = 0
-                steering = error * 0.5
+                
+                steering = error * correction
                 robot.drive(speed=speed, turn_rate = steering)
                 
                 # if stop is true then exit the function
@@ -91,8 +96,8 @@ def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, co
                 left_RLI = colourLeft.reflection()
                 # calculates the error 
                 error = target_RLI - right_RLI 
-                steering = 0
-                steering = error * 0.5
+                
+                steering = error * correction
                
                 robot.drive(speed=speed, turn_rate = steering)
                 
@@ -108,8 +113,8 @@ def  blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, co
                 left_RLI = colourLeft.reflection()
                 # calculates the error
                 error = left_RLI - target_RLI 
-                steering = 0
-                steering = error * 0.5
+                
+                steering = error * correction
      
                 robot.drive(speed=speed, turn_rate = steering)
                 

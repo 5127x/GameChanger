@@ -1,0 +1,11 @@
+{"steps": [
+    {"step": "reset_gyro"},
+    {"step": "gyro_target", "speed": "250", "rotations":"2", "target": "0", "correction": ".8"},
+    {"step": "steering_rotations", "speed": "-220", "rotations":"1", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "120", "degrees":"90"}
+
+    {"step": "gyro_current", "speed": "180", "rotations":"1", "correction": ".8"},
+    {"step": "square_onLine", "speed": "60", "target":"10"},
+
+]}
+

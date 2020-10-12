@@ -8,6 +8,8 @@ from sys import stderr
 import time
 import os
 
+
+#extramotor = Motor(Port.A)
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -32,89 +34,119 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    #rotations = rotations*360
-    #currentDegrees_left = largeMotor_Left.angle()
-    #currentDegrees_right = largeMotor_Right.angle()
-    #target_left = currentDegrees_left + rotations
-    #target_right = currentDegrees_right + rotations
+    # RLI it should be reading if following the line
+    target_RLI = 40
+
+    # saves the current RLI for each sensor 
     right_RLI = colourRight.reflection()
     left_RLI = colourLeft.reflection()
-    target_RLI = 40
-    
-    #if the colour sensor that you are using = Right then do this part of the program (being called from defined section above)
-    if sensor == "RIGHT":
-        #Choosing which side of the line to follow
-        
-        if lineSide == "LEFT":
-            while left_RLI > 20: 
-                #and currentDegrees_right < target_right:
-                currentDegrees_left = largeMotor_Left.angle()
-                #currentDegrees_right = largeMotor_Right.angle()
+
+    if sensor == "RIGHT": # if using the right sensor 
+        if lineSide == "LEFT": # if on left side of the line
+            while True:
+                # Reading RLI
                 right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
-                error = right_RLI - target_RLI
-
-                steering = 0
-
-                if abs(error) < 5: #If the absaloute error (positive error) is smaller than 5
-                    steering = error * 0.25
-
-                elif abs(error) >= 5 and abs(error) <=10: #If the absaloute error (positive error) is larger of equal to 5 AND smaller than 10
-                    steering = error * 0.5
-
-                elif abs(error) >= 10 and abs(error) <=25: #If the absaloute error (positive error) is larger of equal to 10 AND smaller or equal to 25
-                    steering = error * 1 
-
-                elif abs(error) >= 25:
-                    steering = error * 1.25
                 
-                #steering = error * correction
+                #testing if your robot can see the black line with the left sensor
+                #if left_RLI >= 85:
+                    #print("White line detected", file = stderr)
+                if left_RLI <= 15:
+                    print("Black line deteted. BREAK", file = stderr)
+                    break
 
+                # calulate the error
+                error = right_RLI - target_RLI
+                steering = 0
+                steering = error * 0.5
                 robot.drive(speed=speed, turn_rate = steering)
+                
+                # if stop is True then exit the function
                 if stop():
                     break
-        #Choosing which side of the line to follow
+
+
+        # if on the right side of the lien
         elif lineSide == "RIGHT":
-            while currentDegrees_left < target_left and currentDegrees_right < target_right:
-                currentDegrees_left = largeMotor_Left.angle()
-                currentDegrees_right = largeMotor_Right.angle()
+            while True:
+                # Reading RLI
                 right_RLI = colourRight.reflection()
+                left_RLI = colourLeft.reflection()
+                
+                #testing if your robot can see the black line with the left sensor
+                #if left_RLI >= 85:
+                #   print("White line detected", file = stderr)
+                if left_RLI <= 15:
+                    print("Black line deteted. BREAK", file = stderr)
+                    break
+
+
+
+                # calculates the error
                 error = target_RLI - right_RLI
-                steering = error * correction
+                steering = 0
+                steering = error * 0.5
                 robot.drive(speed=speed, turn_rate = steering)
+                
+                # if stop is true then exit the function
                 if stop():
                     break
-
-
-    #if the colour sensor that you are using = Right then do this part of the program (being called from defined section above)                  
-
+    
+    # if the left sensor 
     elif sensor == "LEFT":
-
-        #Choosing which side of the line to follow
+        # if following the right side of the lien
         if lineSide == "RIGHT":
-            
-            while currentDegrees_left < target_left and currentDegrees_right < target_right:
-                currentDegrees_left = largeMotor_Left.angle()
-                currentDegrees_right = largeMotor_Right.angle()
+            while True:
+                # Reading RLI
+                right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
+
+                #testing if your robot can see the black line with the left sensor
+               # if right_RLI >= 85:
+                    #print("White line detected", file = stderr)
+                if right_RLI <= 15:
+                    print("Black line deteted. BREAK", file = stderr)
+                    break
+
+
+                # calculates the error 
                 error = target_RLI - right_RLI 
-                steering = error * correction
+                steering = 0
+                steering = error * 0.5
+               
                 robot.drive(speed=speed, turn_rate = steering)
+                
+                # if stop is true then exit the function
                 if stop():
                     break
 
-        #Choosing which side of the line to follow
+        # if following the left side of the line
         elif lineSide == "LEFT":
-            while currentDegrees_left < target_left and currentDegrees_right < target_right:
-                currentDegrees_left = largeMotor_Left.angle()
-                currentDegrees_right = largeMotor_Right.angle()
+            while True:
+                # Reading RLI
+                right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
-                error = left_RLI - target_RLI 
-                steering = error * correction
-                robot.drive(speed=speed, turn_rate = steering)
-                if stop():
+
+                #testing if your robot can see the black line with the left sensor
+                #if right_RLI >= 85:
+                    #print("White line detected", file = stderr)
+                if right_RLI <= 15:
+                    print("Black line deteted. BREAK", file = stderr)
                     break
-    motor.off()
+
+
+
+                # calculates the error
+                error = left_RLI - target_RLI 
+                steering = 0
+                steering = error * 0.5
+     
+                robot.drive(speed=speed, turn_rate = steering)
+                
+                # if stop is true then exit the function
+                if stop():
+                     break
+    robot.stop()
     #tells framework the function is completed 
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
