@@ -36,22 +36,22 @@ def square_onLine(stop, speed, target):
         right_RLI = colourRight.reflection()
         left_RLI = colourLeft.reflection()
         # if the left Rli is smaller than the target/aim then turn to the right
-        if left_RLI <= target:
-            largeMotor_Left.on(-speed)
-            largeMotor_Right.on(speed)
+        if left_RLI >= 15:
+            largeMotor_Left.run(-speed)
+            largeMotor_Right.run(speed)
             lineFound = True #setting bool varisable for cancelling movment later on
             print('{} left found it'.format(colourLeft_RLI), file = stderr)
 
         # if the right Rli is smaller than the target/aim then turn to the left
-        if right_RLI <=target:
-            largeMotor_Left.on(speed)
-            largeMotor_Right.on(-speed)
+        if right_RLI >= 15:
+            largeMotor_Left.run(speed)
+            largeMotor_Right.run(-speed)
             lineFound = True #setting bool varisable for cancelling movment later on
             print('{} right found it'.format(colourRight_RLI), file = stderr)
 
         print('{} left, {} right'.format(left_RLI, right_RLI), file = stderr)
     
-        if left_RLI == right_RLI and lineFound:
+        if left_RLI <=15 and right_RLI <= 15 and lineFound:
             break
         if stop():
             break
