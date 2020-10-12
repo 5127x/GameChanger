@@ -9,7 +9,7 @@ import time
 import os
 
 
-extramotor = Motor(Port.A)
+#extramotor = Motor(Port.A)
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
