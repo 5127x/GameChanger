@@ -31,15 +31,15 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    current_degrees_left = largeMotor_Left.angle() # there isnt a way to read rotations
-    current_degrees_right = largeMotor_Right.angle()
+    current_rotations_left = largeMotor_Left.angle() # there isnt a way to read rotations
+    current_rotations_right = largeMotor_Right.angle()
     target_rotations = rotations * 360 # convert to degrees bcs its simpler
     if speed < 0:
-        target_rotations_left = current_degrees_left - target_rotations
-        target_rotations_right = current_degrees_right - target_rotations
+        target_rotations_left = current_rotations_left - target_rotations
+        target_rotations_right = current_rotations_right - target_rotations
     elif speed > 0:
-        target_rotations_left = current_degrees_left + target_rotations
-        target_rotations_right = current_degrees_right + target_rotations
+        target_rotations_left = current_rotations_left + target_rotations
+        target_rotations_right = current_rotations_right + target_rotations
 
     robot.drive(turn_rate = steering, speed= speed) # turn the robot on forever calling the parameters from above
 
@@ -88,7 +88,7 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
             #re reading in the current rotations into the variable
             current_rotations_left = largeMotor_Left.angle() 
             current_rotations_right = largeMotor_Right.angle()
-            print("Right {}{}, Left {}{}".format(current_rotations_right, target_rotations_right, current_rotations_left, target_rotations_left),file = stderr)
+            #print("Right {}{}, Left {}{}".format(current_rotations_right, target_rotations_right, current_rotations_left, target_rotations_left),file = stderr)
             if stop():
                 break
             if current_rotations_left <= target_rotations_left or current_rotations_right <= target_rotations_right:

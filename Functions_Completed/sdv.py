@@ -21,6 +21,10 @@ colourkey = ColorSensor(Port.S4)
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 
+right_RLI = colourRight.reflection()
+left_RLI = colourLeft.reflection()
+
 while True:
 
-    print(gyro.angle(), file = stderr)
+    print(right_RLI)
+    print(left_RLI)
