@@ -27,14 +27,14 @@ def off (threadKey):
     # turn brake off on the motors
     print('Turning motors off', file=stderr)
 
-    is_complete = None
+    '''is_complete = None
     if 'IS_COMPLETE' in os.environ:
-        is_complete = int(os.environ['IS_COMPLETE'])
+        is_complete = int(os.environ['IS_COMPLETE'])'''
 
-    largeMotor_Left.off(brake = False)
-    largeMotor_Right.off(brake = False)
-    panel.off(brake = False)
+    largeMotor_Left.stop()
+    largeMotor_Right.stop()
+    panel.stop()
 
     #tells framework the function is completed 
-    is_complete = threadKey
-    os.environ['IS_COMPLETE'] = str(is_complete)
+    '''is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)'''
