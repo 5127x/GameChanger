@@ -1,8 +1,6 @@
 {"steps": [
-    {"step": "RLI_testing2"},
-    {"step": "launchInParallel", 
-        "subSteps": [
-            {"step": "RLI_testing2"},
-            {"step": "RLI_testing2"}
-    ]}
+    {"step": "steering_rotations", "speed": "-10", "rotations":"1", "steering":"0"},
+    {"step": "waiting", "seconds":"2"},
+    {"step": "steering_rotations", "speed": "-10", "rotations":"1", "steering":"0"}
+    
 ]}

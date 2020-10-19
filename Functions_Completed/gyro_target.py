@@ -49,13 +49,13 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
         current_rotations = largeMotor_Left.angle()
 
         #if the gyro is smaller than the target
-        if current_gyro_reading > target:
+        if current_gyro_reading < target:
             error = target - current_gyro_reading # calculate full error by target - gyro
             steering = error * correction # 1/4 of the correction (so the robot doesn't over correct)
-            robot.drive(turn_rate = -steering , speed = speed) # turn by the correctuion and doesn't over correct
+            robot.drive(turn_rate = steering , speed = speed) # turn by the correctuion and doesn't over correct
 
         #if the gyro is larger than the target
-        if current_gyro_reading < target:
+        if current_gyro_reading > target:
             error = target - current_gyro_reading # calculate full error by target - gyro
             steering = error * correction  # 1/4 of the correction (so the robot doesn't over correct)
             robot.drive(turn_rate = steering , speed = speed) # turn by the correctuion and doesn't over correct

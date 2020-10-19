@@ -24,7 +24,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 #- - - - - - - - - - - - - - - - - - 
-def gyro_current(stop, threadKey, speed, rotations, corrrection):
+def gyro_current(stop, threadKey, speed, rotations, correction):
     print("In StraightGyro_current", file=stderr)
 
     is_complete = None
@@ -46,16 +46,16 @@ def gyro_current(stop, threadKey, speed, rotations, corrrection):
         current_rotations = largeMotor_Left.angle()
 
         # if the gyro reading is smaller than the target (Going to the right)
-        if current_gyro_reading < target:
+        if current_gyro_reading > target:
             error = target - current_gyro_reading #figure out correction by target gyro reading - the current reading
             steering = error * correction # find a 1/4 of the correction 
-            robot.drive(turn_rate = -steering , speed = speed) #turns by the corrrection
+            robot.drive(turn_rate = steering , speed = speed) #turns by the corrrection
 
         # if the gyro reading is larger than the target (Going to the left)
-        if current_gyro_reading > target:
-            correction = target - current_gyro_reading#figure out correction by target gyro reading - the current reading
-            correction = correction * .25 # find a 1/4 of the correction 
-            robot.drive(turn_rate = -correction , speed = speed) #turns by the corrrection
+        if current_gyro_reading < target:
+            error = target - current_gyro_reading#figure out correction by target gyro reading - the current reading
+            steering = error * correction # find a 1/4 of the correction 
+            robot.drive(turn_rate = steering , speed = speed) #turns by the corrrection
 
         # if the current gyro = the target just continue straight
         if current_gyro_reading == target:
@@ -73,4 +73,4 @@ def gyro_current(stop, threadKey, speed, rotations, corrrection):
     os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
-#StraightGyro_current(lambda:stopProcessing, speed=30, rotations=3)
+#gyro_current(lambda:stopProcessing,0, speed=90, rotations=20, correction=0.5)
