@@ -43,12 +43,6 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
 
     robot.drive(turn_rate = steering, speed= speed) # turn the robot on forever calling the parameters from above
 
-    if speed < 0: 
-        target_rotations_left = -target_rotations_left
-        target_rotations_right = -target_rotations_right
-
-
-
     if current_rotations_left < target_rotations_left and current_rotations_right < target_rotations_right:
         print("1", file=stderr)
         while current_rotations_left < target_rotations_left or current_rotations_right < target_rotations_right: # how its done in tank onForRotations

@@ -120,8 +120,30 @@ def main2():
             print("deleted thread", file=stderr)
 
 #main1()
-main2()
+#main2()
 
+def main():
+    # set up threadPool 
+    threadPool = []
+    
+    # start RLI_testing as a thread
+    print("RLI_testing", file=stderr)
+    threadKey = 0
+    thread = threading.Thread(target=RLI_testing2, args=(threadKey, ))
+    thread.start()
+    # add the thread to threadPool 
+    threadPool.append(thread)
+ 
+    # while there are threads running
+    print(threadPool, file=stderr)
+    while threadPool:
+        # remove any finished threads from threadPool
+        for thread in threadPool:
+            if not thread.isAlive():
+                threadPool.remove(thread)
+            
+main()
+ 
 
 
 
