@@ -11,10 +11,10 @@
 
     {"step": "steering_seconds", "speed": "30", "seconds":"8", "steering": "0"},
 
-    {"step": "steering_seconds", "speed": "-120", "seconds":"3", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-120", "rotations":"2", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "200", "degrees":"-90"},
 
-    {"step": "steering_seconds", "speed": "-300", "seconds":".5", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-300", "seconds":".2", "steering": "0"},
     {"step": "steering_rotations", "speed": "220", "rotations":".5", "steering": "0"},
     
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-25"},
@@ -31,14 +31,13 @@
             
     ]},
     
-    {"step": "steering_seconds", "speed": "70", "seconds":"2.5", "steering": "0"},
+    {"step": "steering_seconds", "speed": "70", "seconds":"2.", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
 
 
     {"step": "steering_seconds", "speed": "80", "seconds":"2", "steering": "0"},
-    {"step": "steering_seconds", "speed": "80", "seconds":"2", "steering": "0"},
-    {"step": "motor_onForSeconds","motor": "panel", "seconds":"1", "speed": "-400"},
-    {"step": "motor_onForSeconds","motor": "panel", "seconds":"4", "speed": "600"},
+    {"step": "steering_seconds", "speed": "-80", "seconds":".2", "steering": "0"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":"6", "speed": "600"},
 
     {"step": "steering_seconds", "speed": "-100", "seconds":"2", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"2"},
