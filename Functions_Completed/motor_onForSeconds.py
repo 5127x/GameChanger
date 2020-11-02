@@ -38,8 +38,8 @@ def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
         if stop():
             break
     #Once completed turn the motor off
-    robot.stop()
-    panel.stop()
+    #robot.stop()
+    motor.stop()
     print('Leaving Motor_onForSeconds', file=stderr)
 
     is_complete = threadKey

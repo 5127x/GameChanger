@@ -1,0 +1,14 @@
+{"steps": [
+    {"step": "reset_gyro"},
+    {"step": "gyro_target", "speed": "250", "rotations":"1.25", "target": "0", "correction": ".8"},
+    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"45"},
+    {"step": "gyro_current", "speed": "250", "rotations":"3", "correction": ".8"},
+    {"step": "gyro_current", "speed": "200", "rotations":"2", "correction": ".8"},
+    {"step": "steering_rotations", "speed": "-220", "rotations":".8", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "120", "degrees":"-80"},
+    {"step": "steering_rotations", "speed": "330", "rotations":"5", "steering": "0"}
+
+
+
+]}
+
