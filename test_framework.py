@@ -242,7 +242,7 @@ def main():
     threadKey = 1
     
     # collect the raw rgcb light values from colourAttachment and the overall XML file
-    with open('Run_1.json') as f:
+    with open('Run_3.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel
@@ -260,7 +260,6 @@ def main():
             else:
                 #print('launch thread', file=stderr)
                 thread = launchStep(lambda:stopProcessing, threadKey, step)
-                #print(thread, file=stderr)
                 threadPool[threadKey] = thread
                 threadKey = threadKey+1        
             while not stopProcessing:

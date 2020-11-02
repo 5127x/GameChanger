@@ -1,0 +1,46 @@
+{"steps": [
+    {"step": "reset_gyro"},
+
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "motor_onForSeconds","motor": "panel", "seconds":".2", "speed": "60"},
+            {"step": "gyro_target", "speed": "180", "rotations":"4", "target": "0", "correction": ".8"},   
+    ]},
+  
+    {"step": "blackline_to_line", "speed": "150", "sensor":"LEFT", "lineSide":"RIGHT", "correction":".2"},
+
+    
+    {"step": "gyro_turn_to_target", "speed": "200", "degrees":"-90"},
+    {"step": "steering_rotations", "speed": "-600", "rotations":".4", "steering": "0"},
+
+    
+    {"step": "gyro_current", "speed": "150", "rotations":".5", "correction": "1.2"},
+    {"step": "blackline_rotations", "speed": "150", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":".8", "rotations": ".8"},
+    {"step": "blackline_to_line", "speed": "150", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":".8"},
+
+    {"step": "steering_rotations", "speed": "100", "rotations":".4", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "200", "degrees":"-10"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":".2", "speed": "120"},
+    {"step": "steering_rotations", "speed": "60", "rotations":".5", "steering": "0"},
+
+    {"step": "steering_rotations", "speed": "-100", "rotations":".2", "steering": "0"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":".7", "speed": "120"},
+
+
+    {"step": "steering_rotations", "speed": "-100", "rotations":"1", "steering": "0"},
+
+    {"step": "gyro_turn_to_target", "speed": "105", "degrees":"-125"},
+
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "motor_onForSeconds","motor": "panel", "seconds":"1", "speed": "190"}, 
+            {"step": "steering_rotations", "speed": "120", "rotations":".9", "steering": "0"},
+            
+    ]},
+
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-180"},
+    {"step": "steering_rotations", "speed": "120", "rotations":"1", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":".1", "steering": "0"},
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":"2", "speed": "-100"}, 
+
+]}

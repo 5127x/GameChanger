@@ -49,6 +49,7 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
             #reading in the current rotations of the left and right motor
             current_rotations_left = largeMotor_Left.angle() 
             current_rotations_right = largeMotor_Right.angle()
+            #print ("target l {} target r: {} left{} right{}".format(target_rotations_left, target_rotations_right ,current_rotations_left, current_rotations_right), file = stderr)
             if stop():
                 break
             #if the current rotations of the motor on either left or right side is larger than there specific target then cancel the program or break
@@ -87,8 +88,8 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
                 break
             if current_rotations_left <= target_rotations_left or current_rotations_right <= target_rotations_right:
                 break
-    
     robot.stop()
+
 
     print('Leaving Steering_rotations', file=stderr)
 
