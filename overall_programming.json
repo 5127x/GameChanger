@@ -1,7 +1,7 @@
 {"programs": [
     {"name": "Run1", "fileName" : "Run_1.json", "colourValue" : "0"}, 
     {"name": "Run2", "fileName" : "", "colourValue" : "1"}, 
-    {"name": "Run3", "fileName" : "", "colourValue" : "2"},
+    {"name": "Run3", "fileName" : "Run_3.json", "colourValue" : "2"},
     {"name": "Run4", "fileName" : "", "colourValue" : "3"},
     {"name": "Run5", "fileName" : "", "colourValue" : "4"}
   ]}
