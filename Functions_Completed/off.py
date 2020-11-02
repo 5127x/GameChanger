@@ -5,6 +5,7 @@ from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
 import os
+from sys import stderr
 
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
@@ -23,7 +24,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
  
 #- - - - - - - - - - - - - - - - - - 
 
-def off (threadKey):
+def off ():
     # turn brake off on the motors
     print('Turning motors off', file=stderr)
 
