@@ -15,7 +15,7 @@
         "subSteps": [
             {"step": "motor_onForSeconds", "motor": "panel", "seconds":"1", "speed": "190"},
             {"step": "steering_seconds", "speed": "-150", "seconds":".2", "steering": "0"}
-            ]}
+    ]},
 
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"75"},
     {"step": "gyro_current", "speed": "180", "rotations":"1", "correction": ".8"},
