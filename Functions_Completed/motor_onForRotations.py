@@ -7,24 +7,14 @@ from pybricks.robotics import DriveBase
 from sys import stderr
 import time
 import os
-'''
-#extramotor = Motor(Port.A)
-largeMotor_Right = Motor(Port.B)
-largeMotor_Left = Motor(Port.C)
-panel = Motor(Port.D)
 
-gyro = GyroSensor(Port.S1)
-colourRight = ColorSensor(Port.S2)
-colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
-'''
 
 ev3 = EV3Brick()
 #robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 #_________________________________________________________________________________________________________________________________
 
 def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio): 
-    print("In onForRotations", file=stderr)
+    print("In Motor onForRotations", file=stderr)
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
@@ -34,8 +24,10 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
 
     # read the motor position (degrees since there isn't a way to read rotations)
     current_degrees = motor.angle() 
+    
     # take the gearRatio into account
     rotations = rotations*gearRatio
+
     # create target rotations
     target_rotations = rotations * 360
     if speed > 0:

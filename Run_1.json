@@ -34,7 +34,7 @@
         "subSteps": [
             {"step": "gyro_current", "speed": "100", "rotations":"2", "correction": ".8"},
             {"step": "motor_onForSeconds","motor": "panel", "seconds":"4", "speed": "-220"}
-    ]}
+    ]},
 
     {"step": "steering_rotations", "speed": "400", "rotations":"7", "steering": "0"}
 

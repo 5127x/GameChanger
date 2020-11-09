@@ -25,7 +25,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 
 def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
-    print("In Motor_onForSeconds", file=stderr)
+    print("In motor_onForSeconds", file=stderr)
 
     is_complete = None
     if 'IS_COMPLETE' in os.environ:

@@ -35,16 +35,16 @@ def gyro_turning(stop, threadKey, speed, degrees):
     
 
     #read in the current gyro
-
-
     current_gyro_reading = gyro.angle()
     target_degrees = current_gyro_reading + degrees
 
-    while target_degrees > current_gyro_reading: # so you know to turn left 
+    #_____________If turning Left__________________________________
+    while target_degrees > current_gyro_reading: 
         print(speed, file = stderr)
 
+        #same concept as a tank block however bc we dont have access had to turn on both motors
         largeMotor_Right.run(speed=-speed)
-        largeMotor_Left.run(speed=speed) #same concept as a tank block however bc we dont have access had to turn on both motors
+        largeMotor_Left.run(speed=speed) 
         
         #print(current_gyro_reading,file=stderr)
 
@@ -55,8 +55,8 @@ def gyro_turning(stop, threadKey, speed, degrees):
             if stop():
                 break
 
-    #_______________________________________________-
-    while target_degrees < current_gyro_reading: # so you know to turn right 
+    #_____________If turning Right__________________________________
+    while target_degrees < current_gyro_reading:
         largeMotor_Right.run(speed=speed)
         largeMotor_Left.run(speed=-speed)
         
