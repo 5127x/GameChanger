@@ -4,11 +4,13 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
+# basic imports
 from sys import stderr
 import time
 import os
-'''
-#extramotor = Motor(Port.A)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+#define the motors, sensors and the brick
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -17,60 +19,72 @@ gyro = GyroSensor(Port.S1)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
 colourkey = ColorSensor(Port.S4)
-'''
 
 ev3 = EV3Brick()
-#robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
-#_________________________________________________________________________________________________________________________________
+robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# turn a single motor for a set number of rotations 
 def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio): 
-    print("In onForRotations", file=stderr)
+    # log the function starting 
+    print("In motor_onForRotations", file=stderr)
+
+    # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    # if we needed an extra motor, defining it here prevents it from messing up other bits of code and allows us to unplug it after a run
     if motor == "extension":
         motor =  Motor(Port.A)
 
-    # read the motor position (degrees since there isn't a way to read rotations)
+    # read the motor position 
     current_degrees = motor.angle() 
-    # take the gearRatio into account
+    # adjust the rotations goal for the gearing ratio of the motor/attachment 
     rotations = rotations*gearRatio
-    # create target rotations
+    
+    # create 'target_rotations' for how far the motor should turn in degrees
     target_rotations = rotations * 360
     if speed > 0:
         target_rotations = current_degrees + target_rotations
     elif speed < 0:
         target_rotations = current_degrees - target_rotations
+    
     # turn the motor on until current_degrees matches target_rotations
     motor.run(speed=speed)
     
-    # Just a note. The larger and smaller is because if the robot is going backward. 
-    
-    if current_degrees > target_rotations:# current degrees can also be how many rotations a motor has done
-        while current_degrees > target_rotations: # while current rotations is larger than target
-            current_degrees = motor.angle() # reading current rotations into the paramater
-            # continue speed until one of the following staements become true
+    # if the motor is turning backwards 
+    if current_degrees > target_rotations: 
+        # loop until the motor has turned enough
+        while current_degrees > target_rotations: 
+            current_degrees = motor.angle() 
+            # check if 'stopProcessing' flag is raised
             if stop():
                 break
+            # check if the motor has turned enough
             if current_degrees <= target_rotations:
                 break
-
+    
+    # if the motor is turning forwards
     elif current_degrees < target_rotations:
-        while current_degrees < target_rotations: # while current rotations is smaller than target
-            current_degrees = motor.angle() # reading current rotations into the paramater
-            # continue speed until one of the following staements become true
+        # loop until the motor has turned enough
+        while current_degrees < target_rotations: 
+            current_degrees = motor.angle() 
+            # check if 'stopProcessing' flag is raised
             if stop():
                 break
+            # check if the motor has turned enough
             if current_degrees >= target_rotations:
                 break
-    motor.stop()
-    print('Leaving onForRotations', file=stderr)
     
-    #tells framework the function is completed 
+    # turn the motor off
+    motor.stop()
+
+    # log leaving the function
+    print('Leaving onForRotations', file=stderr)
+    # change 'is_complete' to the threadKey so the framework knows the function is complete
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
-#panel = Motor(Port.D)
 #stopProcessing=False
-#motor_onForRotations(lambda:stopProcessing, threadKey=0, motor=panel, speed=-30, rotations=2, gearRatio=1)
+#motor_onForRotations(lambda:stopProcessing, 0, motor = panel, speed = 200, rotations = 2, gearRatio = 1)

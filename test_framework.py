@@ -32,6 +32,7 @@ from Functions_Completed.steering_rotations import steering_rotations
 from Functions_Completed.square_onLine import square_onLine
 from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
+from play_sound import play_sound
 
 # define the different sensors, motors and motor blocks
 #extramotor = Motor(Port.A)
@@ -74,7 +75,14 @@ def launchStep(stop, threadKey, action):
         return thread
     
     '''
-    
+
+    if name == 'play_sound': # parameters (sound_file_name)
+        print("Starting play_sound", file=stderr)
+        sound_file_name = action['sound_file_name']
+        thread = threading.Thread(target= play_sound, args=(sound_file_name, ))
+        thread.start()
+        return thread
+      
     if name == 'blackline_rotations':# (stop, speed, rotations, sensor, lineSide,correction)
         print("Starting BlackLine_rotations", file=stderr)
         speed = float(action['speed'])
@@ -82,7 +90,7 @@ def launchStep(stop, threadKey, action):
         sensor = action['sensor']
         lineSide = action['lineSide']
         correction = float(action['correction'])
-        thread = threading.Thread(target = blackline_rotations, args=(stop,threadKey, speed, rotations, sensor, lineSide,correction))
+        thread = threading.Thread(target = blackline_rotations, args=(stop,threadKey, speed, rotations, sensor, lineSide, correction))
         thread.start()
         return thread
 
