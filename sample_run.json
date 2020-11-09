@@ -7,4 +7,17 @@
             {"step": "", "variable": "", "variable2": ""}
     ]},
     {"step": "", "variable": "", "variable2": ""}
-]}
+]},
+
+
+{"step": "launchInParallel", 
+    "subSteps": [
+        {"step": "motor_onForSeconds","motor": "panel", "seconds":"1.5", "speed": "60"},
+        {"step": "gyro_turn_to_target", "speed": "120", "degrees":"-22"}
+        
+]},
+
+{"step": "steering_seconds", "speed": "70", "seconds":"2.", "steering": "0"},
+{"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
+
+
