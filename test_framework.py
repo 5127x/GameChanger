@@ -20,6 +20,7 @@ from Functions_Completed.blackline_rotations import blackline_rotations
 from Functions_Completed.blackline_to_line import blackline_to_line
 from Functions_Completed.do_nothing import do_nothing
 from Functions_Completed.gyro_current import gyro_current
+from Functions_Completed.gyro_current_to_line import gyro_current_to_line
 from Functions_Completed.gyro_target_to_line import gyro_target_to_line
 from Functions_Completed.gyro_target import gyro_target
 from Functions_Completed.gyro_turn_to_target import gyro_turn_to_target
@@ -116,6 +117,16 @@ def launchStep(stop, threadKey, action):
         rotations = float(action['rotations'])
         correction = float(action['correction'])
         thread = threading.Thread(target=gyro_current, args=(stop,threadKey, speed, rotations, correction))
+        thread.start()
+        return thread
+
+    # use the gyro to drive in a straight line facing the direction it currently faces until the sensor sees a line
+    if name == 'gyro_current_to_line': # parameters (stop, threadKey, speed, sensor, correction)
+        print("Starting gyro_current_to_line", file=stderr)
+        speed = float(action['speed'])
+        sensor = action['sensor']
+        correction = float(action['correction'])
+        thread = threading.Thread(target=gyro_current_to_line, args=(stop, threadKey, speed, sensor, correction))
         thread.start()
         return thread
 
@@ -246,7 +257,7 @@ def main():
     threadKey = 1
     
     # collect the raw rgcb light values from colourAttachment and the overall XML file
-    with open('Run_2.json') as f:
+    with open('temporary.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel

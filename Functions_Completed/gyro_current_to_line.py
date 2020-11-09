@@ -24,8 +24,8 @@ ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# use the gyro to drive in a straight line facing the direction it currently faces for a set number of rotations
-def gyro_current_to_line(stop, threadKey, speed, correction):
+# use the gyro to drive in a straight line facing the direction it currently faces until the sensor sees a line
+def gyro_current_to_line(stop, threadKey, speed, sensor, correction):
     # log the function starting 
     print("In gyro_current_to_line", file=stderr)
 
@@ -36,15 +36,23 @@ def gyro_current_to_line(stop, threadKey, speed, correction):
 
     # create the target degrees
     target = gyro.angle()
-    # read the current degrees 
+    # read the current degrees heading and the current RLI value
     current_gyro_reading = target
+    if sensor == "RIGHT":
+        RLI = colourRight.reflection()
+    elif sensor == "LEFT":
+        RLI = colourLeft.reflection()
+
 
     # loop 
     while True:  
         # read the current motor position and the current degrees heading 
         current_gyro_reading=gyro.angle()
-        current_rotations = largeMotor_Left.angle()
-
+        if sensor == "RIGHT":
+            RLI = colourRight.reflection()
+        elif sensor == "LEFT":
+            RLI = colourLeft.reflection()
+        
         # if facing to the right of the target
         if current_gyro_reading > target:
             # calculate the error 
@@ -71,7 +79,7 @@ def gyro_current_to_line(stop, threadKey, speed, correction):
             robot.drive(turn_rate = 0 , speed = speed)
 
         # check if there is a black line
-        if left_RLI <= 15:
+        if RLI <= 15:
             break
 
         # check if the 'stopProcessing' flag has been raised 
@@ -88,4 +96,4 @@ def gyro_current_to_line(stop, threadKey, speed, correction):
     os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
-#gyro_current_to_line(lambda:stopProcessing, 0, speed = 150, correction = 0.5)
+#gyro_current_to_line(lambda:stopProcessing, 0, speed = 150, sensor = 'RIGHT', correction = 0.5)

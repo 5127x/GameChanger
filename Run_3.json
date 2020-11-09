@@ -12,7 +12,7 @@
 
     {"step": "gyro_current", "speed": "220", "rotations":"1.5", "correction": ".8"},
     {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-85"},
-    {"step": "gyro_current", "speed": "400", "rotations":"3.5", "correction": ".8"},
+    {"step": "gyro_current", "speed": "400", "rotations":"3.5", "correction": ".8"}
 
 
 
