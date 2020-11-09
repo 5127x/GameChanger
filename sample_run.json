@@ -21,14 +21,3 @@
 {"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
 
 
-{"step": "steering_seconds", "speed": "80", "seconds":"2", "steering": "0"},
-{"step": "steering_seconds", "speed": "-80", "seconds":".09", "steering": "0"},
-{"step": "motor_onForSeconds","motor": "panel", "seconds":"6", "speed": "600"},
-
-{"step": "steering_seconds", "speed": "-100", "seconds":"2", "steering": "0"},
-{"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
-{"step": "steering_seconds", "speed": "-500", "seconds":"5", "steering": "0"}
-
-
-{"step": "gyro_turn_to_target", "speed": "120", "degrees":"-25"},
-{"step": "steering_seconds", "speed": "80", "seconds":"2", "steering": "0"},

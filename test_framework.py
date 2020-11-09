@@ -157,8 +157,6 @@ def launchStep(stop, threadKey, action):
             motorToUse = largeMotor_Left
         if (motor == "largeMotor_Right"):
             motorToUse = largeMotor_Right
-        if (motor == "extension"):
-            motorToUse = motor
         if motor == "panel":
             motorToUse = panel
 
@@ -172,13 +170,11 @@ def launchStep(stop, threadKey, action):
         speed = float(action['speed'])
         seconds = float(action['seconds'])
         if (motor == "largeMotor_Left"):
-            motmotorToUse = largeMotor_Left
+            motorToUse = largeMotor_Left
         if (motor == "largeMotor_Right"):
             motorToUse = largeMotor_Right
         if (motor == "panel"):
             motorToUse = panel
-        if (motor == "extramotor"):
-            motorToUse = extramotor
         thread = threading.Thread(target=motor_onForSeconds, args=(stop,threadKey, motorToUse, speed, seconds))
         thread.start()
         return thread
@@ -242,7 +238,7 @@ def main():
     threadKey = 1
     
     # collect the raw rgcb light values from colourAttachment and the overall XML file
-    with open('Run_3.json') as f:
+    with open('Run_2.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel
