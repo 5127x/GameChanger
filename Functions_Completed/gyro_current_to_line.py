@@ -43,10 +43,9 @@ def gyro_current_to_line(stop, threadKey, speed, sensor, correction):
     elif sensor == "LEFT":
         RLI = colourLeft.reflection()
 
-
     # loop 
     while True:  
-        # read the current motor position and the current degrees heading 
+        # read the current degrees heading and the RLI value 
         current_gyro_reading=gyro.angle()
         if sensor == "RIGHT":
             RLI = colourRight.reflection()

@@ -25,78 +25,63 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack):
+def gyro_target(stop, threadKey, speed, rotations, target, correction):
+    # log the function starting
+    print("In gyro_target", file=stderr)
 
-    print("In StraightGyro_target_toLine", file=stderr)
-
+    # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    # 
     current_rotations = largeMotor_Left.angle() 
     rotations = rotations * 360
     target_rotations= current_rotations + rotations
     current_gyro_reading = gyro.angle()
-    # print("Current Gyro Reading: {}"(current_gyro_reading))
 
+    # print("Current Gyro Reading: {}".format(current_gyro_reading))
     while float(current_rotations) < target_rotations:
         if stop(): 
             break
-        current_gyro_reading = gyro.angle()
+        
+        #print(current_gyro_reading, file = stderr)
+
+        # reading in current gyro and  rotations
+        current_gyro_reading=gyro.angle()
         current_rotations = largeMotor_Left.angle()
 
-        if current_gyro_reading < target: # If gyro reading is smaller than target reaading turn Right
-            correction = target - current_gyro_reading # calculate the correction by the target - current
-            correction = correction * .25 #turns by the corrrection
-            robot.drive(turn_rate = -correction , speed = speed)
+        #if the gyro is smaller than the target
+        if current_gyro_reading < target:
+            error = target - current_gyro_reading # calculate full error by target - gyro
+            steering = error * correction # 1/4 of the correction (so the robot doesn't over correct)
+            robot.drive(turn_rate = steering , speed = speed) # turn by the correctuion and doesn't over correct
 
+        #if the gyro is larger than the target
+        if current_gyro_reading > target:
+            error = target - current_gyro_reading # calculate full error by target - gyro
+            steering = error * correction  # 1/4 of the correction (so the robot doesn't over correct)
+            robot.drive(turn_rate = steering , speed = speed) # turn by the correctuion and doesn't over correct
 
-        if current_gyro_reading > target: # If gyro reading is larger than target reAading turn Left
-            correction = target - current_gyro_reading # calculate the correction by the target - current
-            correction = correction * .25 #turns by the corrrection
-            robot.drive(turn_rate = -correction , speed = speed)
-
-        # if the gyro is = to target just continue straight
+        #if the gyro is == to the target just go straight
         if current_gyro_reading == target:
             robot.drive(turn_rate = 0 , speed = speed)
 
-        #if the current rotations is larger than target quit out of code
-        if float(current_rotations) >= target_rotations:
+        # if the current rotations is larger than the target then break the loop which will stop the robot
+        if current_rotations >= target_rotations:
             break
 
         if stop():
             break
-    
 
-    # Now find the line
-    
-    if not stop(): # if the key has not been taken out of the slot
-        while True:
-            if stop(): 
-                break
-            # reading in the colour values (RLI)
-            currentRight_RLI = colourRight.reflected_light_intensity
-            currentLeft_RLI = colourLeft.reflected_light_intensity
-
-            # if the whiteOrBlack paramater is white then:
-            if whiteOrBlack == "WHITE":
-                if currentRight_RLI > 90 or currentLeft_RLI > 90: #if the left or right sensor read over 90 then stop the robot (done by breaking out of the loop)
-                    break
-
-            if whiteOrBlack == "BLACK":
-                if currentRight_RLI < 10 or currentLeft_RLI < 10:#if the left or right sensor read under 10 then stop the robot (done by breaking out of the loop)
-                    break
-            
-            #otherwise continue straight BUT go slower so the colours are easier to detect
-            robot.drive(steering = 0 , speed = speed / 2)                
-    
+        
 
     robot.stop()
-    print('Leaving StraightGyro_target_toLine', file=stderr)
+    print('Leaving StraightGyro_target', file=stderr)
 
     #tells framework the function is completed 
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
-#StraightGyro_target_toLine(lambda:stopProcessing, speed=30, rotations=3, target=45, whiteOrBlack="WHITE")
+#StraightGyro_target(lambda:stopProcessing, speed=30, rotations=3)
