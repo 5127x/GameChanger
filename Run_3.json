@@ -18,13 +18,12 @@
     {"step": "gyro_turn_to_target", "speed": "40", "degrees":"-90"},
     {"step": "steering_rotations", "speed": "100", "rotations":".035", "steering": "0"},
 
-    {"step": "motor_onForSeconds","motor": "panel", "seconds":"3", "speed": "-100"}
+    {"step": "motor_onForSeconds","motor": "panel", "seconds":"3", "speed": "-100"},
 
 
     {"step": "gyro_turn_to_target", "speed": "80", "degrees":"-180"},
     {"step": "steering_rotations", "speed": "200", "rotations":"2", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "80", "degrees":"-225"},
-
 
     {"step": "steering_rotations", "speed": "600", "rotations":"4", "steering": "0"}
 ]}

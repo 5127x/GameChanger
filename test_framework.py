@@ -120,7 +120,6 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    # use the gyro to drive in a straight line facing the direction it currently faces until the sensor sees a line
     if name == 'gyro_current_to_line': # parameters (stop, threadKey, speed, sensor, correction)
         print("Starting gyro_current_to_line", file=stderr)
         speed = float(action['speed'])

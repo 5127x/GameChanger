@@ -4,10 +4,13 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
+# basic imports 
 from sys import stderr
 import time
 import os
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# define motors, sensors and the brick
 largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
@@ -20,19 +23,19 @@ colourkey = ColorSensor(Port.S4)
 
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-#- - - - - - - - - - - - - - - - - - 
-
+# use the gyro to drive in a straight line facing the given direction for a set number of rotations
 def gyro_target(stop, threadKey, speed, rotations, target, correction):
-    print("In StraightGyro_target", file=stderr)
+    # log the function starting
+    print("In gyro_target", file=stderr)
 
+    # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    #reading in necessary variables
+    # 
     current_rotations = largeMotor_Left.angle() 
     rotations = rotations * 360
     target_rotations= current_rotations + rotations
@@ -72,14 +75,12 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
         if stop():
             break
 
-        
-
     robot.stop()
-    print('Leaving StraightGyro_target', file=stderr)
+    print('Leaving gyro_target', file=stderr)
 
     #tells framework the function is completed 
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
 #stopProcessing=False
-#StraightGyro_target(lambda:stopProcessing, speed=30, rotations=3)
+#gyro_target(lambda:stopProcessing, speed=30, rotations=3)
