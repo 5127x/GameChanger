@@ -25,7 +25,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 #- - - - - - - - - - - - - - - - - - 
 
-def gyro_target(stop, threadKey, speed, rotations, target, correction):
+def gyro_target_to_line(stop, threadKey, speed, rotations, target, correction):
     # log the function starting
     print("In gyro_target", file=stderr)
 

@@ -39,7 +39,6 @@ print("Motors Connected", file = stderr)
 
 # define the different sensors
 gyro = GyroSensor(Port.S1)
-colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
 colourkey = ColorSensor(Port.S4)
 print("Sensors Connected", file = stderr)
@@ -52,6 +51,8 @@ current_battery = ev3.battery.voltage()
 battery_percent = round(current_battery/9)
 print("Current Battery Percent: {}%".format(battery_percent/10),file = stderr)
 print("")
+
+ev3.speaker.set_volume(100, which = '_all_')
 
 
 # check if the key has been removed from the robot
@@ -68,35 +69,45 @@ def colourAttachment_values():
     os.system('setfont Lat15-TerminusBold14') # os.system('setfont Lat15-TerminusBold32x16')  
 
     # print instructions and collect the rgb values for each key
-    print('Insert white', file=stderr)
+
     print('Insert white')
-    time.sleep(5)
+    ev3.speaker.say('Insert white')
+    ev3.screen.print('Insert white')
+    time.sleep(3)
     white = colourkey.rgb()
     print('Next.')
 
-    print('Insert yellow', file=stderr)
     print('Insert yellow')
-    time.sleep(5)
+    ev3.speaker.say('Insert yellow')
+    ev3.screen.print('Insert yellow')
+    time.sleep(3)
     yellow = colourkey.rgb()
     print('Next.')
 
-    print('Insert red', file=stderr)
     print('Insert red')
-    time.sleep(5)
+    ev3.speaker.say('Insert red')
+    ev3.screen.print('Insert red')
+    time.sleep(3)
     red = colourkey.rgb()
     print('Next.')
 
-    print('Insert blue', file=stderr)
     print('Insert blue')
-    time.sleep(5)
+    ev3.speaker.say('Insert blue')
+    ev3.screen.print('Insert blue')
+    time.sleep(3)
     blue = colourkey.rgb()
     print('Next.')
 
-    print('Insert green', file=stderr)
     print('Insert green')
-    time.sleep(5)
+    ev3.speaker.say('Insert green')
+    ev3.screen.print('Insert green')
+    time.sleep(3)
     green = colourkey.rgb()
+
+
     print('Done!')
+    ev3.screen.print('Done')
+    ev3.speaker.say('Finished')
     time.sleep(3)
 
     # return the values for the different keys 
@@ -326,6 +337,8 @@ def main():
             # reset stopProcessing each repetition
             stopProcessing = False
 
+            threadPool = {}
+
             # collect the raw rgb light values from colourkey sensor 
             rgb = colourkey.rgb()
 
@@ -352,6 +365,7 @@ def main():
                         parsed = ujson.load(f)
                         steps = parsed["steps"]
                         
+                        ev3.speaker.play_file(SoundFile.CONFIRM)
                         # run each step individually unless they are run in parallel
                         for step in steps:
                             action = step["step"]
@@ -405,5 +419,8 @@ def main():
                                     print("didnt stop")
                                 
                                 break
+
+#play sound to know that the framework is about to run. (helps makek you aware that the program is about to start)
+ev3.speaker.play_file(SoundFile.CONFIRM)
 
 main()
