@@ -37,11 +37,13 @@ def gyro_target_to_line(stop, threadKey,  speed, rotations, target, whiteOrBlack
     rotations = rotations * 360
     target_rotations= current_rotations + rotations
     current_gyro_reading = gyro.angle()
-    # print("Current Gyro Reading: {}"(current_gyro_reading))
 
+    # when the robot needs to run the current rotations is below the target
     while float(current_rotations) < target_rotations:
         if stop(): 
             break
+
+        #reading in current rotations and current gyro reading
         current_gyro_reading = gyro.angle()
         current_rotations = largeMotor_Left.angle()
 

@@ -32,6 +32,7 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    #reading in necessary variables
     current_rotations = largeMotor_Left.angle() 
     rotations = rotations * 360
     target_rotations= current_rotations + rotations
