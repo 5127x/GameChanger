@@ -25,7 +25,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # recalibrates the gyro before a run
-def reset_gyro(threadKey):
+def reset_gyro(stop, threadKey):
     # log the function starting 
     print("In reset_gyro", file=stderr)
 
@@ -58,6 +58,10 @@ def reset_gyro(threadKey):
 
         # check if the gyro has reset properly
         if current_gyro_reading == 0:
+            break
+        
+        # check if 'stopProcessing' flag has been raised 
+        if stop:
             break
 
     # log leaving the function

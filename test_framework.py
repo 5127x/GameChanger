@@ -203,10 +203,9 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-
-    if name == 'reset_gyro': # ()
-        print("Starting Reset_gyro", file=stderr)
-        thread = threading.Thread(target=reset_gyro, args=(threadKey,))
+    if name == 'reset_gyro': # parameters (stop, threadKey)
+        print("Starting reset_gyro", file=stderr)
+        thread = threading.Thread(target=reset_gyro, args=(stop, threadKey))
         thread.start()
         return thread
 
