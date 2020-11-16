@@ -11,11 +11,11 @@
 
     {"step": "steering_seconds", "speed": "28", "seconds":"8", "steering": "0"},
 
-    {"step": "steering_rotations", "speed": "-230", "rotations":"1.5", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "120", "degrees":"-90"},
+    {"step": "steering_rotations", "speed": "-230", "rotations":"1.35", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "80", "degrees":"-90"},
 
     {"step": "steering_rotations", "speed": "-600", "rotations":".3", "steering": "0"},
-    {"step": "steering_rotations", "speed": "220", "rotations":".63", "steering": "0"},
+    {"step": "steering_rotations", "speed": "220", "rotations":".55", "steering": "0"},
     
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
 

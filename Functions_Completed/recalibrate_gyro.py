@@ -4,6 +4,7 @@ from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
 from pybricks.parameters import Port, Color
 from pybricks.robotics import DriveBase
+from pybricks.media.ev3dev import SoundFile
 # basic import s
 import os
 import time
@@ -25,26 +26,38 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # recalibrates the gyro before a run
-def reset_gyro(threadKey):
+def recalibrate_gyro(stop, threadKey):
     # log the function starting 
-    print("In reset_gyro", file=stderr)
+    print("In recalibrate_gyro", file=stderr)
 
     # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
-    
-    # recalibrates the gyro angle by switching between modes
-    time.sleep(0.3)
-    gyro.reset_angle(0)
-    time.sleep(0.3)
 
-    # print the current gyro reading to check for gyro creep
-    current_gyro_reading = gyro.angle()
-    print(current_gyro_reading, file = stderr)
+    # loop until the gyro is reset properly 
+    while True: 
+        time.sleep(0.5)
+        gyro.speed()
+        gyro.angle()
+        gyro.reset_angle(0)
+        time.sleep(2)
+        
+        current_gyro_reading = gyro.angle()
+        print(current_gyro_reading, file = stderr)
+
+        # check if the gyro has reset properly
+        if int(current_gyro_reading) == 0:
+            print('gyro reads 0')
+            break
+        
+        # check if 'stopProcessing' flag has been raised 
+        if stop():
+            break
 
     # log leaving the function
-    print('Leaving reset_gyro', file=stderr)
+    ev3.speaker.play_file(SoundFile.READY)
+    print('Leaving recalibrate_gyro', file=stderr)
     # change 'is_complete' to the threadKey so the framework knows the function is complete
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)

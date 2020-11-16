@@ -22,7 +22,10 @@ print("Sensors Connected", file = stderr)
 ev3 = EV3Brick()
 
 #test for gyro creep
-
+while True:
+    time.sleep(0.5)
+    rli = colourRight.reflection()
+    print(rli, file=stderr)
 
 time.sleep(5)
 

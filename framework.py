@@ -25,6 +25,7 @@ from Functions_Completed.motor_onForRotations import motor_onForRotations
 from Functions_Completed.motor_onForSeconds import motor_onForSeconds
 from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
+from Functions_Completed.recalibrate_gyro import recalibrate_gyro
 from Functions_Completed.steering_rotations import steering_rotations
 from Functions_Completed.square_onLine import square_onLine
 from Functions_Completed.steering_seconds import steering_seconds
@@ -71,46 +72,68 @@ def colourAttachment_values():
     # print instructions and collect the rgb values for each key
 
     #INSERT WHITE
-    ev3.speaker.say('Insert white')
+    #ev3.speaker.say('Insert white')
     print('Insert white')
+    ev3.screen.print('Insert white')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             white = colourkey.rgb()
             break
+    
+    time.sleep(.5)
 
 
     #INSERT YELLOW
-    ev3.speaker.say('Insert yellow')
+    #ev3.speaker.say('Insert yellow')
     print('Insert yellow')
+    ev3.screen.print('Insert yellow')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             yellow = colourkey.rgb()
             break
 
+    time.sleep(.5)
+
     #INSERT RED AND TAKE VAL
-    ev3.speaker.say('Insert red')
+    #ev3.speaker.say('Insert red')
     print('Insert red')
+    ev3.screen.print('Insert red')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             red = colourkey.rgb()
             break
 
+    time.sleep(.5)
+
     #INSERT BLUE AND TAKE VAL
-    ev3.speaker.say('Insert blue')
+    #ev3.speaker.say('Insert blue')
     print('Insert blue')
+    ev3.screen.print('Insert blue')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             blue = colourkey.rgb()
             break
 
-    
+    time.sleep(.5)
+
     #INSERT GREEN AND TAKE VAL
+    #ev3.speaker.say('Insert green')
     print('Insert green')
-    ev3.speaker.say('Insert green')
-    ev3.screen.print('Insert green')  
+    ev3.screen.print('Insert green')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             green = colourkey.rgb()
+            break
+
+    time.sleep(.5)
+
+    #INSERT black AND TAKE VAL
+    #ev3.speaker.say('Insert black')
+    print('Insert black')
+    ev3.screen.print('Insert black')
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            black = colourkey.rgb()
             print('Finished!')
             ev3.screen.print('Finshed')
             ev3.speaker.say('Finished')
@@ -121,7 +144,7 @@ def colourAttachment_values():
 
 
     # return the values for the different keys 
-    attachment_values = [white, yellow, red, blue, green]
+    attachment_values = [white, yellow, red, blue, green, black]
     return attachment_values
 
 # launch actions using threads
@@ -247,10 +270,17 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    # recalibrates the gyro before a run
-    if name == 'reset_gyro': # parameters (stop, threadKey)
+    # recalibrates the gyro 
+    if name == 'recalibrate_gyro': # parameters (stop, threadKey)
+        print("Starting recalibrate_gyro", file=stderr)
+        thread = threading.Thread(target=recalibrate_gyro, args=(stop, threadKey))
+        thread.start()
+        return thread
+
+    # resets the gyro before a run
+    if name == 'reset_gyro': # parameters (threadKey)
         print("Starting reset_gyro", file=stderr)
-        thread = threading.Thread(target=reset_gyro, args=(stop, threadKey))
+        thread = threading.Thread(target=reset_gyro, args=(threadKey,))
         thread.start()
         return thread
 
@@ -347,6 +377,8 @@ def main():
             stopProcessing = False
 
             threadPool = {}
+            is_complete = 0
+            os.environ['IS_COMPLETE'] = str(is_complete)
 
             # collect the raw rgb light values from colourkey sensor 
             rgb = colourkey.rgb()
@@ -418,6 +450,7 @@ def main():
 
                             # if the 'stopProcessing' flag has been set then finish the whole loop
                             if stopProcessing:
+                                threadPool.clear()
                                 # turn off the motors without brakes so they dont lock up
                                 try:
                                     largeMotor_Left.stop()
