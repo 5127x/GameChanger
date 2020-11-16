@@ -1,7 +1,7 @@
 #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick 
 from pybricks.ev3devices import ColorSensor, GyroSensor, Motor
-from pybricks.parameters import Port
+from pybricks.parameters import Port, Button
 from pybricks.media.ev3dev import SoundFile
 
 # basic imports 
@@ -70,54 +70,62 @@ def colourAttachment_values():
 
     # print instructions and collect the rgb values for each key
 
+    #INSERT WHITE
     print('Insert white')
     ev3.speaker.say('Insert white')
     ev3.screen.print('Insert white')
-    time.sleep(3)
-    white = colourkey.rgb()
-    print('Next.')
-    ev3.speaker.say('Next')
-    ev3.screen.print('Next')
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            white = colourkey.rgb()
+            print("next")
+            break
 
+
+    #INSERT YELLOW
     print('Insert yellow')
     ev3.speaker.say('Insert yellow')
     ev3.screen.print('Insert yellow')
-    time.sleep(3)
-    yellow = colourkey.rgb()
-    print('Next.')
-    ev3.speaker.say('Next')
-    ev3.screen.print('Next')
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            yellow = colourkey.rgb()
+            print("next")
+            break
 
+    #INSERT RED AND TAKE VAL
     print('Insert red')
     ev3.speaker.say('Insert red')
     ev3.screen.print('Insert red')
-    time.sleep(3)
-    red = colourkey.rgb()
-    print('Next.')
-    ev3.speaker.say('Next')
-    ev3.screen.print('Next')
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            red = colourkey.rgb()
+            print("next")
+            break
 
+    #INSERT BLUE AND TAKE VAL
     print('Insert blue')
     ev3.speaker.say('Insert blue')
     ev3.screen.print('Insert blue')
-    time.sleep(3)
-    blue = colourkey.rgb()
-    print('Next.')
-    ev3.speaker.say('Next')
-    ev3.screen.print('Next')
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            blue = colourkey.rgb()
+            print("next")
+            break
 
+    
+    #INSERT GREEN AND TAKE VAL
     print('Insert green')
     ev3.speaker.say('Insert green')
-    ev3.screen.print('Insert green')
-    time.sleep(3)
-    green = colourkey.rgb()
-    ev3.speaker.say('Next')
-    ev3.screen.print('Next')
+    ev3.screen.print('Insert green')  
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            green = colourkey.rgb()
+            print('Finished!')
+            ev3.screen.print('Finshed')
+            ev3.speaker.say('Finished')
+            break
 
-    print('Finished!')
-    ev3.screen.print('Finshed')
-    ev3.speaker.say('Finished')
-    time.sleep(3)
+
+
 
     # return the values for the different keys 
     attachment_values = [white, yellow, red, blue, green]
