@@ -73,42 +73,34 @@ def colourAttachment_values():
     #INSERT WHITE
     print('Insert white')
     ev3.speaker.say('Insert white')
-    ev3.screen.print('Insert white')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             white = colourkey.rgb()
-            print("next")
             break
 
 
     #INSERT YELLOW
     print('Insert yellow')
     ev3.speaker.say('Insert yellow')
-    ev3.screen.print('Insert yellow')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             yellow = colourkey.rgb()
-            print("next")
             break
 
     #INSERT RED AND TAKE VAL
     print('Insert red')
     ev3.speaker.say('Insert red')
-    ev3.screen.print('Insert red')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             red = colourkey.rgb()
-            print("next")
             break
 
     #INSERT BLUE AND TAKE VAL
     print('Insert blue')
     ev3.speaker.say('Insert blue')
-    ev3.screen.print('Insert blue')
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             blue = colourkey.rgb()
-            print("next")
             break
 
     
@@ -124,7 +116,7 @@ def colourAttachment_values():
             ev3.speaker.say('Finished')
             break
 
-
+    print("")
 
 
     # return the values for the different keys 
