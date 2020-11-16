@@ -264,15 +264,14 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-
     # use the gyro to drive in a straight line facing the given direction until the sensor sees a line
-    if name == 'gyro_target_to_line': # parameters (stop, threadKey, speed, rotations, target, whiteOrBlack)
+    if name == 'gyro_target_to_line': # parameters (stop, threadKey, speed, sensor, target, correction)
         print("Starting gyro_target_to_line", file=stderr)
         speed = float(action['speed'])
-        rotations = float(action['rotations'])
+        sensor = action['sensor']
         target = float(action['target'])
-        whiteOrBlack = action['whiteOrBlack']
-        thread = threading.Thread(target=gyro_target_to_line, args=(stop, threadKey, speed, rotations, target, whiteOrBlack))
+        correction = float(action['correction'])
+        thread = threading.Thread(target=gyro_target_to_line, args=(stop, threadKey, speed, sensor, target, correction))
         thread.start()
         return thread
 

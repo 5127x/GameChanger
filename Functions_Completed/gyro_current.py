@@ -34,7 +34,7 @@ def gyro_current(stop, threadKey, speed, rotations, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    # read the motor positions
+    # read the current motor positions
     current_rotations = largeMotor_Left.angle() 
 
     # create 'target_rotations' for how far the robot should drive in degrees 
@@ -43,7 +43,7 @@ def gyro_current(stop, threadKey, speed, rotations, correction):
 
     # create the target degrees
     target = gyro.angle()
-    # read the current degrees 
+    # read the current degrees heading  
     current_gyro_reading = target
 
     # loop until the robot has driven far enough

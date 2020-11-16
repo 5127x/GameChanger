@@ -36,7 +36,7 @@ def gyro_current_to_line(stop, threadKey, speed, sensor, correction):
 
     # create the target degrees
     target = gyro.angle()
-    # read the current degrees heading and the current RLI value
+    # read the current degrees heading and the current RLI values
     current_gyro_reading = target
     if sensor == "RIGHT":
         RLI = colourRight.reflection()
@@ -45,7 +45,7 @@ def gyro_current_to_line(stop, threadKey, speed, sensor, correction):
 
     # loop 
     while True:  
-        # read the current degrees heading and the RLI value 
+        # read the current degrees heading and the current RLI values
         current_gyro_reading=gyro.angle()
         if sensor == "RIGHT":
             RLI = colourRight.reflection()
