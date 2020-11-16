@@ -247,9 +247,9 @@ def launchStep(stop, threadKey, action):
         return thread
 
     # recalibrates the gyro before a run
-    if name == 'reset_gyro': # parameters (threadKey)
+    if name == 'reset_gyro': # parameters (stop, threadKey)
         print("Starting reset_gyro", file=stderr)
-        thread = threading.Thread(target=reset_gyro, args=(threadKey,))
+        thread = threading.Thread(target=reset_gyro, args=(stop, threadKey))
         thread.start()
         return thread
 
