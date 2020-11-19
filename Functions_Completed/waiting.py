@@ -17,10 +17,10 @@ largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
 
-gyro = GyroSensor(Port.S1)
+gyro = GyroSensor(Port.S4)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
+colourkey = ColorSensor(Port.S1)
 
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)

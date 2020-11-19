@@ -16,10 +16,10 @@ largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
 
-gyro = GyroSensor(Port.S1)
+gyro = GyroSensor(Port.S4)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
+colourkey = ColorSensor(Port.S1)
 
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
@@ -41,13 +41,16 @@ def recalibrate_gyro(stop, threadKey):
         gyro.speed()
         gyro.angle()
         gyro.reset_angle(0)
-        time.sleep(2)
+        time.sleep(1.7)
         
         current_gyro_reading = gyro.angle()
         print(current_gyro_reading, file = stderr)
 
+        time.sleep(0.3) #new bit
+        x = gyro.angle() #new bit
+
         # check if the gyro has reset properly
-        if int(current_gyro_reading) == 0:
+        if int(current_gyro_reading) == 0 and x == 0: #new bit
             print('gyro reads 0')
             break
         

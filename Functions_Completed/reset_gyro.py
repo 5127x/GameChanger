@@ -15,17 +15,17 @@ largeMotor_Right = Motor(Port.B)
 largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
 
-gyro = GyroSensor(Port.S1)
+gyro = GyroSensor(Port.S4)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
+colourkey = ColorSensor(Port.S1)
 
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # recalibrates the gyro before a run
-def reset_gyro(threadKey):
+def reset_gyro(stop,threadKey):
     # log the function starting 
     print("In reset_gyro", file=stderr)
 
@@ -34,14 +34,24 @@ def reset_gyro(threadKey):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
     
-    # recalibrates the gyro angle by switching between modes
+    # recalibrates the gyro angle by switching between modes 
     time.sleep(0.3)
+    gyro.speed()
     gyro.reset_angle(0)
     time.sleep(0.3)
 
     # print the current gyro reading to check for gyro creep
-    current_gyro_reading = gyro.angle()
-    print(current_gyro_reading, file = stderr)
+    while True:
+        current_gyro_reading = gyro.angle()
+        print(current_gyro_reading, file = stderr)
+        time.sleep(0.3)
+        gyro.speed()
+        gyro.reset_angle(0)
+        time.sleep(0.3)
+        if int(current_gyro_reading) == 0:
+            break
+        if stop():
+            break
 
     # log leaving the function
     print('Leaving reset_gyro', file=stderr)

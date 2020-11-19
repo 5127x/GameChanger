@@ -27,7 +27,6 @@ from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
 from Functions_Completed.recalibrate_gyro import recalibrate_gyro
 from Functions_Completed.steering_rotations import steering_rotations
-from Functions_Completed.square_onLine import square_onLine
 from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
 from play_sound import play_sound
@@ -39,9 +38,10 @@ panel = Motor(Port.D)
 print("Motors Connected", file = stderr)
 
 # define the different sensors
-gyro = GyroSensor(Port.S1)
+gyro = GyroSensor(Port.S4)
+colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
+colourkey = ColorSensor(Port.S1)
 print("Sensors Connected", file = stderr)
 
 # define the brick
@@ -53,7 +53,7 @@ battery_percent = round(current_battery/9)
 print("Current Battery Percent: {}%".format(battery_percent/10),file = stderr)
 print("")
 
-ev3.speaker.set_volume(400, which = '_all_')
+ev3.speaker.set_volume(100, which = '_all_')
 
 
 # check if the key has been removed from the robot
@@ -75,6 +75,7 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert white')
     print('Insert white')
     ev3.screen.print('Insert white')
+    ev3.speaker.play_file(SoundFile.WHITE)
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             white = colourkey.rgb()
@@ -87,6 +88,7 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert yellow')
     print('Insert yellow')
     ev3.screen.print('Insert yellow')
+    ev3.speaker.play_file(SoundFile.YELLOW)
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             yellow = colourkey.rgb()
@@ -98,6 +100,7 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert red')
     print('Insert red')
     ev3.screen.print('Insert red')
+    ev3.speaker.play_file(SoundFile.RED)
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             red = colourkey.rgb()
@@ -109,6 +112,7 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert blue')
     print('Insert blue')
     ev3.screen.print('Insert blue')
+    ev3.speaker.play_file(SoundFile.BLUE)
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             blue = colourkey.rgb()
@@ -120,6 +124,7 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert green')
     print('Insert green')
     ev3.screen.print('Insert green')
+    ev3.speaker.play_file(SoundFile.GREEN)
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             green = colourkey.rgb()
@@ -134,14 +139,14 @@ def colourAttachment_values():
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             black = colourkey.rgb()
-            print('Finished!')
-            ev3.screen.print('Finshed')
-            ev3.speaker.say('Finished')
+            ev3.speaker.play_file(SoundFile.BLACK)
             break
 
+    print('Finished!')
+    ev3.screen.print('Finshed')
+    ev3.speaker.play_file(SoundFile.GO)
+    time.sleep(1)
     print("")
-
-
 
     # return the values for the different keys 
     attachment_values = [white, yellow, red, blue, green, black]
@@ -261,14 +266,6 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    # theoretically squares up on a black line (currently unused)
-    if name == 'square_onLine': # parameters (stop, speed, target)
-        print("Starting square_onLine", file=stderr)
-        speed = float(action['speed'])
-        target = float(action['target'])
-        thread = threading.Thread(target=square_onLine, args=(stop, speed, target))
-        thread.start()
-        return thread
 
     # recalibrates the gyro 
     if name == 'recalibrate_gyro': # parameters (stop, threadKey)
@@ -280,7 +277,7 @@ def launchStep(stop, threadKey, action):
     # resets the gyro before a run
     if name == 'reset_gyro': # parameters (threadKey)
         print("Starting reset_gyro", file=stderr)
-        thread = threading.Thread(target=reset_gyro, args=(threadKey,))
+        thread = threading.Thread(target=reset_gyro, args=(stop,threadKey,))
         thread.start()
         return thread
 
