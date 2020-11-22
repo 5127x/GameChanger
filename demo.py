@@ -20,7 +20,7 @@ print("Sensors Connected", file = stderr)
 
 
 ev3 = EV3Brick()
-
+'''
 #test for gyro creep
 while True:
     time.sleep(0.5)
@@ -28,7 +28,7 @@ while True:
     print(rli, file=stderr)
 
 time.sleep(5)
-
+'''
 
 x=False 
 '''
@@ -36,6 +36,15 @@ while True:
     print(gyro.angle())
     waiting(lambda:x, 0, 0.5)
 '''
+
+rgbRed = colourkey.rgb()
+print("red", file=stderr)
+time.sleep(3)
+rgbEmpty = colourkey.rgb()
+print("done")
+
+print(rgbRed, file=stderr)
+print(rgbEmpty, file=stderr)
 
 '''
 rgbWhite = colourkey.rgb()

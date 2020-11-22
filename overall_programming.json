@@ -3,6 +3,5 @@
     {"name": "Run2", "fileName" : "Run_2.json", "colourValue" : "1"}, 
     {"name": "Run3", "fileName" : "Run_3.json", "colourValue" : "2"},
     {"name": "Run4", "fileName" : "Run_4.json", "colourValue" : "3"},
-    {"name": "Run5", "fileName" : "Run_5.json", "colourValue" : "4"},
-    {"name": "Run6", "fileName" : "Run_6.json", "colourValue" : "5"}
+    {"name": "Run5", "fileName" : "Run_5.json", "colourValue" : "4"}
   ]}
