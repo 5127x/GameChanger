@@ -36,26 +36,31 @@ def recalibrate_gyro(stop, threadKey):
         is_complete = int(os.environ['IS_COMPLETE'])
 
     # loop until the gyro is reset properly 
-    while True: 
-        time.sleep(0.5)
+    while True:
+        calibrationSuccess = false
         gyro.speed()
         gyro.angle()
-        gyro.reset_angle(0)
-        time.sleep(1.7)
-        
-        current_gyro_reading = gyro.angle()
-        print(current_gyro_reading, file = stderr)
+        retries = 12 #After resetting the gyro, we will see if it has stabilised 12 times.  If not, we will reset the gyro again. 
+        prev_gyro_reading = gyro.angle()  # Initial reading.  We will compare it over time to see if it is changing
+        print(prev_gyro_reading, file = stderr)
 
-        time.sleep(0.3) #new bit
-        x = gyro.angle() #new bit
-
-        # check if the gyro has reset properly
-        if int(current_gyro_reading) == 0 and x == 0: #new bit
-            print('gyro reads 0')
-            break
-        
-        # check if 'stopProcessing' flag has been raised 
-        if stop():
+        while retries > 0:         
+           time.sleep(0.3)      # not sure how long this should be: Worst case its 12 x 0.3 seconds or 3.6 seconds before it does the whole thing again
+           retries = retries - 1
+           current_gyro_reading = gyro.angle()
+           print(current_gyro_reading, file = stderr)
+           # check if the gyro has reset properly
+           # << I am not sure if we should use `int()` (which converts to an integer) or `round()` (which can round to a specified number of decimal places).  
+           # If you use `int()` it may not be accurate enough and cause the gyro to appear stable even if it is not.  
+           # What values does `gyro.angle()` return?  If there are many decimal places then rounding to one or two decimal places might make better sense.
+           if round(prev_gyro_reading, 1) == round(current_gyro_reading, 1): 
+               print('gyro has stabilised')
+               calibrationSuccess = true
+               break
+        # Did the gyro reset correctly?
+        if calibrationSuccess:
+            # Now that the sensor has calibrated to a stable vale, reset it so that the current direction is considered 0.
+            gyro.reset_angle(0) 
             break
 
     # log leaving the function
