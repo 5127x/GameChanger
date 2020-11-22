@@ -26,7 +26,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 # 
 def gyro_turn_to_target(stop, threadKey, speed, degrees):
-    # log the function starting 
+    # log the function starting s
     print("In gyro_turn_to_target", file=stderr)
 
     # read the environment variable 'is_complete'
@@ -45,6 +45,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
         # loop until facing the correct angle 
         while current_gyro_reading < degrees:
+            #print(current_gyro_reading, file=stderr)
             # read the current degress heading 
             current_gyro_reading = gyro.angle()
 
@@ -64,6 +65,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
         # loop until the robot has turned far enough 
         while current_gyro_reading > degrees:
+            #print(current_gyro_reading, file=stderr)
             # read the current degrees heading                
             current_gyro_reading = gyro.angle()
 
