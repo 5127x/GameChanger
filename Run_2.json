@@ -3,8 +3,8 @@
 
     
     {"step": "gyro_turn_to_target", "speed": "105", "degrees":"60"},
-    {"step": "gyro_target", "speed": "180", "rotations":"3", "target": "58", "correction": ".8"},
-    {"step": "gyro_current", "speed": "100", "rotations":"1", "correction": ".8"},
+    {"step": "gyro_target", "speed": "180", "rotations":"3", "target": "52", "correction": ".8"},
+    {"step": "gyro_current", "speed": "100", "rotations":"1.4", "correction": ".8"},
 
     {"step": "steering_rotations", "speed": "-150", "rotations":"1.2", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "150", "degrees":"-90"},
