@@ -62,7 +62,7 @@ def isKeyTaken(rProgram, gProgram, bProgram):
     rbgA = colourkey.rgb()
     # compare the current reading to the values shown when the key is inserted
     # rgb values are (12, 19, 27) when the slot is empty
-    return abs(rbgA[0] - rProgram) > 4 and abs(rbgA[1] - gProgram) > 4 and abs(rbgA[2] - bProgram) > 4 
+    return abs(rbgA[0] - rProgram) > 5 and abs(rbgA[1] - gProgram) > 5 and abs(rbgA[2] - bProgram) > 5 
 
 # calibrate the sensor's values for the different keys
 def colourAttachment_values(): 
@@ -71,7 +71,7 @@ def colourAttachment_values():
 
     # print instructions and collect the rgb values for each key
 
-    #INSERT WHITE
+    # collect the white value 
     #ev3.speaker.say('Insert white')
     print('Insert white')
     ev3.screen.print('Insert white')
@@ -80,11 +80,10 @@ def colourAttachment_values():
         if Button.CENTER in ev3.buttons.pressed():
             white = colourkey.rgb()
             break
-    
+    # wait a bit before the next key 
     time.sleep(.5)
 
-
-    #INSERT YELLOW
+    # collect the yellow value 
     #ev3.speaker.say('Insert yellow')
     print('Insert yellow')
     ev3.screen.print('Insert yellow')
@@ -93,11 +92,11 @@ def colourAttachment_values():
         if Button.CENTER in ev3.buttons.pressed():
             yellow = colourkey.rgb()
             break
-
+    # wait a bit before the next key 
     time.sleep(.5)
 
-    #INSERT RED AND TAKE VAL
-    #ev3.speaker.say('Insert red')
+    # collect the red value 
+    # #ev3.speaker.say('Insert red')
     print('Insert red')
     ev3.screen.print('Insert red')
     ev3.speaker.play_file(SoundFile.RED)
@@ -105,10 +104,10 @@ def colourAttachment_values():
         if Button.CENTER in ev3.buttons.pressed():
             red = colourkey.rgb()
             break
-
+    # wait a bit before the next key 
     time.sleep(.5)
 
-    #INSERT BLUE AND TAKE VAL
+    # collect the blue value 
     #ev3.speaker.say('Insert blue')
     print('Insert blue')
     ev3.screen.print('Insert blue')
@@ -117,10 +116,10 @@ def colourAttachment_values():
         if Button.CENTER in ev3.buttons.pressed():
             blue = colourkey.rgb()
             break
-
+    # wait a bit before the next key 
     time.sleep(.5)
 
-    #INSERT GREEN AND TAKE VAL
+    # collect the green value 
     #ev3.speaker.say('Insert green')
     print('Insert green')
     ev3.screen.print('Insert green')
@@ -129,7 +128,7 @@ def colourAttachment_values():
         if Button.CENTER in ev3.buttons.pressed():
             green = colourkey.rgb()
             break
-
+    # wait a bit before the next key 
     time.sleep(.5)
 
     print('Finished!')
@@ -147,12 +146,14 @@ def launchStep(stop, threadKey, action):
     # collect the name of the function from the information passed in 
     name = action["step"]
 
-    # example of the code used in the function
-    ''' if name == '': # (list of variables)
+    # example of the code used to start a function
+    ''' 
+    if name == '': # (list of variables)
         print(name, file=stderr)
         thread = threading.Thread(target=, args=(stop, threadKey, variables))
         thread.start()
-        return thread '''
+        return thread 
+    '''
 
     # turns all the motors off without using brakes
     if name == 'off': # parameters ()
@@ -363,6 +364,7 @@ def main():
             # reset stopProcessing each repetition
             stopProcessing = False
 
+            # reset variables for a new run 
             threadPool = {}
             is_complete = 0
             os.environ['IS_COMPLETE'] = str(is_complete)

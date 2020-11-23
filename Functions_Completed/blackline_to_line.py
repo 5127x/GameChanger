@@ -104,7 +104,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 left_RLI = colourLeft.reflection()
 
                 # check if there is a black line 
-                if right_RLI <= 15:
+                if right_RLI <= 12:
                     break
 
                 # calculate the error 
@@ -129,7 +129,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 left_RLI = colourLeft.reflection()
 
                 # check if there is a black line 
-                if right_RLI <= 15:
+                if right_RLI <= 12:
                     break
 
                 # calculate the error
