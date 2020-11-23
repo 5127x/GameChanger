@@ -35,8 +35,17 @@ def reset_gyro(stop, threadKey):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    repeat = True
+    x = gyro.angle()
+    time.sleep(0.25)
+    y = gyro.angle()
+    if x == y:
+        gyro.reset_angle(0)
+        repeat = False
+
+
     # loop until the gyro is reset properly 
-    while True:
+    while repeat:
         calibrationSuccess = False
         gyro.speed()
         gyro.angle()
