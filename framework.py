@@ -95,14 +95,14 @@ def colourAttachment_values():
     # wait a bit before the next key 
     time.sleep(.5)
 
-    # collect the red value 
-    # #ev3.speaker.say('Insert red')
-    print('Insert red')
-    ev3.screen.print('Insert red')
-    ev3.speaker.play_file(SoundFile.RED)
+    # collect the black value 
+    # #ev3.speaker.say('Insert black')
+    print('Insert black')
+    ev3.screen.print('Insert black')
+    ev3.speaker.play_file(SoundFile.BLACK)
     while True:
         if Button.CENTER in ev3.buttons.pressed():
-            red = colourkey.rgb()
+            black = colourkey.rgb()
             break
     # wait a bit before the next key 
     time.sleep(.5)
@@ -138,7 +138,7 @@ def colourAttachment_values():
     print("")
 
     # return the values for the different keys 
-    attachment_values = [white, yellow, red, blue, green]
+    attachment_values = [white, yellow, black, blue, green]
     return attachment_values
 
 # launch actions using threads
