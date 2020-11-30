@@ -35,7 +35,7 @@ def reset_gyro(stop, threadKey):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    '''
+
     repeat = True
     x = gyro.angle()
     time.sleep(0.25)
@@ -44,8 +44,8 @@ def reset_gyro(stop, threadKey):
         gyro.reset_angle(0)
         repeat = False
         print("Completed first test w/ an A+")
-    '''
-    repeat = True
+
+    #repeat = True
 
 
     # loop until the gyro is reset properly 

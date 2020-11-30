@@ -22,6 +22,7 @@
 
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"75"},
     {"step": "gyro_current", "speed": "180", "rotations":"1.2", "correction": ".8"},
+    {"step": "gyro_turn_to_target", "speed": "180", "degrees":"180"},
     {"step": "motor_onForSeconds","motor": "panel", "seconds":"30", "speed": "300"},
 
     {"step": "do_nothing"}
