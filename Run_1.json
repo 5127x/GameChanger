@@ -1,7 +1,9 @@
 {"steps": [
+    {"step": "reset_gyro"},
     {"step": "steering_rotations", "speed": "300", "rotations":"6", "steering": "0"},
 
-    {"step": "steering_rotations", "speed": "-600", "rotations":"7", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-200", "rotations":"2", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "100", "degrees":"-90"},
     {"step": "do_nothing"}
 
 

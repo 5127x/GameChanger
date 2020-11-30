@@ -12,10 +12,10 @@ largeMotor_Left = Motor(Port.C)
 panel = Motor(Port.D)
 print("Motors Connected", file = stderr)
 
-gyro = GyroSensor(Port.S1)
+gyro = GyroSensor(Port.S4)
 colourRight = ColorSensor(Port.S2)
 colourLeft = ColorSensor(Port.S3)
-colourkey = ColorSensor(Port.S4)
+colourkey = ColorSensor(Port.S1)
 print("Sensors Connected", file = stderr)
 
 
@@ -178,4 +178,5 @@ def colourAttachment_values():
     return attachment_values
 
 
-colourAttachment_values()
+thingie = colourAttachment_values()
+print(thingie)

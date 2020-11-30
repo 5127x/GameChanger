@@ -57,7 +57,7 @@ ev3.speaker.set_volume(100, which = '_all_')
 
 
 # check if the key has been removed from the robot
-def isKeyTaken(rProgram, gProgram, bProgram): 
+def isKeyTaken(rProgram, gProgram, bProgram):  
     # read the colourkey sensor 
     rbgA = colourkey.rgb()
     # compare the current reading to the values shown when the key is inserted

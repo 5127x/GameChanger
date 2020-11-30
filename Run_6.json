@@ -1,4 +1,0 @@
-{"steps": [
-    {"step": "recalibrate_gyro"},
-    {"step":"do_nothing"}
-]}
