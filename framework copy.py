@@ -57,7 +57,7 @@ ev3.speaker.set_volume(100, which = '_all_')
 
 
 # check if the key has been removed from the robot
-def isKeyTaken(rProgram, gProgram, bProgram):  
+def isKeyTaken(rProgram, gProgram, bProgram): 
     # read the colourkey sensor 
     rbgA = colourkey.rgb()
     # compare the current reading to the values shown when the key is inserted
@@ -68,77 +68,144 @@ def isKeyTaken(rProgram, gProgram, bProgram):
 def colourAttachment_values(): 
     # set a larger font 
     os.system('setfont Lat15-TerminusBold14') # os.system('setfont Lat15-TerminusBold32x16')  
-
-    # print instructions and collect the rgb values for each key
-
-    # collect the white value 
-    #ev3.speaker.say('Insert white')
-    print('Insert white')
-    ev3.screen.print('Insert white')
-    ev3.speaker.play_file(SoundFile.WHITE)
+    
+    print("down to use old values, enter to use new ones")
     while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            white = colourkey.rgb()
+        if Button.DOWN in ev3.buttons.pressed():
+            ValueFile = open("ValueFile.txt","r")
+
+            Vwhite = ValueFile.readline()
+            Vyellow = ValueFile.readline()
+            Vred = ValueFile.readline()
+            Vblue = ValueFile.readline()
+            Vgreen = ValueFile.readline()
+
+            ValueFile.close()
+
+            l = Vwhite.split(",")
+            white = []
+            for i in l:
+                white.append(int(i))
+
+            l = Vyellow.split(",")
+            yellow = []
+            for i in l:
+                yellow.append(int(i))
+
+            l = Vred.split(",")
+            red = []
+            for i in l:
+                red.append(int(i))
+
+            l = Vblue.split(",")
+            blue = []
+            for i in l:
+                blue.append(int(i))
+
+            l = Vgreen.split(",")
+            green = []
+            for i in l:
+                green.append(int(i))
             break
-    # wait a bit before the next key 
-    time.sleep(.5)
 
-    # collect the yellow value 
-    #ev3.speaker.say('Insert yellow')
-    print('Insert yellow')
-    ev3.screen.print('Insert yellow')
-    ev3.speaker.play_file(SoundFile.YELLOW)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            yellow = colourkey.rgb()
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
+        elif Button.CENTER in ev3.buttons.pressed():
+            time.sleep(.5)
 
-    # collect the black value 
-    # #ev3.speaker.say('Insert black')
-    print('Insert black')
-    ev3.screen.print('Insert black')
-    ev3.speaker.play_file(SoundFile.BLACK)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            black = colourkey.rgb()
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
+            # collect the white value 
+            print('Insert white')
+            ev3.screen.print('Insert white')
+            while True:
+                if Button.CENTER in ev3.buttons.pressed():
+                    white = colourkey.rgb()
+                    break
+            # wait a bit before the next key 
+            time.sleep(.5)
 
-    # collect the blue value 
-    #ev3.speaker.say('Insert blue')
-    print('Insert blue')
-    ev3.screen.print('Insert blue')
-    ev3.speaker.play_file(SoundFile.BLUE)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            blue = colourkey.rgb()
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
+            # collect the yellow value 
+            print('Insert yellow')
+            ev3.screen.print('Insert yellow')
+            while True:
+                if Button.CENTER in ev3.buttons.pressed():
+                    yellow = colourkey.rgb()
+                    break
+            # wait a bit before the next key 
+            time.sleep(.5)
 
-    # collect the green value 
-    #ev3.speaker.say('Insert green')
-    print('Insert green')
-    ev3.screen.print('Insert green')
-    ev3.speaker.play_file(SoundFile.GREEN)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            green = colourkey.rgb()
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
+            # collect the red value 
+            print('Insert red')
+            ev3.screen.print('Insert red')
+            while True:
+                if Button.CENTER in ev3.buttons.pressed():
+                    red = colourkey.rgb()
+                    break
+            # wait a bit before the next key 
+            time.sleep(.5)
 
-    print('Finished!')
-    ev3.screen.print('Finshed')
-    ev3.speaker.play_file(SoundFile.GO)
-    time.sleep(1)
-    print("")
+            # collect the blue value 
+            print('Insert blue')
+            ev3.screen.print('Insert blue')
+            while True:
+                if Button.CENTER in ev3.buttons.pressed():
+                    blue = colourkey.rgb()
+                    break
+            # wait a bit before the next key 
+            time.sleep(.5)
 
-    # return the values for the different keys 
-    attachment_values = [white, yellow, black, blue, green]
+            # collect the green value 
+            print('Insert green')
+            ev3.screen.print('Insert green')
+            while True:
+                if Button.CENTER in ev3.buttons.pressed():
+                    green = colourkey.rgb()
+                    break
+            
+            # finished 
+            print('Finished!')
+            ev3.screen.print('Finshed')
+            time.sleep(1)
+            print("")
+
+            # return the values for the different keys
+            
+            ValueFile = open("ValueFile.txt","w")
+            ValueFile.write(str(white[0])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(white[1])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(white[2])) 
+            ValueFile.write("\n")
+
+            ValueFile.write(str(yellow[0])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(yellow[1])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(yellow[2]))  
+            ValueFile.write("\n")
+
+            ValueFile.write(str(red[0])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(red[1])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(red[2])) 
+            ValueFile.write("\n")
+            
+            ValueFile.write(str(blue[0])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(blue[1])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(blue[2])) 
+            ValueFile.write("\n")
+
+            ValueFile.write(str(green[0])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(green[1])) 
+            ValueFile.write(", ")
+            ValueFile.write(str(green[2])) 
+
+            ValueFile.close()
+            break 
+    attachment_values = [white, yellow, red, blue, green]
+    print("keys all added")
     return attachment_values
 
 # launch actions using threads
@@ -353,6 +420,13 @@ def main():
 
     # collect the values of the coloured keys 
     attachment_values = colourAttachment_values()
+    
+    # reset gyro 
+    print("press enter to reset gyro once it's on table")
+    while True:
+        if Button.CENTER in ev3.buttons.pressed():
+            reset_gyro(lambda: False, -1)
+            break
 
     # open and read the overall JSON file 
     with open('overall_programming.json') as f:
