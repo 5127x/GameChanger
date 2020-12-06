@@ -38,7 +38,7 @@ def reset_gyro(stop, threadKey):
 
     repeat = True
     x = gyro.angle()
-    time.sleep(0.25)
+    time.sleep(.5)
     y = gyro.angle()
     if x == y:
         gyro.reset_angle(0)
@@ -47,7 +47,8 @@ def reset_gyro(stop, threadKey):
 
     #repeat = True
 
-
+    print("current gyro val", gyro.angle(), file=stderr)
+    
     # loop until the gyro is reset properly 
     while repeat:
         calibrationSuccess = False
@@ -75,6 +76,7 @@ def reset_gyro(stop, threadKey):
             # Now that the sensor has calibrated to a stable vale, reset it so that the current direction is considered 0.
             gyro.reset_angle(0) 
             break
+
 
     # log leaving the function
     ev3.speaker.play_file(SoundFile.READY)
