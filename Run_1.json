@@ -1,23 +1,23 @@
 {"steps": [
     {"step": "reset_gyro"},
-    {"step": "steering_rotations", "speed": "450", "rotations":"6", "steering": "0"},
+    {"step": "steering_rotations", "speed": "600", "rotations":"6", "steering": "0"},
 
     {"step": "motor_onForSeconds", "motor": "panel", "seconds":".25", "speed": "200"},
-    {"step": "steering_rotations", "speed": "-250", "rotations":"1", "steering": "0"},
-    {"step": "steering_rotations", "speed": "150", "rotations":"2", "steering": "-50"},
+    {"step": "steering_rotations", "speed": "-300", "rotations":"1", "steering": "0"},
+    {"step": "steering_rotations", "speed": "170", "rotations":"2", "steering": "-50"},
 
     {"step": "gyro_turn_to_target", "speed": "30", "degrees":"0"},
-    {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":".8"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"40"},
-    {"step": "steering_rotations", "speed": "200", "rotations":".25", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
-    {"step": "steering_rotations", "speed": "100", "rotations":".3", "steering": "0"},
+    {"step": "blackline_to_line", "speed": "150", "sensor":"RIGHT", "lineSide":"RIGHT", "correction":".9"},
+    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"40"},
+    {"step": "steering_rotations", "speed": "220", "rotations":".25", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"0"},
+    {"step": "steering_rotations", "speed": "120", "rotations":".3", "steering": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "seconds":"3.5", "speed": "-100"},
 
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-90"},
-    {"step": "steering_rotations", "speed": "300", "rotations":"2", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-135"},
-    {"step": "steering_rotations", "speed": "400", "rotations":"5", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-90"},
+    {"step": "steering_rotations", "speed": "420", "rotations":"2", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-135"},
+    {"step": "steering_rotations", "speed": "600", "rotations":"5", "steering": "0"},
 
     {"step": "do_nothing"}
 
