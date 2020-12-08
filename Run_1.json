@@ -17,7 +17,7 @@
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-90"},
     {"step": "steering_rotations", "speed": "300", "rotations":"2", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-135"},
-    {"step": "steering_rotations", "speed": "400", "rotations":"5", "steering": "0"}
+    {"step": "steering_rotations", "speed": "400", "rotations":"5", "steering": "0"},
 
     {"step": "do_nothing"}
 

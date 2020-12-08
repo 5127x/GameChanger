@@ -52,6 +52,10 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
             # check if the robot has turned far enough
             if current_gyro_reading >= degrees:
+                largeMotor_Left.run(speed=-speed/2)
+                largeMotor_Right.run(speed=speed/2)
+
+            if current_gyro_reading == degrees:
                 break
 
             # check if the 'stopProcessing' flag has been raised 
@@ -72,6 +76,9 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
             # check if the robot had turned far enough 
             if current_gyro_reading <= degrees:
+                largeMotor_Left.run(speed=speed/2)
+                largeMotor_Right.run(speed=-speed/2)
+            if current_gyro_reading == degrees:
                 break
 
             # check if the 'stopProcessing' flag has been raised 

@@ -1,17 +1,20 @@
 {"steps": [
     {"step": "reset_gyro"},
     {"step": "gyro_target", "speed": "200", "rotations":"1.25", "target": "0", "correction": ".8"},
-    {"step": "gyro_turn_to_target", "speed": "50", "degrees":"57"},
-    {"step": "gyro_target", "speed": "300", "rotations":"3", "target": "55", "correction": ".9"},
-    {"step": "gyro_target", "speed": "250", "rotations":"2", "target": "43", "correction": ".8"},
+    {"step": "gyro_turn_to_target", "speed": "50", "degrees":"47"},
+    {"step": "gyro_turn_to_target", "speed": "40", "degrees":"50"},
+    {"step": "gyro_target", "speed": "300", "rotations":"3", "target": "50", "correction": ".9"},
+    {"step": "gyro_target", "speed": "250", "rotations":"2", "target": "52", "correction": ".8"},
+
+    {"step": "motor_onForSeconds", "motor": "panel", "seconds":"1", "speed": "70"},
     {"step": "steering_rotations", "speed": "-280", "rotations":".35", "steering": "0"},
 
-    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-35.5"},
-    {"step": "steering_rotations", "speed": "300", "rotations":".06", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-25"},
+    {"step": "steering_rotations", "speed": "300", "rotations":".1", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "120", "degrees":"-115"},
 
-    {"step": "gyro_current", "speed": "220", "rotations":"1", "correction": ".8"},
-    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-85"},
+    {"step": "gyro_current", "speed": "220", "rotations":"1.2", "correction": ".8"},
+    {"step": "gyro_turn_to_target", "speed": "90", "degrees":"-77"},
     {"step": "gyro_current", "speed": "400", "rotations":"3.5", "correction": ".8"},
     {"step": "do_nothing"}
 ]}
