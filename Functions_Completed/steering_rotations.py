@@ -29,6 +29,8 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
     # log starting the function
     print("In Steering_rotations", file=stderr)
 
+    print("current gyro val", gyro.angle(), file=stderr)
+
     # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:

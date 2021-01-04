@@ -26,9 +26,9 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 
 # 
 def gyro_turn_to_target(stop, threadKey, speed, degrees):
-    # log the function starting s
-    print("In gyro_turn_to_target", file=stderr)
-
+    
+    # log the function starting 
+    print(degrees, file=stderr)
     # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
@@ -36,6 +36,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
     # read the current degrees heading 
     current_gyro_reading = gyro.angle()
+    #print("current val", current_gyro_reading, file=stderr)
     
     # if facing to the left of the target
     if current_gyro_reading < degrees:
@@ -51,6 +52,10 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
             # check if the robot has turned far enough
             if current_gyro_reading >= degrees:
+                largeMotor_Left.run(speed=-speed/2)
+                largeMotor_Right.run(speed=speed/2)
+
+            if current_gyro_reading == degrees:
                 break
 
             # check if the 'stopProcessing' flag has been raised 
@@ -65,12 +70,15 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
         # loop until the robot has turned far enough 
         while current_gyro_reading > degrees:
-            #print(current_gyro_reading, file=stderr)
+            print(current_gyro_reading, file=stderr)
             # read the current degrees heading                
             current_gyro_reading = gyro.angle()
 
             # check if the robot had turned far enough 
             if current_gyro_reading <= degrees:
+                largeMotor_Left.run(speed=speed/2)
+                largeMotor_Right.run(speed=-speed/2)
+            if current_gyro_reading == degrees:
                 break
 
             # check if the 'stopProcessing' flag has been raised 

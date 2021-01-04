@@ -30,7 +30,6 @@ from Functions_Completed.motor_onForSeconds import motor_onForSeconds
 from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
 from Functions_Completed.steering_rotations import steering_rotations
-from Functions_Completed.square_onLine import square_onLine
 from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
 from play_sound import play_sound
@@ -209,15 +208,6 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    if name == 'square_onLine': # (stop, speed, target)
-        print("Starting square_onLine", file=stderr)
-        speed = float(action['speed'])
-        target = float(action['target'])
-        thread = threading.Thread(target=square_onLine, args=(stop, speed, target))
-        thread.start()
-        return thread
-    
-
     if name == 'steering_rotations': # (stop, speed, rotations, steering)
         print("Starting Steering_rotations", file=stderr)
         speed = float(action['speed'])
@@ -255,7 +245,7 @@ def main():
     threadKey = 1
     
     # collect the raw rgcb light values from colourAttachment and the overall XML file
-    with open('Run_2.json') as f:
+    with open('Run_3.json') as f:
         parsed = ujson.load(f)
         steps = parsed["steps"]
         # run each step individually unless they are run in parallel
