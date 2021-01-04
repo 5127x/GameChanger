@@ -71,43 +71,51 @@ def colourAttachment_values():
     
     print("down to use old values, enter to use new ones")
     while True:
+        # if the down button is pressed then use the previously set values for the colour keys 
         if Button.DOWN in ev3.buttons.pressed():
+            # open and read the file on the brick containing the key values
             ValueFile = open("ValueFile.txt","r")
-
+            # read each value 
             Vwhite = ValueFile.readline()
             Vyellow = ValueFile.readline()
             Vred = ValueFile.readline()
             Vblue = ValueFile.readline()
             Vgreen = ValueFile.readline()
-
+            # close the file when finished 
             ValueFile.close()
 
+            # split out the white values and organise them into the same format as integers
             l = Vwhite.split(",")
             white = []
             for i in l:
                 white.append(int(i))
 
+            # split out the yellow values and organise them into the same format as integers
             l = Vyellow.split(",")
             yellow = []
             for i in l:
                 yellow.append(int(i))
 
+            # split out the red values and organise them into the same format as integers
             l = Vred.split(",")
             red = []
             for i in l:
                 red.append(int(i))
 
+            # split out the blue values and organise them into the same format as integers
             l = Vblue.split(",")
             blue = []
             for i in l:
                 blue.append(int(i))
 
+            # split out the green values and organise them into the same format as integers
             l = Vgreen.split(",")
             green = []
             for i in l:
                 green.append(int(i))
             break
-
+        
+        # if the center button is pressed then set new values for each of the keys 
         elif Button.CENTER in ev3.buttons.pressed():
             time.sleep(.5)
 
@@ -165,9 +173,9 @@ def colourAttachment_values():
             time.sleep(1)
             print("")
 
-            # return the values for the different keys
-            
+            # open and clear the file on the brick containing the key values
             ValueFile = open("ValueFile.txt","w")
+            # write in the white values
             ValueFile.write(str(white[0])) 
             ValueFile.write(", ")
             ValueFile.write(str(white[1])) 
@@ -175,6 +183,7 @@ def colourAttachment_values():
             ValueFile.write(str(white[2])) 
             ValueFile.write("\n")
 
+            # write in the yellow values
             ValueFile.write(str(yellow[0])) 
             ValueFile.write(", ")
             ValueFile.write(str(yellow[1])) 
@@ -182,6 +191,7 @@ def colourAttachment_values():
             ValueFile.write(str(yellow[2]))  
             ValueFile.write("\n")
 
+            # write in the red values 
             ValueFile.write(str(red[0])) 
             ValueFile.write(", ")
             ValueFile.write(str(red[1])) 
@@ -189,6 +199,7 @@ def colourAttachment_values():
             ValueFile.write(str(red[2])) 
             ValueFile.write("\n")
             
+            # write in the blue values
             ValueFile.write(str(blue[0])) 
             ValueFile.write(", ")
             ValueFile.write(str(blue[1])) 
@@ -196,14 +207,18 @@ def colourAttachment_values():
             ValueFile.write(str(blue[2])) 
             ValueFile.write("\n")
 
+            # write in the green values
             ValueFile.write(str(green[0])) 
             ValueFile.write(", ")
             ValueFile.write(str(green[1])) 
             ValueFile.write(", ")
             ValueFile.write(str(green[2])) 
 
+            # close the file when finished
             ValueFile.close()
             break 
+
+    # return the key values ready to use in the framework
     attachment_values = [white, yellow, red, blue, green]
     print("keys all added")
     return attachment_values
