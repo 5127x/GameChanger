@@ -50,12 +50,15 @@ while checkGyro:
 print("remained at {} for {} secs after reset".format(g, sec))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# test if the gyro only creeps when first being moved 
+# wait for confirmation
+sec = 0
 print("turn the robot")
-while True:
+while checkGyro:
     if Button.CENTER in ev3.buttons.pressed():
         time.sleep(2)
         break
+
+# test if the gyro only creeps when first being moved 
 cur = gyro.angle()
 while checkGyro:
     time.sleep(1)

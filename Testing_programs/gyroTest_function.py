@@ -9,7 +9,9 @@ import os
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 """
-Function used in testing 
+Functions used in testing:
+- calibrate function w/ before and after
+- threading calibrate function w/ before and after
 """
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def idk():
@@ -20,6 +22,7 @@ def idk():
     y = gyro.angle()
     print("idk before and after: {}, {}".format(x,y))
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def idkThread(threadKey):
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
@@ -35,3 +38,4 @@ def idkThread(threadKey):
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
