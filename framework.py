@@ -25,6 +25,7 @@ from Functions_Completed.motor_onForRotations import motor_onForRotations
 from Functions_Completed.motor_onForSeconds import motor_onForSeconds
 from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
+from Functions_Completed.reset_gyro_2 import reset_gyro_2
 from Functions_Completed.recalibrate_gyro import recalibrate_gyro
 from Functions_Completed.steering_rotations import steering_rotations
 from Functions_Completed.steering_seconds import steering_seconds
@@ -270,6 +271,12 @@ def launchStep(stop, threadKey, action):
     if name == 'reset_gyro': # parameters (stop, threadKey)
         print("Starting reset_gyro", file=stderr)
         thread = threading.Thread(target=reset_gyro, args=(stop,threadKey))
+        thread.start()
+        return thread
+
+    if name == 'reset_gyro_2': # parameters (stop, threadKey)
+        print("Starting reset_gyro 2", file=stderr)
+        thread = threading.Thread(target=reset_gyro_2, args=(stop,threadKey))
         thread.start()
         return thread
 
