@@ -11,20 +11,10 @@ ev3 = EV3Brick()
 gyro = GyroSensor(Port.S4)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 """
-Testing that the gyro recalibrates correctly within one file  
+Testing that the gyro recalibrates correctly within one file and outside of a function 
 """
 
-# FINISHED, VARIATIONS CONTINUEING 
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# basic function to recalibrate the gyro 
-def idk():
-    x = gyro.angle()
-    gyro.speed()
-    gyro.angle()
-    #gyro.reset_angle(0) # variation line
-    y = gyro.angle()
-    print("gyro readings immediately before and after recalibration: {}, {}".format(x,y))
+# FINISHED
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # call function when test starts 
@@ -33,7 +23,14 @@ sec = 0
 while True:
     if Button.CENTER in ev3.buttons.pressed():
         time.sleep(1)
-        idk()
+
+        x = gyro.angle()
+        gyro.speed()
+        gyro.angle()
+        #gyro.reset_angle(180) # CHANGE BACK TO 0
+        y = gyro.angle()
+        print("gyro readings immediately before and after recalibration: {}, {}".format(x,y))
+
         checkGyro = True
         time.sleep(2)
         break

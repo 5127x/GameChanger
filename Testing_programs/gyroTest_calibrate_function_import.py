@@ -13,8 +13,11 @@ gyro = GyroSensor(Port.S4)
 """
 Testing that the gyro recalibrates correctly when the recibrate function is imported  
 """
+
+# F
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-from Testing_programs.gyroTest_function import idk
+from gyroTest_function import idk
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # call function when test starts 
@@ -22,6 +25,7 @@ checkGyro = False
 sec = 0
 while True:
     if Button.CENTER in ev3.buttons.pressed():
+        time.sleep(1)
         idk()
         checkGyro = True
         time.sleep(2)
@@ -29,7 +33,10 @@ while True:
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # test if the gyro creeps when not reset 
+time.sleep(3)
+
 cur = gyro.angle()
+print("Gyro angle starting to check values {}".format(cur))
 while checkGyro:
     time.sleep(1)
     g = gyro.angle()
@@ -46,11 +53,15 @@ print("remained at {} for {} secs after reset".format(g, sec))
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # test if the gyro only creeps when first being moved 
 print("turn the robot")
-while True:
+sec = 0
+time.sleep(10)
+"""while True:
     if Button.CENTER in ev3.buttons.pressed():
         time.sleep(2)
-        break
+        break"""
+
 cur = gyro.angle()
+print("Gyro angle starting to check values {}".format(cur))
 while checkGyro:
     time.sleep(1)
     g = gyro.angle()

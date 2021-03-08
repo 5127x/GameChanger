@@ -7,6 +7,8 @@ import threading
 from sys import stderr 
 import os
 
+gyro = GyroSensor(Port.S4)
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 """
 Functions used in testing:
@@ -14,16 +16,18 @@ Functions used in testing:
 - threading calibrate function w/ before and after
 """
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# basic function to recalibrate the gyro 
 def idk():
     x = gyro.angle()
     gyro.speed()
     gyro.angle()
-    gyro.reset_angle(0)
+    #gyro.reset_angle(0) # variation line
     y = gyro.angle()
-    print("idk before and after: {}, {}".format(x,y))
+    print("gyro readings immediately before and after recalibration: {}, {}".format(x,y))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-def idkThread(threadKey):
+'''
+def idkThread(threadKey): # original
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
@@ -31,8 +35,25 @@ def idkThread(threadKey):
     x = gyro.angle()
     gyro.speed()
     gyro.angle()
-    gyro.reset_angle(0)
+    #gyro.reset_angle(0) # variation line 
     y = gyro.angle()
+    print("idk before and after: {}, {}".format(x,y))
+
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
+'''
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def idkThread(threadKey, gyroS): # variation
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    x = gyroS.angle()
+    gyroS.speed()
+    gyroS.angle()
+    #gyroS.reset_angle(0) # variation line 
+    y = gyroS.angle()
     print("idk before and after: {}, {}".format(x,y))
 
     is_complete = threadKey

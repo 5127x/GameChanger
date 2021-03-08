@@ -9,10 +9,14 @@ import os
 
 ev3 = EV3Brick()
 gyro = GyroSensor(Port.S4)
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 """
 test if resetting the gyro actually works 
 """
+
+# FINISHED 
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 while True:
@@ -21,26 +25,26 @@ while True:
 
 g = gyro.angle()
 print("initial gyro reading {}".format(g))
-time.sleep(1)
+time.sleep(5)
 
 gyro.reset_angle(0)
-g = gyro.angle()
+g = gyro.angle() 
 print("reset attempt #1.1 {}".format(g))
-time.sleep(1)
+time.sleep(5)
 g = gyro.angle()
 print("reset attempt #1.2 {}".format(g))
 
 gyro.reset_angle(180)
 g = gyro.angle()
 print("reset attempt random number #1.1 {}".format(g))
-time.sleep(1)
+time.sleep(5)
 g = gyro.angle()
 print("reset attempt random number #1.2 {}".format(g))
 
 gyro.reset_angle(0)
 g = gyro.angle()
 print("reset attempt #2.1 {}".format(g))
-time.sleep(1)
+time.sleep(5)
 g = gyro.angle()
 print("reset attempt #2.2 {}".format(g))
-time.sleep(1)
+time.sleep(5)
