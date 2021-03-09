@@ -35,8 +35,9 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
     # read the current degrees heading and the current motor positions 
-    current_gyro_reading = gyro.angle()
+    current_gyro_reading = gyro.angle() - gyro_reading_env_var
     current_rotations = largeMotor_Left.angle() 
     # create 'target_rotations' for how far the robot should drive in degrees 
     rotations = rotations * 360
@@ -46,7 +47,7 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
     # loop until the robor has driven far enough
     while float(current_rotations) < target_rotations:
         # reading in current degrees heading and current motor positions 
-        current_gyro_reading=gyro.angle()
+        current_gyro_reading=gyro.angle() - gyro_reading_env_var
         current_rotations = largeMotor_Left.angle()
 
         # if facing to the left of the target

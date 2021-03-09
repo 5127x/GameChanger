@@ -4,7 +4,7 @@ from pybricks.ev3devices import ColorSensor, GyroSensor, Motor
 from pybricks.parameters import Port, Button
 from pybricks.media.ev3dev import SoundFile
 
-# basic imports 
+# basic imports
 import ujson
 import threading
 import time
@@ -399,6 +399,10 @@ def main():
                     # read the relevant program JSON file 
                     fileName = program["fileName"]
                     print(fileName, file=stderr)
+
+                    # calculating in the current value
+                    os.environ['gyro_reading_env_var'] = gyro.angle()
+
                     with open(fileName) as f:
                         parsed = ujson.load(f)
                         steps = parsed["steps"]
