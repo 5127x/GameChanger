@@ -1,7 +1,5 @@
 {"steps": [
-    {"step": "reset_gyro_2"},
 
-    
     {"step": "gyro_turn_to_target", "speed": "40", "degrees":"64"},
     {"step": "gyro_target", "speed": "200", "rotations":"3", "target": "53", "correction": "1"},
     {"step": "gyro_current", "speed": "100", "rotations":"1.4", "correction": ".8"},

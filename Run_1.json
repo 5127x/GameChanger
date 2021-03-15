@@ -1,5 +1,4 @@
 {"steps": [
-    {"step": "reset_gyro_2"},
     {"step": "steering_rotations", "speed": "600", "rotations":"6", "steering": "0"},
 
     {"step": "motor_onForSeconds", "motor": "panel", "seconds":".25", "speed": "200"},

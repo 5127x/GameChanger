@@ -386,7 +386,7 @@ def main():
                 programName = program["name"]
                 colourValue = int(program["colourValue"])
                 
-                # use the values in comparison 
+                # reading the colour
                 colourProgram = attachment_values[colourValue]
                 rProgram = colourProgram[0]
                 gProgram = colourProgram[1]
