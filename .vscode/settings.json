@@ -2,7 +2,7 @@
     "python.linting.pylintEnabled": false,
     "python.linting.mypyEnabled": true,
     "python.linting.enabled": true,
-    "python.pythonPath": "c:\\Program Files\\Python374\\python.exe",
+    "python.pythonPath": "/usr/bin/python",
     "files.eol": "\n",
     "ev3devBrowser.download.exclude": "{**/.*,LICENSE,README.md}"
 }

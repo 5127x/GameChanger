@@ -35,8 +35,9 @@ def gyro_target_to_line(stop, threadKey, speed, sensor, target, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
     # read the current degrees heading and the current RLI values
-    current_gyro_reading = gyro.angle()
+    current_gyro_reading = gyro.angle() - gyro_reading_env_var
     if sensor == "RIGHT":
         RLI = colourRight.reflection()
     elif sensor == "LEFT":
@@ -45,7 +46,7 @@ def gyro_target_to_line(stop, threadKey, speed, sensor, target, correction):
     # loop
     while True:
         # read the current degrees heading and the current RLI values
-        current_gyro_reading=gyro.angle()
+        current_gyro_reading=gyro.angle() - gyro_reading_env_var
         if sensor == "RIGHT":
             RLI = colourRight.reflection()
         elif sensor == "LEFT":

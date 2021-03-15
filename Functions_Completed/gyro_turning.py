@@ -33,9 +33,10 @@ def gyro_turning(stop, threadKey, speed, degrees):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
     
+    gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
 
     #read in the current gyro
-    current_gyro_reading = gyro.angle()
+    current_gyro_reading = gyro.angle() - gyro_reading_env_var
     target_degrees = current_gyro_reading + degrees
 
     #_____________If turning Left__________________________________
@@ -49,7 +50,7 @@ def gyro_turning(stop, threadKey, speed, degrees):
         #print(current_gyro_reading,file=stderr)
 
         if target_degrees > current_gyro_reading:
-            current_gyro_reading = gyro.angle()
+            current_gyro_reading = gyro.angle() - gyro_reading_env_var
             if current_gyro_reading == target_degrees:
                 break
             if stop():

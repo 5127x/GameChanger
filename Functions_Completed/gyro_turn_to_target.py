@@ -34,6 +34,8 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
+
     # read the current degrees heading 
     current_gyro_reading = gyro.angle()
     #print("current val", current_gyro_reading, file=stderr)
@@ -48,7 +50,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
         while current_gyro_reading < degrees:
             #print(current_gyro_reading, file=stderr)
             # read the current degress heading 
-            current_gyro_reading = gyro.angle()
+            current_gyro_reading = gyro.angle() - gyro_reading_env_var
 
             # check if the robot has turned far enough
             if current_gyro_reading >= degrees:
@@ -72,7 +74,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
         while current_gyro_reading > degrees:
             #print(current_gyro_reading, file=stderr)
             # read the current degrees heading                
-            current_gyro_reading = gyro.angle()
+            current_gyro_reading = gyro.angle() - gyro_reading_env_var
 
             # check if the robot had turned far enough 
             if current_gyro_reading <= degrees:
