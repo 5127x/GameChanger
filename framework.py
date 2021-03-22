@@ -403,6 +403,7 @@ def main():
 
                     # calculating in the current value
                     os.environ['gyro_reading_env_var'] = gyro.angle()
+                    print("OS Gyro Enviroment Variable read", file = stderr)
 
                     with open(fileName) as f:
                         parsed = ujson.load(f)

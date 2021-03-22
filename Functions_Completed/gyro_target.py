@@ -35,6 +35,7 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    # read the env var into a normal va
     gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
     # read the current degrees heading and the current motor positions 
     current_gyro_reading = gyro.angle() - gyro_reading_env_var
