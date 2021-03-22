@@ -28,6 +28,7 @@ from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
 from Functions_Completed.reset_gyro_2 import reset_gyro_2
 from Functions_Completed.recalibrate_gyro import recalibrate_gyro
+from Functions_Completed.square_on_line import squareOnLine
 from Functions_Completed.steering_rotations import steering_rotations
 from Functions_Completed.steering_seconds import steering_seconds
 from Functions_Completed.waiting import waiting
@@ -237,6 +238,13 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
     
+    if name == 'squareOnLine': # parameters (stop, threadKey, speed, sensor, correction)
+        print("Starting square_on_line", file=stderr)
+        speed = float(action['speed'])
+        thread = threading.Thread(target=gyro_current_to_line, args=(stop, threadKey, speed))
+        thread.start()
+        return thread
+
     # follow a black line for a set number of rotations 
     if name == 'blackline_rotations': # parameters (stop, threadKey, speed, rotations, sensor, lineSide, correction)
         print("Starting blackline_rotations", file=stderr)

@@ -2,6 +2,7 @@
     "python.linting.pylintEnabled": false,
     "python.linting.mypyEnabled": true,
     "python.linting.enabled": true,
+    "python.pythonPath": "/System/Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python",
     "files.eol": "\n",
     "ev3devBrowser.download.exclude": "{**/.*,LICENSE,README.md}"
 }
