@@ -76,15 +76,19 @@ def colourAttachment_values():
 
     # collect the blue value 
     #ev3.speaker.say('Insert blue')
+
+    '''
     print('Insert blue')
     ev3.screen.print('Insert blue')
     ev3.speaker.play_file(SoundFile.BLUE)
-    while True:
+    while True: 
         if Button.CENTER in ev3.buttons.pressed():
             blue = colourkey.rgb()
+            print("{} Blue Value".format (colourkey.rgb()))
             break
     # wait a bit before the next key 
     time.sleep(.5)
+
 
     # collect the yellow value 
     #ev3.speaker.say('Insert yellow')
@@ -94,6 +98,7 @@ def colourAttachment_values():
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             yellow = colourkey.rgb()
+            print("{} Yellow Value".format (colourkey.rgb()))
             break
     # wait a bit before the next key 
     time.sleep(.5)
@@ -106,6 +111,7 @@ def colourAttachment_values():
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             white = colourkey.rgb()
+            print("{} White Value".format (colourkey.rgb()))
             break
     # wait a bit before the next key 
     time.sleep(.5)
@@ -118,6 +124,7 @@ def colourAttachment_values():
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             green = colourkey.rgb()
+            print("{} Green Value".format (colourkey.rgb()))
             break
     # wait a bit before the next key 
     time.sleep(.5)
@@ -130,6 +137,7 @@ def colourAttachment_values():
     while True:
         if Button.CENTER in ev3.buttons.pressed():
             black = colourkey.rgb()
+            print("{} Black Value".format (colourkey.rgb()))
             break
     # wait a bit before the next key 
     time.sleep(.5)
@@ -140,9 +148,16 @@ def colourAttachment_values():
     ev3.speaker.play_file(SoundFile.GO)
     time.sleep(1)
     print("")
+    '''
+
+    blue = [13,36,100]
+    yellow = [91, 78, 49]
+    white = [100,100,100]
+    green = [10, 52, 40]
+    black = [7, 13, 25]
 
     # return the values for the different keys 
-    attachment_values = [white, yellow, black, blue, green]
+    attachment_values = [blue, yellow, white, green, black]
     return attachment_values
 
 # launch actions using threads

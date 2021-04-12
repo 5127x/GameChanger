@@ -1,7 +1,7 @@
 {"programs": [
-    {"name": "Run1", "fileName" : "Run_1.json", "colourValue" : "0"}, 
+    {"name": "GreenRun", "fileName" : "Run_green.json", "colourValue" : "3"}, 
     {"name": "Run2", "fileName" : "Run_2.json", "colourValue" : "1"}, 
     {"name": "Run3", "fileName" : "Run_3.json", "colourValue" : "2"},
-    {"name": "Run4", "fileName" : "Run_4.json", "colourValue" : "3"},
+    {"name": "Run4", "fileName" : "Run_4.json", "colourValue" : "0"},
     {"name": "Run5", "fileName" : "Run_5.json", "colourValue" : "4"}
   ]}
