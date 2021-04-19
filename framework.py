@@ -78,83 +78,18 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert blue')
 
     '''
-    print('Insert blue')
-    ev3.screen.print('Insert blue')
-    ev3.speaker.play_file(SoundFile.BLUE)
     while True: 
         if Button.CENTER in ev3.buttons.pressed():
-            blue = colourkey.rgb()
             print("{} Blue Value".format (colourkey.rgb()))
             break
-    # wait a bit before the next key 
-    time.sleep(.5)
-
-
-    # collect the yellow value 
-    #ev3.speaker.say('Insert yellow')
-    print('Insert yellow')
-    ev3.screen.print('Insert yellow')
-    ev3.speaker.play_file(SoundFile.YELLOW)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            yellow = colourkey.rgb()
-            print("{} Yellow Value".format (colourkey.rgb()))
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
-
-    # collect the white value 
-    #ev3.speaker.say('Insert white')
-    print('Insert white')
-    ev3.screen.print('Insert white')
-    ev3.speaker.play_file(SoundFile.WHITE)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            white = colourkey.rgb()
-            print("{} White Value".format (colourkey.rgb()))
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
-
-    # collect the green value 
-    #ev3.speaker.say('Insert green')
-    print('Insert green')
-    ev3.screen.print('Insert green')
-    ev3.speaker.play_file(SoundFile.GREEN)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            green = colourkey.rgb()
-            print("{} Green Value".format (colourkey.rgb()))
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
-
-    # collect the black value 
-    # #ev3.speaker.say('Insert black')
-    print('Insert black')
-    ev3.screen.print('Insert black')
-    ev3.speaker.play_file(SoundFile.BLACK)
-    while True:
-        if Button.CENTER in ev3.buttons.pressed():
-            black = colourkey.rgb()
-            print("{} Black Value".format (colourkey.rgb()))
-            break
-    # wait a bit before the next key 
-    time.sleep(.5)
-
-
-    print('Finished!')
-    ev3.screen.print('Finshed')
-    time.sleep(1)
-    print("")
     '''
 
     ev3.speaker.play_file(SoundFile.GO)
-    blue = [13,36,100]
-    yellow = [91, 78, 49]
-    white = [100,100,100]
-    red = [65, 20, 30]
-    black = [7, 13, 25]
+    blue = [13,36,100] #treadmill
+    yellow = [91, 78, 49] #boccia cubes
+    white = [100,100,100] #basketball & shared mission
+    red = [65, 20, 30] #autonomous run (no json file made)
+    black = [7, 13, 25] #step counter
     print("Values")
 
     # return the values for the different keys 
