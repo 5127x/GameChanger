@@ -10,7 +10,7 @@ import os
 gyro = GyroSensor(Port.S4)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-"""
+""" 
 Functions used in testing:
 - calibrate function w/ before and after
 - threading calibrate function w/ before and after
@@ -26,7 +26,7 @@ def idk():
     print("gyro readings immediately before and after recalibration: {}, {}".format(x,y))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-'''
+
 def idkThread(threadKey): # original
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
@@ -41,10 +41,10 @@ def idkThread(threadKey): # original
 
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
-'''
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-def idkThread(threadKey, gyroS): # variation
+def idkThread2(threadKey, gyroS): # variation
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
@@ -52,7 +52,7 @@ def idkThread(threadKey, gyroS): # variation
     x = gyroS.angle()
     gyroS.speed()
     gyroS.angle()
-    #gyroS.reset_angle(0) # variation line 
+    gyroS.reset_angle(0) # variation line 
     y = gyroS.angle()
     print("idk before and after: {}, {}".format(x,y))
 

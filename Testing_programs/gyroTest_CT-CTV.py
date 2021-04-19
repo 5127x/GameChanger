@@ -11,26 +11,56 @@ ev3 = EV3Brick()
 gyro = GyroSensor(Port.S4)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 """
-Testing that the gyro recalibrates correctly within one file and outside of a function 
+Testing that the gyro recalibrates correctly when only recalibrated inside a thread 
 """
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+def idkThread(threadKey):
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
 
-# FINISHED
+    x = gyro.angle()
+    gyro.speed()
+    gyro.angle()
+    gyro.reset_angle(0) # variation line 
+    y = gyro.angle()
+    print("idk before and after: {}, {}".format(x,y))
+
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
+
+is_complete = 0
+os.environ['IS_COMPLETE'] = str(is_complete)
+def main2():
+    threadPool = {} 
+    stopProcessing = False
+    threadKey = 1
+    is_complete = os.environ['IS_COMPLETE']
+
+    thread = threading.Thread(target = idkThread, args=(threadKey, ))
+    thread.start()
+    threadPool[threadKey] = thread
+    threadKey = threadKey+1 
+
+    
+    print(threadPool, file=stderr)
+    while threadPool:
+        is_complete = int(os.environ['IS_COMPLETE'])
+        if is_complete != 0: 
+            del threadPool[is_complete]
+            is_complete = 0
+            os.environ['IS_COMPLETE'] = str(is_complete)
+            print("deleted thread", file=stderr)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # call function when test starts 
+print(gyro.angle())
 checkGyro = False
 sec = 0
 while True:
     if Button.CENTER in ev3.buttons.pressed():
         time.sleep(1)
-
-        x = gyro.angle()
-        gyro.speed()
-        gyro.angle()
-        #gyro.reset_angle(180) # CHANGE BACK TO 0
-        y = gyro.angle()
-        print("gyro readings immediately before and after recalibration: {}, {}".format(x,y))
-
+        main2()
         checkGyro = True
         time.sleep(2)
         break
@@ -55,19 +85,10 @@ while checkGyro:
 print("remained at {} for {} secs after reset".format(g, sec))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# wait for confirmation
-sec = 0
-print("turn the robot")
-time.sleep(10)
-'''
-while checkGyro:
-    if Button.CENTER in ev3.buttons.pressed():
-        time.sleep(2)
-        break'''
-
 # test if the gyro only creeps when first being moved 
-time.sleep(3)
+sec = 0
 
+time.sleep(13)
 cur = gyro.angle()
 print("Gyro angle starting to check values {}".format(cur))
 while checkGyro:

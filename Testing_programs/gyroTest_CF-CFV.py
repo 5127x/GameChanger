@@ -18,7 +18,7 @@ Testing that the gyro recalibrates correctly within one file
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # basic function to recalibrate the gyro 
-def idk():
+def Function():
     x = gyro.angle()
     gyro.speed()
     gyro.angle()
@@ -27,13 +27,14 @@ def idk():
     print("gyro readings immediately before and after recalibration: {}, {}".format(x,y))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# call function when test starts 
+# call function when test starts
+print(gyro.angle()) 
 checkGyro = False
 sec = 0
 while True:
     if Button.CENTER in ev3.buttons.pressed():
         time.sleep(1)
-        idk()
+        Function()
         checkGyro = True
         time.sleep(2)
         break
@@ -62,15 +63,9 @@ print("remained at {} for {} secs after reset".format(g, sec))
 sec = 0
 print("turn the robot")
 time.sleep(10)
-'''
-while checkGyro:
-    if Button.CENTER in ev3.buttons.pressed():
-        time.sleep(2)
-        break'''
 
 # test if the gyro only creeps when first being moved 
 time.sleep(3)
-
 cur = gyro.angle()
 print("Gyro angle starting to check values {}".format(cur))
 while checkGyro:

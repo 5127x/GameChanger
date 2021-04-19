@@ -14,7 +14,7 @@ gyro = GyroSensor(Port.S4)
 Testing how long it takes for the gyro to stabalise and read as 0 instead of a random number 
 """
 
-# F
+# F 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

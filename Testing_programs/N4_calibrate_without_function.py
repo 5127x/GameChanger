@@ -14,7 +14,7 @@ gyro = GyroSensor(Port.S4)
 Testing that the gyro recalibrates correctly within one file and outside of a function 
 """
 
-# 
+# cant calibrate n4 sensors in python as far as we are aware 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # call function when test starts 
@@ -22,10 +22,22 @@ checkGyro = False
 sec = 0
 while True:
     if Button.CENTER in ev3.buttons.pressed():
+        print(gyro.angle())
         time.sleep(1)
         x = gyro.angle()
 
-        """try to read gyro def as gyro with infrared commands? maybe?"""
+        """
+        try:
+            gyro.distance()
+            gyro.keypad()
+        except:
+            print("nup")
+
+        try: 
+            InfraredSensor(Port.S4)
+        except:
+            print("nup")"""
+         
 
         #gyro.reset_angle(180) # CHANGE BACK TO 0
         y = gyro.angle()
@@ -42,6 +54,7 @@ time.sleep(3)
 cur = gyro.angle()
 print("Gyro angle starting to check values {}".format(cur))
 while checkGyro:
+   
     time.sleep(1)
     g = gyro.angle()
     if cur == g:
