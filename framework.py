@@ -11,28 +11,24 @@ import time
 from sys import stderr
 import os
 
-
 # import the functions 
-from Functions_Completed.blackline_rotations import blackline_rotations
-from Functions_Completed.blackline_to_line import blackline_to_line
+from Functions_Completed.colour_functions import blackline_rotations
+from Functions_Completed.colour_functions import blackline_to_line
 from Functions_Completed.do_nothing import do_nothing
-from Functions_Completed.gyro_current import gyro_current
-from Functions_Completed.gyro_current_to_line import gyro_current_to_line
-from Functions_Completed.gyro_target_to_line import gyro_target_to_line
-from Functions_Completed.gyro_target import gyro_target
-from Functions_Completed.gyro_turn_to_target import gyro_turn_to_target
-from Functions_Completed.gyro_turning import gyro_turning
+from Functions_Completed.gyro_functions import gyro_current
+from Functions_Completed.gyro_functions import gyro_current_to_line
+from Functions_Completed.gyro_functions import gyro_target_to_line
+from Functions_Completed.gyro_functions import gyro_target
+from Functions_Completed.gyro_functions import gyro_turn_to_target
+from Functions_Completed.gyro_functions import gyro_turning
 from Functions_Completed.single_motor import motor_onForRotations
 from Functions_Completed.single_motor import motor_onForSeconds
 from Functions_Completed.off import off
-from Functions_Completed.reset_gyro import reset_gyro
-from Functions_Completed.reset_gyro_2 import reset_gyro_2
-from Functions_Completed.recalibrate_gyro import recalibrate_gyro
-from Functions_Completed.square_on_line import squareOnLine
-from Functions_Completed.steering_rotations import steering_rotations
-from Functions_Completed.steering_seconds import steering_seconds
+from Functions_Completed.colour_functions import squareOnLine
+from Functions_Completed.double_motor import steering_rotations
+from Functions_Completed.double_motor import steering_seconds
 from Functions_Completed.waiting import waiting
-from play_sound import play_sound
+from Functions_Completed.play_sound import play_sound
 
 # define the different motors
 largeMotor_Right = Motor(Port.B)

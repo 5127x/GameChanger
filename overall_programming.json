@@ -1,7 +1,7 @@
 {"programs": [
-    {"name": "Blue_Run", "fileName" : "Run_Blue.json", "colourValue" : "3"}, 
+    {"name": "Blue_Run", "fileName" : "Run_Blue.json", "colourValue" : "0"}, 
     {"name": "Yellow_Run", "fileName" : "Run_Yellow.json", "colourValue" : "1"}, 
     {"name": "White_Run", "fileName" : "Run_White.json", "colourValue" : "2"},
-    {"name": "Red_Run", "fileName" : "Run_Red.json", "colourValue" : "0"},
-    {"name": "Black-Run", "fileName" : "Run_Black.json", "colourValue" : "4"}
+    {"name": "Red_Run", "fileName" : "Run_Red.json", "colourValue" : "3"},
+    {"name": "Black_Run", "fileName" : "Run_Black.json", "colourValue" : "4"}
   ]}
