@@ -145,19 +145,20 @@ def colourAttachment_values():
 
     print('Finished!')
     ev3.screen.print('Finshed')
-    ev3.speaker.play_file(SoundFile.GO)
     time.sleep(1)
     print("")
     '''
 
+    ev3.speaker.play_file(SoundFile.GO)
     blue = [13,36,100]
     yellow = [91, 78, 49]
     white = [100,100,100]
-    green = [10, 52, 40]
+    red = [65, 20, 30]
     black = [7, 13, 25]
+    print("Values")
 
     # return the values for the different keys 
-    attachment_values = [blue, yellow, white, green, black]
+    attachment_values = [blue, yellow, white, red, black]
     return attachment_values
 
 # launch actions using threads
