@@ -22,8 +22,8 @@ from Functions_Completed.gyro_target_to_line import gyro_target_to_line
 from Functions_Completed.gyro_target import gyro_target
 from Functions_Completed.gyro_turn_to_target import gyro_turn_to_target
 from Functions_Completed.gyro_turning import gyro_turning
-from Functions_Completed.motor_onForRotations import motor_onForRotations
-from Functions_Completed.motor_onForSeconds import motor_onForSeconds
+from Functions_Completed.single_motor import motor_onForRotations
+from Functions_Completed.single_motor import motor_onForSeconds
 from Functions_Completed.off import off
 from Functions_Completed.reset_gyro import reset_gyro
 from Functions_Completed.reset_gyro_2 import reset_gyro_2
