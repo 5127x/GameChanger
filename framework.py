@@ -81,7 +81,9 @@ def colourAttachment_values():
     '''
 
 
-    # r3 sensor 
+
+    '''
+    # 47N7
     ev3.speaker.play_file(SoundFile.GO)
     blue = [13,36,100] #treadmill
     yellow = [91, 78, 49] #boccia cubes
@@ -98,7 +100,7 @@ def colourAttachment_values():
     white = [59, 48, 66] #basketball & shared mission
     red = [36, 6, 4] #autonomous run (no json file made)
     black = [3, 4, 3] #step counter
-    print("Values")'''
+    print("Values")
 
     # return the values for the different keys 
     attachment_values = [blue, yellow, white, red, black]
