@@ -1,4 +1,7 @@
-
-
+{"steps": [
     
-    {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".8"},
+    {"step": "blackline_rotations", "speed": "60", "rotations": "2", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".7"},
+    {"step": "waiting", "seconds": "0.3"},
+    {"step": "blackline_to_line", "speed": "60", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".5"},
+    {"step": "do_nothing"}
+]}
