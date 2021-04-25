@@ -78,9 +78,11 @@ def colourAttachment_values():
         if Button.CENTER in ev3.buttons.pressed():
             print("{} yellow Value".format (colourkey.rgb()))
             break
+    '''
 
 
 
+    '''
     # 47N7
     ev3.speaker.play_file(SoundFile.GO)
     blue = [13,36,100] #treadmill
@@ -363,7 +365,7 @@ def main():
                 bColourSensor = rgb[2]
 
                 # compare the sets of values: if the values match, run the corresponding program
-                if abs(rColourSensor - rProgram) < 4 and abs(gColourSensor - gProgram) < 4 and abs(bColourSensor - bProgram) < 4:
+                if abs(rColourSensor - rProgram) < 5 and abs(gColourSensor - gProgram) < 5 and abs(bColourSensor - bProgram) < 5:
                     # read the relevant program JSON file 
                     fileName = program["fileName"]
                     print(fileName, file=stderr)
@@ -416,6 +418,7 @@ def main():
                                 # if the key is removed then stop everything by raising the 'stopProcessing' flag
                                 if isKeyTaken(rProgram, gProgram, bProgram):
                                     stopProcessing = True
+                                    print("...stopProcessing...")
                                     break
 
                             # if the 'stopProcessing' flag has been set then finish the whole loop
@@ -423,6 +426,7 @@ def main():
                                 threadPool.clear()
                                 # turn off the motors without brakes so they dont lock up
                                 try:
+                                    time.sleep(0.1)
                                     largeMotor_Left.stop()
                                     largeMotor_Right.stop()
                                     panel.stop()

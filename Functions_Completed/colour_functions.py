@@ -25,7 +25,7 @@ robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_tra
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # follow a black line for a set number of rotations 
-def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide,correction):
+def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, correction):
     # log the function starting 
     print("In blackline_rotations", file=stderr)
     
@@ -196,7 +196,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 error = right_RLI - target_RLI
                 # calculate the needed steering to compensate
                 steering = 0
-                steering = error * 0.5
+                steering = error * correction
 
                 # the robot drives forward 
                 robot.drive(speed=speed, turn_rate = steering)
@@ -221,7 +221,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 error = target_RLI - right_RLI
                 # calculate the needed steering to compensate
                 steering = 0
-                steering = error * 0.5
+                steering = error * correction
 
                 # the robot drives forward
                 robot.drive(speed=speed, turn_rate = steering)
@@ -248,7 +248,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 error = target_RLI - right_RLI 
                 # calculate the needed steering to compensate
                 steering = 0
-                steering = error * 0.5
+                steering = error * correction
                
                 # the robot drives forward
                 robot.drive(speed=speed, turn_rate = steering)
@@ -273,7 +273,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 error = left_RLI - target_RLI 
                 # calculate the needed steering to compensate
                 steering = 0
-                steering = error * 0.5
+                steering = error * correction
      
                 # the robot drives forward 
                 robot.drive(speed=speed, turn_rate = steering)
