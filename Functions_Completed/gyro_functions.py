@@ -403,7 +403,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
     gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
 
     # read the current degrees heading 
-    current_gyro_reading = gyro.angle() - gyro_reading_env_var
+    current_gyro_reading = gyro.angle()
     #print("current val", current_gyro_reading, file=stderr)
     
     # if facing to the left of the target
@@ -414,7 +414,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
         # loop until facing the correct angle 
         while current_gyro_reading < degrees:
-            print("current gyro val 1", gyro.angle(), file=stderr)
+            print("current gyro val", gyro.angle(), file=stderr)
             #print(current_gyro_reading, file=stderr)
             # read the current degress heading 
             current_gyro_reading = gyro.angle() - gyro_reading_env_var
@@ -439,7 +439,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 
         # loop until the robot has turned far enough 
         while current_gyro_reading > degrees:
-            print("current gyro val 2", gyro.angle(), file=stderr)
+            print("current gyro val", gyro.angle(), file=stderr)
             #print(current_gyro_reading, file=stderr)
             # read the current degrees heading                
             current_gyro_reading = gyro.angle() - gyro_reading_env_var

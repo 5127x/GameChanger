@@ -97,6 +97,10 @@ def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    # if we needed an extra motor, defining it here prevents it from messing up other bits of code and allows us to unplug it after a run
+    if motor == "extension":
+        motor =  Motor(Port.A)
+
     # read the current time
     start_time = time.time()
     # turn the motor on 
@@ -104,14 +108,11 @@ def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
     # wait until the set amount of time has passed
     while time.time() < start_time + seconds: 
         # check if 'stopProcessing' flag is raised
-        print("Not met time limit", file=stderr)
         if stop():
             break
     
     # turn the motor off
-    print("stopping motor", file=stderr)
     motor.stop()
-
 
     # log leaving the function 
     print('Leaving Motor_onForSeconds', file=stderr)
