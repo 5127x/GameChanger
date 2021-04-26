@@ -202,7 +202,7 @@ def launchStep(stop, threadKey, action):
     if name == 'squareOnLine': # parameters (stop, threadKey, speed, sensor, correction)
         print("Starting square_on_line", file=stderr)
         speed = float(action['speed'])
-        thread = threading.Thread(target=gyro_current_to_line, args=(stop, threadKey, speed))
+        thread = threading.Thread(target=squareOnLine, args=(stop, threadKey, speed))
         thread.start()
         return thread
 

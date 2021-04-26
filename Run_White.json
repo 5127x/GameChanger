@@ -8,15 +8,15 @@
 
     {"step": "gyro_turn_to_target", "speed": "110", "degrees":"53"},
 
-    {"step": "steering_rotations", "speed": "180", "rotations":"1", "steering": "0"},
-    {"step": "blackline_to_line", "speed": "110", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.5"},
+    {"step": "steering_rotations", "speed": "180", "rotations":"1.5", "steering": "0"},
+    {"step": "blackline_to_line", "speed": "110", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.8"},
     {"step": "steering_rotations", "speed": "-60", "rotations":"0.24", "steering": "0"},
 
     {"step": "gyro_turn_to_target", "speed": "50", "degrees":"0"},
     {"step": "steering_rotations", "speed": "80", "rotations":".5", "steering": "0"},
     {"step": "blackline_rotations", "speed": "80", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "1.1"},
     {"step": "blackline_to_line", "speed": "60", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".5"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-80", "seconds": "3"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-80", "seconds": "5"},
     
     {"step": "do_nothing"}
 

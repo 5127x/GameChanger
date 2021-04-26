@@ -311,22 +311,22 @@ def squareOnLine(stop, speed, target):
     colourRight_RLI = 0
     lineFound = False
     #Turning on motor
-    steering_drive.on(steering=0,speed=speed)
+    robot.drive(turn_rate=0,speed=speed)
     while True:
         #reading in the colour sensor values (reflected light intensity)
         colourLeft_RLI = colourLeft.reflection()
         colourRight_RLI = colourRight.reflection()
         # if the left Rli is smaller than the target/aim then turn to the right
         if colourLeft_RLI <= target:
-            largeMotor_Left.on(-speed)
-            largeMotor_Right.on(speed)
+            largeMotor_Left.run(-speed)
+            largeMotor_Right.run(speed)
             lineFound = True #setting bool varisable for cancelling movment later on
             print('{} left found it'.format(colourLeft_RLI), file = stderr)
 
         # if the right Rli is smaller than the target/aim then turn to the left
         if colourRight_RLI <=target:
-            largeMotor_Left.on(speed)
-            largeMotor_Right.on(-speed)
+            largeMotor_Left.run(speed)
+            largeMotor_Right.run(-speed)
             lineFound = True #setting bool varisable for cancelling movment later on
             print('{} right found it'.format(colourRight_RLI), file = stderr)
 
