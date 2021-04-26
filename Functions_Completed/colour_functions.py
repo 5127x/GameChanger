@@ -305,6 +305,56 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
     os.environ['IS_COMPLETE'] = str(is_complete)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# follow a black line until the opposite sensor sees another line
+def run_to_blackline(stop, threadKey, speed, sensor):
+    # log the function starting 
+    print("In run to blackline", file= stderr)
+
+    # read the environment variable 'is_complete'
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    # RLI it should be reading if following the line
+    target_RLI = 22 #40
+
+    # saves the current RLI for each sensor 
+    right_RLI = colourRight.reflection()
+    left_RLI = colourLeft.reflection()
+
+    robot.drive(turn_rate = 0, speed= speed)
+
+    while True:
+        right_RLI = colourRight.reflection()
+        left_RLI = colourLeft.reflection()
+        # if using the right sensor 
+        if sensor == "RIGHT": 
+            print(right_RLI)
+            if right_RLI < target_RLI:
+                break
+
+        # if using the left sensor 
+        elif sensor == "LEFT":
+            if left_RLI < target_RLI:
+                print(left_RLI)
+                break
+        if stop():
+            break
+
+        # wait a little before the next repetition
+        time.sleep(0.001)
+
+    # stop the robot 
+    robot.stop()
+
+    # log leaving the function
+    print("Leaving run to blackline", file=stderr)
+    # change 'is_complete' to the threadKey so the framework knows the function is complete
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
+
+#. . . . . . .  .. . . . .  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 """
 
 might be untested

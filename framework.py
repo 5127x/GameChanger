@@ -14,6 +14,7 @@ import os
 # import the functions 
 from Functions_Completed.colour_functions import blackline_rotations
 from Functions_Completed.colour_functions import blackline_to_line
+from Functions_Completed.colour_functions import run_to_blackline
 from Functions_Completed.do_nothing import do_nothing
 from Functions_Completed.gyro_functions import gyro_current
 from Functions_Completed.gyro_functions import gyro_current_to_line
@@ -226,6 +227,15 @@ def launchStep(stop, threadKey, action):
         lineSide = action['lineSide']
         correction = float(action['correction'])
         thread = threading.Thread(target = blackline_to_line, args=(stop, threadKey, speed, sensor, lineSide, correction))
+        thread.start()
+        return thread
+
+    # follow a black line until the opposite sensor sees another line
+    if name == 'run_to_blackline': # parameters (stop, threadKey, speed, sensor)
+        print("Starting run_to_blackline", file = stderr)
+        speed = float(action['speed'])
+        sensor = action['sensor']
+        thread = threading.Thread(target = run_to_blackline, args=(stop, threadKey, speed, sensor))
         thread.start()
         return thread
 
