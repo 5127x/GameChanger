@@ -113,7 +113,7 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
                 left_RLI = colourLeft.reflection()
                 
                 # calculate the error 
-                error = target_RLI - right_RLI 
+                error = target_RLI - left_RLI 
                 # calculate the needed steering to compensate
                 steering = error * correction
                
@@ -172,7 +172,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
         is_complete = int(os.environ['IS_COMPLETE'])
 
     # RLI it should be reading if following the line
-    target_RLI = 40
+    target_RLI = 22 #40
 
     # saves the current RLI for each sensor 
     right_RLI = colourRight.reflection()
@@ -205,6 +205,9 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 if stop():
                     break
 
+                # wait a little before the next repetition
+                time.sleep(0.001)
+
         # if following the right side of the line
         elif lineSide == "RIGHT":
             # loop
@@ -229,6 +232,9 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 # check if the 'stopProcessing' flag has been raised 
                 if stop():
                     break
+
+                # wait a little before the next repetition
+                time.sleep(0.001)
     
     # if using the left sensor 
     elif sensor == "LEFT":
@@ -241,7 +247,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 left_RLI = colourLeft.reflection()
 
                 # check if there is a black line 
-                if right_RLI <= 12:
+                if right_RLI <= 15:
                     break
 
                 # calculate the error 
@@ -257,6 +263,9 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 if stop():
                     break
 
+                # wait a little before the next repetition
+                time.sleep(0.001)
+
         # if following the left side of the line
         elif lineSide == "LEFT":
             # loop
@@ -264,9 +273,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 # read the current RLI values
                 right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
+                print("r_rli {}".format(right_RLI))
 
                 # check if there is a black line 
-                if right_RLI <= 12:
+                if right_RLI <= 15:
                     break
 
                 # calculate the error
@@ -280,7 +290,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 
                 # check if the 'stopProcessing' flag has been raised
                 if stop():
-                     break
+                    break
+
+                # wait a little before the next repetition
+                time.sleep(0.001)
 
     # stop the robot 
     robot.stop()
@@ -348,6 +361,6 @@ def squareOnLine(stop, speed, target):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #stopProcessing = False
-#blackline_rotations(lambda:stopProcessing, 0, speed = 150, rotations = 2, sensor = 'RIGHT', lineSide = 'RIGHT', correction = 0.8)
+#blackline_rotations(lambda:stopProcessing, 0, speed = 70, rotations = 20, sensor = 'LEFT', lineSide = 'LEFT', correction = 0.5)
 #blackline_to_line(lambda: stopProcessing, 0, speed = 150, sensor = 'RIGHT', lineSide = 'RIGHT', correction = 0.8)
 #squareOnLine(lambda:stopProcessing, speed=30, target=100)
