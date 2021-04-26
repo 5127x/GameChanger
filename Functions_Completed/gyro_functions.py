@@ -403,7 +403,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
     gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
 
     # read the current degrees heading 
-    current_gyro_reading = gyro.angle()
+    current_gyro_reading = gyro.angle() - gyro_reading_env_var
     #print("current val", current_gyro_reading, file=stderr)
     
     # if facing to the left of the target
