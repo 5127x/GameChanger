@@ -23,6 +23,8 @@ colourkey = ColorSensor(Port.S1)
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+if 'Debugging' in os.environ:
+    debugging = int(os.environ['Debugging'])
 
 """ 
 
@@ -73,6 +75,8 @@ def gyro_target(stop, threadKey, speed, rotations, target, correction):
 
     # loop until the robor has driven far enough
     while float(current_rotations) < target_rotations:
+        if debugging == True:
+            print("Current Gyro Reading {}" (current_gyro_reading),file = stderr)
     
         # reading in current degrees heading and current motor positions 
         current_gyro_reading=gyro.angle() - gyro_reading_env_var
@@ -141,6 +145,9 @@ def gyro_target_to_line(stop, threadKey, speed, sensor, target, correction):
 
     # loop
     while True:
+        if debugging == True:
+            print("Current Gyro Reading {}" (current_gyro_reading),file = stderr)
+
         # read the current degrees heading and the current RLI values
         current_gyro_reading=gyro.angle() - gyro_reading_env_var
         if sensor == "RIGHT":
@@ -217,6 +224,8 @@ def gyro_current(stop, threadKey, speed, rotations, correction):
 
     # loop until the robot has driven far enough
     while float(current_rotations) < target_rotations: 
+        if debugging == True:
+            print("Current Gyro Reading {}" (current_gyro_reading),file = stderr)
         # read the current motor position and the current degrees heading 
         current_gyro_reading=gyro.angle() - gyro_reading_env_var
         current_rotations = largeMotor_Left.angle() - gyro_reading_env_var
@@ -287,6 +296,9 @@ def gyro_current_to_line(stop, threadKey, speed, sensor, correction):
 
     # loop 
     while True:  
+        if debugging == True:
+            print("Current Gyro Reading {}" (current_gyro_reading),file = stderr)
+
         # read the current degrees heading and the current RLI values
         current_gyro_reading=gyro.angle() - gyro_reading_env_var
         if sensor == "RIGHT":
@@ -353,6 +365,7 @@ def gyro_turning(stop, threadKey, speed, degrees):
 
     #_____________If turning Left__________________________________
     while target_degrees > current_gyro_reading: 
+        # had to stop programming cause of plane <3 
         print(speed, file = stderr)
 
         #same concept as a tank block however bc we dont have access had to turn on both motors

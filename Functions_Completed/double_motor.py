@@ -42,9 +42,10 @@ def steering_rotations(stop, threadKey, speed, rotations, steering):
 
     # create 'target_rotations' for how far the robot should drive in degrees
     target_rotations = rotations * 360 
-    if speed < 0:
+    if speed < 0: 
         target_rotations_left = current_rotations_left - target_rotations
         target_rotations_right = current_rotations_right - target_rotations
+
     elif speed > 0:
         target_rotations_left = current_rotations_left + target_rotations
         target_rotations_right = current_rotations_right + target_rotations

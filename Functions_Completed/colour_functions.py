@@ -23,9 +23,16 @@ colourkey = ColorSensor(Port.S1)
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+constant_target_RLI_ = 22
+
+if 'Debugging' in os.environ:
+    debugging = int(os.environ['Debugging'])
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # follow a black line for a set number of rotations 
 def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, correction):
+    # setting up code
     # log the function starting 
     print("In blackline_rotations", file=stderr)
     
@@ -36,11 +43,12 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
 
     # adjust rotations to be in degrees
     rotations = rotations*360
+
     # read the current motor positions 
     currentDegrees_left = largeMotor_Left.angle()
     currentDegrees_right = largeMotor_Right.angle()
 
-    # create 'target_rotations' for how far the robot should drive in degrees
+    # create a target of distance robot should drive
     target_left = currentDegrees_left + rotations
     target_right = currentDegrees_right + rotations
     
@@ -49,10 +57,11 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
     left_RLI = colourLeft.reflection()
     
     # set the variables needed
-    target_RLI = 22
+    target_RLI = constant_target_RLI
     steering = 0
 
-    # if using the right sensor 
+    #- - - - - - - - - - - - 
+    #  using the right sensor 
     if sensor == "RIGHT": 
         # if following the left side of the line
         if lineSide == "LEFT": 
@@ -61,7 +70,9 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
                 # read the current motor positions and current RLI values
                 currentDegrees_left = largeMotor_Left.angle()
                 right_RLI = colourRight.reflection()
-                
+                if debugging == True:
+                    print(right_RLI, file = stderr)
+                    
                 # calulate the error
                 error = right_RLI - target_RLI
                 # calculate the needed steering to compensate
@@ -85,7 +96,11 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
                 currentDegrees_left = largeMotor_Left.angle()
                 currentDegrees_right = largeMotor_Right.angle()
                 right_RLI = colourRight.reflection()
-                
+
+                #checking if need logging for debugging
+                if debugging == True:
+                    print(right_RLI, file = stderr)
+
                 # calculate the error
                 error = target_RLI - right_RLI
                 # calculate the needed steering to compensate
@@ -111,6 +126,10 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
                 currentDegrees_left = largeMotor_Left.angle()
                 currentDegrees_right = largeMotor_Right.angle()
                 left_RLI = colourLeft.reflection()
+
+                # checking if code needs debugging
+                if debugging == True:
+                    print(left_RLI, file = stderr)
                 
                 # calculate the error 
                 error = target_RLI - left_RLI 
@@ -135,7 +154,11 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
                 currentDegrees_left = largeMotor_Left.angle()
                 currentDegrees_right = largeMotor_Right.angle()
                 left_RLI = colourLeft.reflection()
-                
+
+                #check if code needs debugging
+                if debugging == True:
+                    print(left_RLI, file = stderr)
+
                 # calculate the error
                 error = left_RLI - target_RLI 
                 # calculate the steering needed to compensate 
@@ -172,7 +195,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
         is_complete = int(os.environ['IS_COMPLETE'])
 
     # RLI it should be reading if following the line
-    target_RLI = 22 #40
+    target_RLI = constant_target_RLI #40
 
     # saves the current RLI for each sensor 
     right_RLI = colourRight.reflection()
@@ -187,7 +210,11 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 # read the current RLI values
                 right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
-                
+
+                #check if code needs debuggig
+                if debugging == True:
+                    print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)
+
                 # check if there is a black line
                 if left_RLI <= 15:
                     break
@@ -215,6 +242,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 # read the current RLI values
                 right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
+
+                #check if code needs debuggig
+                if debugging == True:
+                    print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)
                 
                 # check if there is a black line
                 if left_RLI <= 15:
@@ -246,6 +277,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
 
+                #check if code needs debuggig
+                if debugging == True:
+                    print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)
+
                 # check if there is a black line 
                 if right_RLI <= 15:
                     break
@@ -273,7 +308,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                 # read the current RLI values
                 right_RLI = colourRight.reflection()
                 left_RLI = colourLeft.reflection()
-                print("r_rli {}".format(right_RLI))
+
+                #check if code needs debuggig
+                if debugging == True:
+                    print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)
 
                 # check if there is a black line 
                 if right_RLI <= 15:
@@ -317,7 +355,7 @@ def run_to_blackline(stop, threadKey, speed, sensor):
         is_complete = int(os.environ['IS_COMPLETE'])
 
     # RLI it should be reading if following the line
-    target_RLI = 22 #40
+    target_RLI = constant_target_RLI #40
 
     # saves the current RLI for each sensor 
     right_RLI = colourRight.reflection()
@@ -330,13 +368,15 @@ def run_to_blackline(stop, threadKey, speed, sensor):
         left_RLI = colourLeft.reflection()
         # if using the right sensor 
         if sensor == "RIGHT": 
-            print(right_RLI)
+            if debugging == True:
+                print("RightRLI = {}".format(right_RLI), file = stderr)
             if right_RLI < target_RLI:
                 break
 
         # if using the left sensor 
         elif sensor == "LEFT":
             if left_RLI < target_RLI:
+                print("left_RLI = {}".format(left_RLI), file = stderr)
                 print(left_RLI)
                 break
         if stop():
@@ -381,6 +421,8 @@ def squareOnLine(stop, speed, target):
         colourRight_RLI = colourRight.reflection()
         # if the left Rli is smaller than the target/aim then turn to the right
         if colourLeft_RLI <= target:
+            if debugging == True:
+                print("ColourLeftRLI = {}".format(colourLeft_RLI), file = stderr)
             largeMotor_Left.run(-speed)
             largeMotor_Right.run(speed)
             lineFound = True #setting bool varisable for cancelling movment later on
@@ -388,6 +430,8 @@ def squareOnLine(stop, speed, target):
 
         # if the right Rli is smaller than the target/aim then turn to the left
         if colourRight_RLI <=target:
+            if debugging == True:
+                print("RightRLI = {}".format(colourRight_RLI), file = stderr)
             largeMotor_Left.run(speed)
             largeMotor_Right.run(-speed)
             lineFound = True #setting bool varisable for cancelling movment later on
