@@ -78,7 +78,7 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
                 break
     
     # turn the motor off
-    motor.stop()
+    motor.brake() #.stop()
 
     # log leaving the function
     print('Leaving onForRotations', file=stderr)
@@ -112,7 +112,7 @@ def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
             break
     
     # turn the motor off
-    motor.stop()
+    motor.brake() #stop()
 
     # log leaving the function 
     print('Leaving Motor_onForSeconds', file=stderr)
@@ -124,3 +124,4 @@ def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
 #stopProcessing=False
 #motor_onForRotations(lambda:stopProcessing, 0, motor = panel, speed = 200, rotations = 2, gearRatio = 1)
 #Motor_onForSeconds(lambda:stopProcessing, 0, motor = panel, speed = 200, seconds = 3)
+#print(colourkey.rgb())

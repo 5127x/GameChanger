@@ -1,9 +1,36 @@
 {"steps": [
-    {"step": "steering_rotations", "speed": "100", "rotations":"2.6", "steering": "0"},
-    {"step": "blackline_rotations", "speed": "40", "rotations": ".5", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
-    {"step": "blackline_rotations", "speed": "60", "rotations": "1.5", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
-    {"step": "blackline_to_line", "speed": "60", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-90"},
-    {"step": "blackline_rotations", "speed": "60", "rotations": "1.5", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".9"},
+    {"step": "blackline_rotations", "speed": "60", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".9"},
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "steering_rotations", "speed": "100", "rotations":"2", "steering": "0"},
+            {"step": "motor_onForRotations", "motor": "panel", "speed": "-50", "rotations": "0.15", "gearRatio": "1.4"}
+    ]},
+    {"step": "waiting", "seconds": "1"},
+    {"step": "steering_rotations", "speed": "-100", "rotations":"0.5", "steering": "0"},
+    {"step": "steering_to_line", "speed": "-100", "sensor":"LEFT", "steering": "0"},
+    {"step": "waiting", "seconds": "1"},
+
+    {"step": "gyro_turning", "speed": "80", "degrees":"40"},
+    {"step": "steering_rotations", "speed": "100", "rotations":"0.2", "steering": "0"},
+    {"step": "steering_rotations", "speed": "60", "rotations":"0.25", "steering": "10"},
+    {"step": "steering_rotations", "speed": "-50", "rotations":"0.05", "steering": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-300", "seconds": "0.3", "gearRatio": "1.4"},
+    {"step": "waiting", "seconds": "1"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":"0.1", "steering": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "300", "seconds": "0.2", "gearRatio": "1.4"},
+
+    {"step": "steering_to_line", "speed": "-100", "sensor":"RIGHT", "steering": "0"},
+    {"step": "gyro_turning", "speed": "80", "degrees":"-40"},
+    {"step": "waiting", "seconds": "1"},
+    {"step": "steering_rotations", "speed": "60", "rotations":"0.1", "steering": "0"},
+    {"step": "gyro_turning", "speed": "80", "degrees":"-80"},
+
+    {"step": "waiting", "seconds": "1"},
+    {"step": "blackline_rotations", "speed": "60", "rotations": "0.8", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "blackline_rotations", "speed": "60", "rotations": "0.8", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
+            {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "4", "gearRatio": "1.4"}
+    ]},
     {"step": "do_nothing"}
 ]}

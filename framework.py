@@ -15,7 +15,8 @@ import os
 from Functions_Completed.colour_functions import blackline_rotations
 from Functions_Completed.colour_functions import blackline_to_line
 from Functions_Completed.colour_functions import run_to_blackline
-from Functions_Completed.do_nothing import do_nothing
+from Functions_Completed.colour_functions import squareOnLine
+from Functions_Completed.gyro_functions import gyro_calibrate
 from Functions_Completed.gyro_functions import gyro_current
 from Functions_Completed.gyro_functions import gyro_current_to_line
 from Functions_Completed.gyro_functions import gyro_target_to_line
@@ -24,12 +25,13 @@ from Functions_Completed.gyro_functions import gyro_turn_to_target
 from Functions_Completed.gyro_functions import gyro_turning
 from Functions_Completed.single_motor import motor_onForRotations
 from Functions_Completed.single_motor import motor_onForSeconds
-from Functions_Completed.off import off
-from Functions_Completed.colour_functions import squareOnLine
 from Functions_Completed.double_motor import steering_rotations
 from Functions_Completed.double_motor import steering_seconds
-from Functions_Completed.waiting import waiting
+from Functions_Completed.double_motor import steering_to_line
 from Functions_Completed.play_sound import play_sound
+from Functions_Completed.do_nothing import do_nothing
+from Functions_Completed.waiting import waiting
+from Functions_Completed.off import off
 
 # define the different motors
 largeMotor_Right = Motor(Port.B)
@@ -61,7 +63,6 @@ def isKeyTaken(rProgram, gProgram, bProgram):
     # read the colourkey sensor 
     rbgA = colourkey.rgb()
     # compare the current reading to the values shown when the key is inserted
-    # rgb values are (12, 19, 27) when the slot is empty
     return abs(rbgA[0] - rProgram) > 5 and abs(rbgA[1] - gProgram) > 5 and abs(rbgA[2] - bProgram) > 5 
 
 # calibrate the sensor's values for the different keys
@@ -77,23 +78,21 @@ def colourAttachment_values():
     '''
     while True: 
         if Button.CENTER in ev3.buttons.pressed():
-            print("{} yellow Value".format (colourkey.rgb()))
+            print("{} colour Value".format (colourkey.rgb()))
             break
     '''
 
-
-
-    '''
+    
     # 47N7
     ev3.speaker.play_file(SoundFile.GO)
     blue = [13,36,100] #treadmill
-    yellow = [91, 78, 49] #boccia cubes
+    yellow = [88, 74, 46] #boccia cubes, values changed
     white = [100,100,100] #basketball & shared mission
     red = [65, 20, 30] #autonomous run (no json file made)
     black = [7, 13, 25] #step counter
     print("Values")
-    '''
 
+    '''
     # 50N7
     ev3.speaker.play_file(SoundFile.GO)
     blue = [4,11,34] #treadmill
@@ -102,6 +101,7 @@ def colourAttachment_values():
     red = [36, 6, 4] #autonomous run (no json file made)
     black = [3, 4, 3] #step counter
     print("Values")
+    '''
 
     # return the values for the different keys 
     attachment_values = [blue, yellow, white, red, black]
@@ -190,6 +190,16 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
+    # drive using a steering block for a set amount of time
+    if name == 'steering_to_line': # parameters (stop, threadKey, speed, seconds, steering)
+        print("Starting steering_to_line", file=stderr)
+        speed = float(action['speed'])
+        sensor = action['sensor']
+        steering = float(action['steering'])
+        thread = threading.Thread(target=steering_to_line, args= (stop, threadKey, speed, sensor, steering))
+        thread.start()
+        return thread
+
     # drive using a steering block for a set number of rotations 
     if name == 'steering_rotations': # parameters (stop, threadKey, speed, rotations, steering)
         print("Starting steering_rotations", file=stderr)
@@ -239,24 +249,10 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-
     # recalibrates the gyro 
-    if name == 'recalibrate_gyro': # parameters (stop, threadKey)
-        print("Starting recalibrate_gyro", file=stderr)
-        thread = threading.Thread(target=recalibrate_gyro, args=(stop, threadKey))
-        thread.start()
-        return thread
-
-    # resets the gyro before a run
-    if name == 'reset_gyro': # parameters (stop, threadKey)
-        print("Starting reset_gyro", file=stderr)
-        thread = threading.Thread(target=reset_gyro, args=(stop,threadKey))
-        thread.start()
-        return thread
-
-    if name == 'reset_gyro_2': # parameters (stop, threadKey)
-        print("Starting reset_gyro 2", file=stderr)
-        thread = threading.Thread(target=reset_gyro_2, args=(stop,threadKey))
+    if name == 'gyro_calibrate': # parameters (threadKey, gyroS)
+        print("Starting gyro_calibrate", file=stderr)
+        thread = threading.Thread(target=gyro_calibrate, args=(threadKey, gyro))
         thread.start()
         return thread
 
@@ -436,14 +432,13 @@ def main():
                                 threadPool.clear()
                                 # turn off the motors without brakes so they dont lock up
                                 try:
-                                    time.sleep(0.1)
+                                    time.sleep(0.01)
                                     largeMotor_Left.stop()
                                     largeMotor_Right.stop()
                                     panel.stop()
                                     print('motors stopped')
                                 except:
                                     print("didnt stop")
-                                
                                 break
 
 #play sound to know that the framework is about to run. (helps makek you aware that the program is about to start)

@@ -145,6 +145,51 @@ def steering_seconds(stop, threadKey, speed, seconds, steering):
     os.environ['IS_COMPLETE'] = str(is_complete)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# drive using a steering block for a set amount of time
+def steering_to_line(stop, threadKey, speed, sensor, steering): 
+    # log the function starting
+    print("In steering_to_line", file=stderr)
+
+    # read the environment variable 'is_complete'
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    # read the current time
+    start_time = time.time()
+    # start the robot driving
+    robot.drive(turn_rate=steering, speed=speed)
+
+    # wait until the sensor sees the line
+    if sensor == 'RIGHT':
+        while True:
+            right_RLI = colourRight.reflection()
+            # check if 'stopProcessing' flag is raised
+            if right_RLI <= 15:
+                break
+            if stop():
+                break
+
+    elif sensor == 'LEFT':
+        while True:
+            left_RLI = colourLeft.reflection()
+            # check if 'stopProcessing' flag is raised
+            if left_RLI <= 15:
+                break
+            if stop():
+                break
+    
+    # stop the robot 
+    robot.stop()
+
+    # log leaving the function
+    print('Leaving steering_to_line', file=stderr)
+    # change 'is_complete' to the threadKey so the framework knows the function is complete
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 #stopProcessing=False
 #steering_seconds(lambda:stopProcessing, 0, speed = 200, seconds = 3, steering = 0)
 #steering_rotations(lambda:stopProcessing, 0, speed = 200, rotations = 2, steering = 0)
+#steering_to_line(lambda:stopProcessing, 0, speed = -100, sensor = 'LEFT', steering = 0)
