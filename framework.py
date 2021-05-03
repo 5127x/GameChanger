@@ -57,7 +57,9 @@ print("")
 
 ev3.speaker.set_volume(100, which = '_all_')
 
-
+if 'Debugging' in os.environ:
+    debugging = int(os.environ['Debugging'])
+    
 # check if the key has been removed from the robot
 def isKeyTaken(rProgram, gProgram, bProgram):  
     # read the colourkey sensor 
@@ -106,6 +108,11 @@ def colourAttachment_values():
     # return the values for the different keys 
     attachment_values = [blue, yellow, white, red, black]
     return attachment_values
+
+    
+    os.environ['Debugging'] = True
+    print ("debug activated")
+
 
 # launch actions using threads
 def launchStep(stop, threadKey, action):
