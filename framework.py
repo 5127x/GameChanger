@@ -111,6 +111,7 @@ def colourAttachment_values():
 
     
     os.environ['Debugging'] = True
+    print ("debug activated")
 
 
 # launch actions using threads

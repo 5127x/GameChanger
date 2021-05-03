@@ -23,7 +23,7 @@ colourkey = ColorSensor(Port.S1)
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-constant_target_RLI_ = 22
+#constant_target_RLI_ = 22
 
 if 'Debugging' in os.environ:
     debugging = int(os.environ['Debugging'])
@@ -41,6 +41,8 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    if 'Debugging' in os.environ:
+        debugging = int(os.environ['Debugging'])
     # adjust rotations to be in degrees
     rotations = rotations*360
 
@@ -57,7 +59,7 @@ def blackline_rotations(stop, threadKey, speed, rotations, sensor, lineSide, cor
     left_RLI = colourLeft.reflection()
     
     # set the variables needed
-    target_RLI = constant_target_RLI
+    target_RLI = 40
     steering = 0
 
     #- - - - - - - - - - - - 
@@ -194,8 +196,10 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    if 'Debugging' in os.environ:
+        debugging = int(os.environ['Debugging'])
     # RLI it should be reading if following the line
-    target_RLI = constant_target_RLI #40
+    target_RLI = 40 #40
 
     # saves the current RLI for each sensor 
     right_RLI = colourRight.reflection()
@@ -353,9 +357,12 @@ def run_to_blackline(stop, threadKey, speed, sensor):
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
+    
+    if 'Debugging' in os.environ:
+        debugging = int(os.environ['Debugging'])
 
     # RLI it should be reading if following the line
-    target_RLI = constant_target_RLI #40
+    target_RLI = 40 #40
 
     # saves the current RLI for each sensor 
     right_RLI = colourRight.reflection()
@@ -409,6 +416,8 @@ def squareOnLine(stop, speed, target):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
+    if 'Debugging' in os.environ:
+        debugging = int(os.environ['Debugging'])
     # setting up program
     colourLeft_RLI = 0
     colourRight_RLI = 0
