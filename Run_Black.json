@@ -1,14 +1,12 @@
 {"steps": [
 
-    {"step": "launchInParallel", 
-        "subSteps": [
-            {"step": "motor_onForRotations", "motor": "panel", "speed": "40", "rotations": ".01", "gearRatio": "1.4"},
-            {"step": "steering_rotations", "speed": "110", "rotations":".25", "steering": "0"}
-    ]},
+    {"step": "motor_onForRotations", "motor": "panel", "speed": "40", "rotations": ".01", "gearRatio": "1.4"},
+    {"step": "steering_rotations", "speed": "110", "rotations":".25", "steering": "0"},
 
     {"step": "gyro_turn_to_target", "speed": "110", "degrees":"22.5"},
     {"step": "run_to_blackline", "speed": "110", "sensor":"RIGHT"},
-    {"step": "blackline_rotations", "speed": "80", "rotations": "8", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": ".9"},
+    {"step": "blackline_rotations", "speed": "80", "rotations": "1.5", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": "1.75"},
+    {"step": "blackline_rotations", "speed": "80", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.9"},
 
     {"step": "do_nothing"}
 
