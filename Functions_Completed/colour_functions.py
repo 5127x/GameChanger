@@ -225,7 +225,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
 
                 # check if there is a black line
-                if left_RLI <= 15:
+                if left_RLI <= 14:
                     break
 
                 # calulate the error
@@ -258,7 +258,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
                 
                 # check if there is a black line
-                if left_RLI <= 15:
+                if left_RLI <= 14:
                     break
 
                 # calculate the error
@@ -293,7 +293,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
 
                 # check if there is a black line 
-                if right_RLI <= 15:
+                if right_RLI <= 14:
                     break
 
                 # calculate the error 
@@ -326,7 +326,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
 
                 # check if there is a black line 
-                if right_RLI <= 15:
+                if right_RLI <= 14:
                     break
 
                 # calculate the error
@@ -355,7 +355,6 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
     os.environ['IS_COMPLETE'] = str(is_complete)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # follow a black line until the opposite sensor sees another line
 def run_to_blackline(stop, threadKey, speed, sensor):
     # log the function starting 
@@ -409,14 +408,12 @@ def run_to_blackline(stop, threadKey, speed, sensor):
     # change 'is_complete' to the threadKey so the framework knows the function is complete
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)
-
-#. . . . . . .  .. . . . .  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 """
 
-might be untested
+might be untested, not updated to framework
 
 """
-
 def squareOnLine(stop, speed, target):
     print("In squareOnLine", file=stderr)
 

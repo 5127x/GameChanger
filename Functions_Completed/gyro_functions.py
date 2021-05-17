@@ -28,12 +28,11 @@ if 'Debugging' in os.environ:
 
 """ 
 
-Still a little more tweaking to be done 
+Still a little more tweaking to be done, not added to framework fully yet
 
 """
-
 # calibrate the gyro 
-def gyro_calibrate(threadKey):
+def gyro_calibrate(threadKey, gyroS):
     print("In gyro_calibrate", file=stderr)
 
     # read the environment variable 'is_complete'
@@ -42,9 +41,10 @@ def gyro_calibrate(threadKey):
         is_complete = int(os.environ['IS_COMPLETE'])
 
     time.sleep(0.5)
-    gyro.speed()
-    gyro.angle()
+    gyroS.speed()
+    gyroS.angle()
     time.sleep(3)
+    gyroS.reset_angle(0)
 
     # log leaving the function
     print('Leaving gyro_calibrate', file=stderr)
@@ -365,36 +365,37 @@ def gyro_turning(stop, threadKey, speed, degrees):
     target_degrees = current_gyro_reading + degrees
 
     #_____________If turning Left__________________________________
-    while target_degrees > current_gyro_reading: 
-        # had to stop programming cause of plane <3 
-        print(speed, file = stderr)
+    if target_degrees > current_gyro_reading: #ADDED
+        while target_degrees > current_gyro_reading: 
+            #print(speed, file = stderr)
 
-        #same concept as a tank block however bc we dont have access had to turn on both motors
-        largeMotor_Right.run(speed=-speed)
-        largeMotor_Left.run(speed=speed) 
-        
-        #print(current_gyro_reading,file=stderr)
+            #same concept as a tank block however bc we dont have access had to turn on both motors
+            largeMotor_Right.run(speed=-speed)
+            largeMotor_Left.run(speed=speed) 
+            
+            #print(current_gyro_reading,file=stderr)
 
-        if target_degrees > current_gyro_reading:
-            current_gyro_reading = gyro.angle() - gyro_reading_env_var
-            if current_gyro_reading == target_degrees:
-                break
-            if stop():
-                break
+            if target_degrees > current_gyro_reading:
+                current_gyro_reading = gyro.angle() - gyro_reading_env_var
+                if current_gyro_reading == target_degrees:
+                    break
+                if stop():
+                    break
 
     #_____________If turning Right__________________________________
-    while target_degrees < current_gyro_reading:
-        largeMotor_Right.run(speed=speed)
-        largeMotor_Left.run(speed=-speed)
-        
-        #print(current_gyro_reading,file=stderr)
+    if target_degrees < current_gyro_reading: #ADDED
+        while target_degrees < current_gyro_reading:
+            largeMotor_Right.run(speed=speed)
+            largeMotor_Left.run(speed=-speed)
+            
+            #print(current_gyro_reading,file=stderr)
 
-        if target_degrees <current_gyro_reading:
-            current_gyro_reading = gyro.angle()
-            if current_gyro_reading == target_degrees:
-                break
-            if stop():
-                break
+            if target_degrees <current_gyro_reading:
+                current_gyro_reading = gyro.angle()
+                if current_gyro_reading == target_degrees:
+                    break
+                if stop():
+                    break
 
     robot.stop()
     print('Leaving Turn_degrees', file= stderr)
@@ -483,5 +484,5 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 #gyro_target_to_line(lambda:stopProcessing, 0, speed = 30, sensor = 'RIGHT', target = 0, correction = 0.8)
 #gyro_current(lambda:stopProcessing, 0, speed = 150, rotations = 2, correction = 0.5)
 #gyro_current_to_line(lambda:stopProcessing, 0, speed = 150, sensor = 'RIGHT', correction = 0.5)
-#gyro_turning(lambda:stopProcessing, speed=30, degrees=90)
+#gyro_turning(lambda:stopProcessing, 0, speed=30, degrees=-90)
 #gyro_turn_to_target(lambda:stopProcessing, 0, speed=30, degrees=90)
