@@ -367,7 +367,7 @@ def gyro_turning(stop, threadKey, speed, degrees):
     #_____________If turning Left__________________________________
     if target_degrees > current_gyro_reading: #ADDED
         while target_degrees > current_gyro_reading: 
-            print(speed, file = stderr)
+            #print(speed, file = stderr)
 
             #same concept as a tank block however bc we dont have access had to turn on both motors
             largeMotor_Right.run(speed=-speed)
@@ -484,5 +484,5 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 #gyro_target_to_line(lambda:stopProcessing, 0, speed = 30, sensor = 'RIGHT', target = 0, correction = 0.8)
 #gyro_current(lambda:stopProcessing, 0, speed = 150, rotations = 2, correction = 0.5)
 #gyro_current_to_line(lambda:stopProcessing, 0, speed = 150, sensor = 'RIGHT', correction = 0.5)
-#gyro_turning(lambda:stopProcessing, speed=30, degrees=90)
+#gyro_turning(lambda:stopProcessing, 0, speed=30, degrees=-90)
 #gyro_turn_to_target(lambda:stopProcessing, 0, speed=30, degrees=90)

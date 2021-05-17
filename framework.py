@@ -84,7 +84,7 @@ def colourAttachment_values():
             break
     '''
 
-    
+    '''
     # 47N7
     ev3.speaker.play_file(SoundFile.GO)
     blue = [13,36,100] #treadmill
@@ -94,7 +94,7 @@ def colourAttachment_values():
     black = [7, 13, 25] #step counter
     print("Values")
 
-    '''
+
     # 50N7
     ev3.speaker.play_file(SoundFile.GO)
     blue = [4,11,34] #treadmill
@@ -104,6 +104,16 @@ def colourAttachment_values():
     black = [3, 4, 3] #step counter
     print("Values")
     '''
+    # R3 sensor 
+    # empty: (8, 13, 27)
+    ev3.speaker.play_file(SoundFile.GO)
+    blue = [5, 16, 69]
+    yellow = [42, 35, 25]
+    white = [49, 63, 100]
+    red = [29, 8, 15]
+    black = [4, 7, 14]
+    print("Values")
+
 
     # return the values for the different keys 
     attachment_values = [blue, yellow, white, red, black]
