@@ -59,6 +59,7 @@ ev3.speaker.set_volume(100, which = '_all_')
 
 if 'Debugging' in os.environ:
     debugging = int(os.environ['Debugging'])
+print(gyro.angle())
     
 # check if the key has been removed from the robot
 def isKeyTaken(rProgram, gProgram, bProgram):  
@@ -108,7 +109,7 @@ def colourAttachment_values():
     # empty: (8, 13, 27)
     ev3.speaker.play_file(SoundFile.GO)
     blue = [5, 16, 69]
-    yellow = [42, 35, 25]
+    yellow = [52, 39, 9]
     white = [49, 63, 100]
     red = [29, 8, 15]
     black = [4, 7, 14]
@@ -394,6 +395,8 @@ def main():
                     print(fileName, file=stderr)
 
                     # calculating in the current value
+                    gyro.reset_angle(0)
+                    time.sleep(0.5)
                     os.environ['gyro_reading_env_var'] = gyro.angle()
                     print("OS Gyro Enviroment Variable read", file = stderr)
 

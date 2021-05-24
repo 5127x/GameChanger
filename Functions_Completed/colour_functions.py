@@ -225,7 +225,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
 
                 # check if there is a black line
-                if left_RLI <= 14:
+                if left_RLI <= 12:
                     break
 
                 # calulate the error
@@ -258,7 +258,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
                 
                 # check if there is a black line
-                if left_RLI <= 14:
+                if left_RLI <= 12:
                     break
 
                 # calculate the error
@@ -293,7 +293,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
 
                 # check if there is a black line 
-                if right_RLI <= 14:
+                if right_RLI <= 12:
                     break
 
                 # calculate the error 
@@ -326,7 +326,7 @@ def blackline_to_line(stop, threadKey, speed, sensor, lineSide, correction):
                     print("LeftRLI = {} RightRLI = {}".format(left_RLI, right_RLI), file = stderr)'''
 
                 # check if there is a black line 
-                if right_RLI <= 14:
+                if right_RLI <= 12:
                     break
 
                 # calculate the error

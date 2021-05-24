@@ -383,7 +383,7 @@ def gyro_turning(stop, threadKey, speed, degrees):
                     break
 
     #_____________If turning Right__________________________________
-    if target_degrees < current_gyro_reading: #ADDED
+    elif target_degrees < current_gyro_reading: #ADDED
         while target_degrees < current_gyro_reading:
             largeMotor_Right.run(speed=speed)
             largeMotor_Left.run(speed=-speed)
@@ -479,7 +479,7 @@ def gyro_turn_to_target(stop, threadKey, speed, degrees):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #stopProcessing=False
-#gyro_calibrate(0)
+#gyro_calibrate(0, gyro)
 #gyro_target(lambda:stopProcessing, 0, speed = 30, rotations = 3, target = 0, correction = 0.8)
 #gyro_target_to_line(lambda:stopProcessing, 0, speed = 30, sensor = 'RIGHT', target = 0, correction = 0.8)
 #gyro_current(lambda:stopProcessing, 0, speed = 150, rotations = 2, correction = 0.5)
