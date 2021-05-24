@@ -1,4 +1,46 @@
 {"steps": [
 
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "motor_onForRotations", "motor": "panel", "speed": "-80", "rotations": ".08", "gearRatio": "1.4"},
+            {"step": "steering_rotations", "speed": "110", "rotations":".5", "steering": "0"}
+    ]},
+
+    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"22.5"},
+
+    {"step": "run_to_blackline", "speed": "110", "sensor":"RIGHT"},
+
+    {"step": "blackline_to_line", "speed": "60", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.8"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":".20", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
+
+    {"step": "blackline_rotations", "speed": "80", "rotations": "1.8", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".9"},
+    {"step": "blackline_to_line", "speed": "75", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.9"},
+
+    {"step": "steering_rotations", "speed": "-60", "rotations":".02", "steering": "0"},    
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-350", "seconds": ".5"},
+    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"0"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":"1.2", "steering": "0"},    
+
+    {"step": "run_to_blackline", "speed": "-110", "sensor":"LEFT"},
+    {"step": "steering_rotations", "speed": "60", "rotations":".4", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"-90"},
+
+
+    {"step": "motor_onForRotations", "motor": "panel", "speed": "80", "rotations": ".2", "gearRatio": "1.4"},
+    {"step": "blackline_rotations", "speed": "80", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
+    {"step": "motor_onForRotations", "motor": "panel", "speed": "-80", "rotations": ".75", "gearRatio": "1.4"},
+
+
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "blackline_rotations", "speed": "80", "rotations": "1.4", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
+            {"step": "motor_onForRotations", "motor": "panel", "speed": "-70", "rotations": ".5", "gearRatio": "1.4"}
+    ]},
+    {"step": "steering_rotations", "speed": "60", "rotations":"1.5", "steering": "0"},
+
+
+    {"step": "do_nothing"}
+
 ]}
 
