@@ -1,3 +1,7 @@
 {"steps": [ 
-    {"step": "gyro_calibrate"}
+    {"step": "panel_motor_degrees_reset","threadKey": "threadKey", "speed": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-350", "seconds": ".5"},
+    {"step": "turn_current_degrees", "speed": "110", "target_degrees":"0"}
+    {"step": "do_nothing"}
+
 ]}

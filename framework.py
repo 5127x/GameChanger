@@ -16,7 +16,8 @@ from Functions_Completed.colour_functions import blackline_rotations
 from Functions_Completed.colour_functions import blackline_to_line
 from Functions_Completed.colour_functions import run_to_blackline
 from Functions_Completed.colour_functions import squareOnLine
-from Functions_Completed.commenting import comment
+from Functions_Completed.degrees import panel_motor_degrees_reset
+from Functions_Completed.degrees import turn_current_degrees
 from Functions_Completed.gyro_functions import gyro_calibrate
 from Functions_Completed.gyro_functions import gyro_current
 from Functions_Completed.gyro_functions import gyro_current_to_line
@@ -342,6 +343,23 @@ def launchStep(stop, threadKey, action):
         thread = threading.Thread(target= play_sound, args=(sound_file_name, ))
         thread.start()
         return thread
+
+    # Reset the panel back to 0
+    if name == 'turn_current_degrees': # parameters (stop, threadKey, speed, target_degrees)
+        print("Turn Current Degrees", file = stderr)
+        speed = float(action['speed'])
+        target_degrees = action['target_degrees']
+        thread = threading.Thread(target = turn_current_degrees, args=(stop, threadKey, speed, target_degrees))
+        thread.start()
+        return thread
+        
+    # Move to current val
+    if name == 'panel_motor_degrees_reset': # parameters (stop, threadKey)
+        print("Panel Motor Degrees Reset", file = stderr)
+        thread = threading.Thread(target = panel_motor_degrees_reset, args=(stop, threadKey))
+        thread.start()
+        return thread
+
 
 # set is_complete as an enviroment variable 
 is_complete = 0
