@@ -25,4 +25,70 @@ colourkey = ColorSensor(Port.S1)
 ev3 = EV3Brick()
 robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-print(colourRight.reflection())
+
+def gyro_target(stop, threadKey, speed, rotations, target, correction):
+    # log the function starting
+    print("In gyro_target", file=stderr)
+
+    # read the environment variable 'is_complete'
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    # read the env var into a normal va
+    gyro_reading_env_var = float(os.environ['gyro_reading_env_var'])
+    # read the current degrees heading and the current motor positions 
+    current_gyro_reading = gyro.angle() - gyro_reading_env_var
+    current_rotations = largeMotor_Left.angle() 
+    # create 'target_rotations' for how far the robot should drive in degrees 
+    rotations = rotations * 360
+    target_rotations= current_rotations + rotations
+    
+
+    # loop until the robor has driven far enough
+    while float(current_rotations) < target_rotations:
+        # reading in current degrees heading and current motor positions 
+        current_gyro_reading=gyro.angle() - gyro_reading_env_var
+        current_rotations = largeMotor_Left.angle()
+
+        # if facing to the left of the target
+        if current_gyro_reading < target:
+            # calculate the error
+            error = target - current_gyro_reading 
+            # calculate the needed steering to compensate 
+            steering = error * correction 
+
+            # the robot drives forward 
+            robot.drive(turn_rate = steering , speed = speed) 
+
+        # if facing to the right of the target
+        if current_gyro_reading > target:
+            # calculate the error 
+            error = target - current_gyro_reading 
+            # calculate the needed steering to compensate 
+            steering = error * correction  
+
+            # the robot drives forward 
+            robot.drive(turn_rate = steering , speed = speed)
+
+        # if perfectly straight
+        if current_gyro_reading == target:
+            # the robot drives forward 
+            robot.drive(turn_rate = 0 , speed = speed)
+
+        # check if the robot has driven far enough
+        if current_rotations >= target_rotations:
+            break
+        
+        # check if the 'stopProcessing' flag is raised 
+        if stop():
+            break
+
+    # stop the robot
+    robot.stop()
+
+    # log leaving the function
+    print('Leaving gyro_target', file=stderr)
+    # change 'is_complete' to the threadKey so the framework knows the function is complete
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)

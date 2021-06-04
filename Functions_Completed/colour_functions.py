@@ -416,6 +416,7 @@ might be untested, not updated to framework
 """
 def squareOnLine(stop, speed, target):
     print("In squareOnLine", file=stderr)
+    
 
     # read the environment variable 'is_complete'
     is_complete = None

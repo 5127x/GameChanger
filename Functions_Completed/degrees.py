@@ -1,0 +1,78 @@
+#!/usr/bin/env pybricks-micropython
+# - Micropython -
+from pybricks.hubs import EV3Brick
+from pybricks.ev3devices import ColorSensor, Motor, GyroSensor
+from pybricks.parameters import Port, Color
+from pybricks.robotics import DriveBase
+
+# basic imports 
+import os
+from sys import stderr
+import os
+import time
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# define motors, sensors and the brick
+largeMotor_Right = Motor(Port.B)
+largeMotor_Left = Motor(Port.C)
+panel = Motor(Port.D)
+
+gyro = GyroSensor(Port.S4)
+colourRight = ColorSensor(Port.S2)
+colourLeft = ColorSensor(Port.S3)
+colourkey = ColorSensor(Port.S1)
+
+ev3 = EV3Brick()
+robot = DriveBase(largeMotor_Left, largeMotor_Right, wheel_diameter=62, axle_track=104)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+def panel_motor_degrees_reset(stop, threadKey):
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    panel.reset_angle(0)
+    
+    print('Leaving panel_motor_degrees_reset', file=stderr)
+    # change 'is_complete' to the threadKey so the framework knows the function is complete
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
+
+
+def turn_current_degrees(stop, threadKey, speed, target_degrees):
+    print("In gyro_target", file=stderr)
+
+    # read the environment variable 'is_complete'
+    is_complete = None
+    if 'IS_COMPLETE' in os.environ:
+        is_complete = int(os.environ['IS_COMPLETE'])
+
+    #__________________
+    current_degrees = panel.angle()
+
+    # loop until the robor has driven far enough
+    while float(speed) > 0:
+        panel.run(speed)
+        if current_degrees >= target_degrees:
+            break 
+
+        if stop():
+            break
+
+    while float(speed) <  0:
+        panel.run(speed)
+        if current_degrees <= target_degrees:
+            break 
+
+        if stop():
+            break
+        # if facing to the left of the
+
+    # stop the robot
+    robot.stop()
+
+    # log leaving the function
+    print('Leaving gyro_target', file=stderr)
+    # change 'is_complete' to the threadKey so the framework knows the function is complete
+    is_complete = threadKey
+    os.environ['IS_COMPLETE'] = str(is_complete)
