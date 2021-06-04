@@ -16,8 +16,7 @@ from Functions_Completed.colour_functions import blackline_rotations
 from Functions_Completed.colour_functions import blackline_to_line
 from Functions_Completed.colour_functions import run_to_blackline
 from Functions_Completed.colour_functions import squareOnLine
-from Functions_Completed.degrees import panel_motor_degrees_reset
-from Functions_Completed.degrees import turn_current_degrees
+from Functions_Completed.commenting import comment
 from Functions_Completed.gyro_functions import gyro_calibrate
 from Functions_Completed.gyro_functions import gyro_current
 from Functions_Completed.gyro_functions import gyro_current_to_line
@@ -269,22 +268,6 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
 
-    # Reset the panel back to 0
-    if name == 'turn_current_degrees': # parameters (stop, threadKey)
-        print("Turn Current Degrees", file = stderr)
-        speed = float(action['speed'])
-        target_degrees = action['target_degrees']
-        thread = threading.Thread(target = run_to_blackline, args=(stop, threadKey, speed, target_degrees))
-        thread.start()
-        return thread
-        
-    # Move to current val
-    if name == 'panel_motor_degrees_reset': # parameters (stop, threadKey)
-        print("Panel Motor Degrees Reset", file = stderr)
-        thread = threading.Thread(target = run_to_blackline, args=(stop, threadKey))
-        thread.start()
-        return thread
-
     # recalibrates the gyro 
     if name == 'gyro_calibrate': # parameters (threadKey, gyroS)
         print("Starting gyro_calibrate", file=stderr)
@@ -356,7 +339,7 @@ def launchStep(stop, threadKey, action):
     if name == 'play_sound': # parameters (sound_file_name)
         print("Starting play_sound", file=stderr)
         sound_file_name = action['sound_file_name']
-        thread = threading.Thread(target= play_sound, args=(sound_file_name))
+        thread = threading.Thread(target= play_sound, args=(sound_file_name, ))
         thread.start()
         return thread
 
@@ -379,9 +362,9 @@ def main():
         parsed = ujson.load(f)
         programsList = parsed["programs"]
 
-        # loop until the program is completelystopped 
+        # loop until the program is completely stopped 
         while True:
-            # resetstopProcessing each repetition
+            # reset stopProcessing each repetition
             stopProcessing = False
 
             # reset variables for a new run 
@@ -444,7 +427,7 @@ def main():
                                 threadKey = threadKey+1  
 
                             while not stopProcessing:
-                                # if there are no threads running and the run hasn't beenstopped, start the next action
+                                # if there are no threads running and the run hasn't been stopped, start the next action
                                 if not threadPool:
                                     break
                                 
@@ -459,7 +442,7 @@ def main():
                                     print("threadpool {}".format(threadPool), file=stderr)
                                     print('')
                                 
-                                # if the key is removed thenstop everything by raising the 'stopProcessing' flag
+                                # if the key is removed then stop everything by raising the 'stopProcessing' flag
                                 if isKeyTaken(rProgram, gProgram, bProgram):
                                     stopProcessing = True
                                     print("...stopProcessing...")
@@ -474,9 +457,9 @@ def main():
                                     largeMotor_Left.stop()
                                     largeMotor_Right.stop()
                                     panel.stop()
-                                    print('motorsstopped')
+                                    print('motors stopped')
                                 except:
-                                    print("didntstop")
+                                    print("didnt stop")
                                 break
 
 #play sound to know that the framework is about to run. (helps makek you aware that the program is about to start)
