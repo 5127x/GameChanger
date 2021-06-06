@@ -4,4 +4,10 @@
     "python.linting.enabled": true,
     "files.eol": "\n",
     "ev3devBrowser.download.exclude": "{**/.*,LICENSE,README.md}"
+
+    "editor.tokenColorCustomizations": {
+        "[Monokai]": {
+            "comments": "#229977"
+        }
+    }
 }

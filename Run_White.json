@@ -1,12 +1,14 @@
 {"steps": [
 
+    {"comment": "reseting the degrees", "step": "comment"},
+
     {"step": "panel_motor_degrees_reset","threadKey": "threadKey", "speed": "0"},
 
-    {"step": "launchInParallel", 
-        "subSteps": [
-            {"step": "motor_onForRotations", "motor": "panel", "speed": "-80", "rotations": ".08", "gearRatio": "1.4"},
-            {"step": "steering_rotations", "speed": "110", "rotations":".5", "steering": "0"}
-    ]},
+    {"comment": "___________ run towardd the blackline_________", "step": "comment"},
+
+    {"comment": "___________ *should be launched in paralell_________", "step": "comment"},
+    {"step": "steering_rotations", "speed": "110", "rotations":".5", "steering": "0"},
+    {"step": "turn_current_degrees", "speed": "180", "target_degrees":"-50"},
 
     {"step": "gyro_turn_to_target", "speed": "110", "degrees":"22.5"},
 
@@ -16,30 +18,41 @@
     {"step": "steering_rotations", "speed": "-60", "rotations":".15", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
 
+    {"comment": "___________ going toward the shared mission_________", "step": "comment"},
+
     {"step": "blackline_rotations", "speed": "80", "rotations": "1.8", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".9"},
     {"step": "blackline_to_line", "speed": "75", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.9"},
 
+    {"comment": "___________ reverse back to line up to the panel - moving away from the basketball & shared_________", "step": "comment"},
     {"step": "steering_rotations", "speed": "-60", "rotations":".02", "steering": "0"},    
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-350", "seconds": ".5"},
-    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-350", "seconds": ".4"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "350", "seconds": ".4"},
     {"step": "steering_rotations", "speed": "-60", "rotations":"1.2", "steering": "0"},    
 
-    {"step": "turn_current_degrees", "speed": "110", "target_degrees":"0"},
+    {"comment": "__________________________________________________________________________________________________", "step": "comment"},
+
+    {"comment": "________ continuing on to the second part of the run --> pushing bench ________", "step": "comment"},
+
+    {"comment": "___________*should be launched in parallel _________", "step": "comment"},
+    {"step": "turn_current_degrees", "speed": "180", "target_degrees":"-80"},
     {"step": "run_to_blackline", "speed": "-110", "sensor":"LEFT"},
+
     {"step": "steering_rotations", "speed": "60", "rotations":".4", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"-90"},
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-80"},
 
+    {"comment": "________ lined up to push down the panel _________", "step": "comment"},
 
-    {"step": "motor_onForRotations", "motor": "panel", "speed": "80", "rotations": ".2", "gearRatio": "1.4"},
     {"step": "blackline_rotations", "speed": "80", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
     {"step": "motor_onForRotations", "motor": "panel", "speed": "-80", "rotations": ".75", "gearRatio": "1.4"},
 
 
     {"step": "launchInParallel", 
         "subSteps": [
-            {"step": "blackline_rotations", "speed": "80", "rotations": "1.4", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
+            {"step": "blackline_to_line", "speed": "80", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
             {"step": "motor_onForRotations", "motor": "panel", "speed": "-70", "rotations": ".5", "gearRatio": "1.4"}
     ]},
+
+    {"step": "turn_current_degrees", "speed": "180", "target_degrees":"-45"},
     {"step": "steering_rotations", "speed": "60", "rotations":"1.5", "steering": "0"},
 
 

@@ -18,6 +18,7 @@ from Functions_Completed.colour_functions import run_to_blackline
 from Functions_Completed.colour_functions import squareOnLine
 from Functions_Completed.degrees import panel_motor_degrees_reset
 from Functions_Completed.degrees import turn_current_degrees
+from Functions_Completed.comment import comment
 from Functions_Completed.gyro_functions import gyro_calibrate
 from Functions_Completed.gyro_functions import gyro_current
 from Functions_Completed.gyro_functions import gyro_current_to_line
@@ -345,7 +346,7 @@ def launchStep(stop, threadKey, action):
         return thread
 
     # Reset the panel back to 0
-    if name == 'turn_current_degrees': # parameters (stop, threadKey, speed, target_degrees)
+    if name == 'turn_current_degrees': #  param eters (stop, threadKey, speed, target_degrees)
         print("Turn Current Degrees", file = stderr)
         speed = float(action['speed'])
         target_degrees = action['target_degrees']
@@ -359,6 +360,15 @@ def launchStep(stop, threadKey, action):
         thread = threading.Thread(target = panel_motor_degrees_reset, args=(stop, threadKey))
         thread.start()
         return thread
+
+    # Commment
+    if name == 'comment': # parameters (stop, threadKey)
+        print("comment", file = stderr)
+        thread = threading.Thread(target = comment, args=(stop, threadKey, comment))
+        thread.start()
+        return thread
+
+
 
 
 # set is_complete as an enviroment variable 

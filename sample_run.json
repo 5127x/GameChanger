@@ -21,3 +21,16 @@
 {"step": "gyro_turn_to_target", "speed": "120", "degrees":"0"},
 
 
+{"comment": "_____reseting the degrees & turning the panel__________________________", "step": "comment"},
+{"step": "panel_motor_degrees_reset","threadKey": "threadKey", "speed": "0"},
+{"step": "turn_current_degrees", "speed": "180", "target_degrees":"100"},
+
+{"comment": "_____drive out of base__________________________", "step": "comment"},
+{"step": "blackline_rotations", "speed": "186", "rotations": "1.8", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": ".8"},
+{"step": "blackline_to_line", "speed": "150", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.5"},
+{"step": "gyro_turn_to_target", "speed": "110", "degrees":"0"},
+
+{"comment": "_____rowing machine__________________________", "step": "comment"},
+{"step": "turn_current_degrees", "speed": "120", "target_degrees":"210"},
+{"step": "steering_rotations", "speed": "20", "rotations":"1", "steering": "0"}
+{"step": "turn_current_degrees", "speed": "-120", "target_degrees":"100"},

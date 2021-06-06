@@ -35,7 +35,8 @@ def panel_motor_degrees_reset(stop, threadKey):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def turn_current_degrees(stop, threadKey, speed, target_degrees):
-    print("In gyro_target", file=stderr)
+    print("In turn_current_degrees", file=stderr)
+    print(target_degrees)
 
     # read the environment variable 'is_complete'
     is_complete = None
@@ -44,36 +45,71 @@ def turn_current_degrees(stop, threadKey, speed, target_degrees):
 
     #__________________
     current_degrees = panel.angle()
-    panel.run(speed)
+    
+    if float(target_degrees) > 0:
+        #print("speed is positive", file = stderr)
+        panel.run(speed = speed)
+        while float(speed) > 0:
+            print(current_degrees, file = stderr)
+            current_degrees = panel.angle()
 
-    while float(speed) > 0:
-        print(current_degrees, file = stderr)
-        current_degrees = panel.angle()
-
-        if float(current_degrees) >= float(target_degrees):
-            panel.brake()
-            break 
+            if float(current_degrees) >= float(target_degrees):
+                print("met requirments")
+                panel.brake()
+                break 
 
 
-        if stop():
-            panel.brake()            
-            break
+            if stop():
+                print("stop")
+                panel.brake()            
+                break
 
-    while float(speed) <  0:
-        print(current_degrees, file = stderr)
-        current_degrees = panel.angle()
-        if float(current_degrees) <= float(target_degrees):
-            panel.brake()
-            break 
+        while float(speed) <  0:
+            #print("speed is negative", file=stderr)
+            print(current_degrees, file = stderr)
+            current_degrees = panel.angle()
+            if float(current_degrees) <= float(target_degrees):
+                panel.brake()
+                break 
 
-        if stop():
-            panel.brake()
-            break
+            if stop():
+                panel.brake()
+                break
+    
+    if float(target_degrees) < 0:
+        panel.run(speed = -speed)
+        while float(speed) > 0:
+            print("speed is positive", file = stderr)
+            print(current_degrees, file = stderr)
+            current_degrees = panel.angle()
+
+            if float(current_degrees) <= float(target_degrees):
+                print("met requirments")
+                panel.brake()
+                break 
+
+
+            if stop():
+                print("stop")
+                panel.brake()            
+                break
+
+        while float(speed) <  0:
+            print("speed is negative", file=stderr)
+            print(current_degrees, file = stderr)
+            current_degrees = panel.angle()
+            if float(current_degrees) >= float(target_degrees):
+                panel.brake()
+                break 
+
+            if stop():
+                panel.brake()
+                break
         # if facing to the left of the
 
     # stop the robot
     robot.stop()
-    print('Leaving gyro_target', file=stderr)
+    print('Leaving turn_target', file=stderr)
     # change 'is_complete' to the threadKey so the framework knows the function is complete
     is_complete = threadKey
     os.environ['IS_COMPLETE'] = str(is_complete)

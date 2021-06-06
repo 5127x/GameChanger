@@ -34,10 +34,6 @@ def motor_onForRotations(stop, threadKey, motor, speed, rotations, gearRatio):
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
 
-    # if we needed an extra motor, defining it here prevents it from messing up other bits of code and allows us to unplug it after a run
-    if motor == "extension":
-        motor =  Motor(Port.A)
-
     # read the motor position 
     current_degrees = motor.angle() 
     # adjust the rotations goal for the gearing ratio of the motor/attachment 
