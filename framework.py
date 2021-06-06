@@ -346,7 +346,7 @@ def launchStep(stop, threadKey, action):
         return thread
 
     # Reset the panel back to 0
-    if name == 'turn_current_degrees': #  param eters (stop, threadKey, speed, target_degrees)
+    if name == 'turn_current_degrees': #  parameters (stop, threadKey, speed, target_degrees)
         print("Turn Current Degrees", file = stderr)
         speed = float(action['speed'])
         target_degrees = action['target_degrees']
