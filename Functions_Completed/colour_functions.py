@@ -436,8 +436,6 @@ def squareOnLine(stop, speed, target):
         colourRight_RLI = colourRight.reflection()
         # if the left Rli is smaller than the target/aim then turn to the right
         if colourLeft_RLI <= target:
-            if debugging == True:
-                print("ColourLeftRLI = {}".format(colourLeft_RLI), file = stderr)
             largeMotor_Left.run(-speed)
             largeMotor_Right.run(speed)
             lineFound = True #setting bool varisable for cancelling movment later on
@@ -445,8 +443,6 @@ def squareOnLine(stop, speed, target):
 
         # if the right Rli is smaller than the target/aim then turn to the left
         if colourRight_RLI <=target:
-            if debugging == True:
-                print("RightRLI = {}".format(colourRight_RLI), file = stderr)
             largeMotor_Left.run(speed)
             largeMotor_Right.run(-speed)
             lineFound = True #setting bool varisable for cancelling movment later on
