@@ -133,7 +133,7 @@ def launchStep(stop, threadKey, action):
     # collect the name of the function from the information passed in 
     name = action["step"]
 
-    # example of the code used to start a function
+    # example of the code used t5o start a function
     ''' 
     if name == '': # (list of variables)
         print(name, file=stderr)
