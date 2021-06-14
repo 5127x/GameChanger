@@ -1,0 +1,8 @@
+{"steps": [
+    {"comment": "___head to dance floor___", "step": "comment"},
+    {"step": "steering_rotations", "speed": "-1000", "rotations":"3.7", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-100", "rotations":"0.3", "steering": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "69", "seconds": "20", "gearRatio": "1.4"},
+    {"step": "do_nothing"}
+]}
+    
