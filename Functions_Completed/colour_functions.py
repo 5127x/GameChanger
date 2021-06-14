@@ -414,39 +414,43 @@ def run_to_blackline(stop, threadKey, speed, sensor):
 might be untested, not updated to framework
 
 """
-def squareOnLine(stop, speed, target):
+def squareOnLine(stop, threadKey, speed, target):
     print("In squareOnLine", file=stderr)
 
     # read the environment variable 'is_complete'
     is_complete = None
     if 'IS_COMPLETE' in os.environ:
         is_complete = int(os.environ['IS_COMPLETE'])
-
-    if 'Debugging' in os.environ:
-        debugging = int(os.environ['Debugging'])
     # setting up program
     colourLeft_RLI = 0
     colourRight_RLI = 0
     lineFound = False
     #Turning on motor
-    robot.drive(turn_rate=0,speed=speed)
+    print("1", file = stderr)
+    largeMotor_Left.run(speed=-float(speed))
+    largeMotor_Right.run(speed=float(speed))
+    print("2", file = stderr)
     while True:
         #reading in the colour sensor values (reflected light intensity)
         colourLeft_RLI = colourLeft.reflection()
         colourRight_RLI = colourRight.reflection()
+        print("read colours", file = stderr)
         # if the left Rli is smaller than the target/aim then turn to the right
-        if colourLeft_RLI <= target:
-            largeMotor_Left.run(-speed)
-            largeMotor_Right.run(speed)
-            lineFound = True #setting bool varisable for cancelling movment later on
+        if float(colourLeft_RLI) <= float(target):
             print('{} left found it'.format(colourLeft_RLI), file = stderr)
+            print(speed, file = stderr)
+            largeMotor_Left.run(speed=-int(speed))
+            largeMotor_Right.run(speed=int(speed))
+            lineFound = True #setting bool varisable for cancelling movment later on
+
 
         # if the right Rli is smaller than the target/aim then turn to the left
-        if colourRight_RLI <=target:
-            largeMotor_Left.run(speed)
-            largeMotor_Right.run(-speed)
-            lineFound = True #setting bool varisable for cancelling movment later on
+        if float(colourRight_RLI) <= float(target):
             print('{} right found it'.format(colourRight_RLI), file = stderr)
+            print(speed, file = stderr)
+            largeMotor_Left.run(speed=int(speed))
+            largeMotor_Right.run(speed=-int(speed))
+            lineFound = True #setting bool varisable for cancelling movment later on
 
         print('{} left, {} right'.format(colourLeft_RLI, colourRight_RLI), file = stderr)
     

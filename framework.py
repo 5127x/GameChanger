@@ -231,10 +231,11 @@ def launchStep(stop, threadKey, action):
         thread.start()
         return thread
     
-    if name == 'squareOnLine': # parameters (stop, threadKey, speed, sensor, correction)
+    if name == 'squareOnLine': # parameters (stop, threadKey, speed, target)
         print("Starting square_on_line", file=stderr)
         speed = float(action['speed'])
-        thread = threading.Thread(target=squareOnLine, args=(stop, threadKey, speed))
+        target = float(action['target'])
+        thread = threading.Thread(target=squareOnLine, args=(stop, threadKey, speed, target))
         thread.start()
         return thread
 
