@@ -114,7 +114,7 @@ def colourAttachment_values():
     blue = [5, 16, 69]
     yellow = [52, 39, 9]
     white = [49, 63, 100]
-    red = [29, 8, 15]
+    red = [38, 9, 5]
     black = [4, 7, 14]
     print("Values")
 
