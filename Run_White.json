@@ -1,6 +1,7 @@
 {"steps": [
 
     {"comment": "reseting the degrees", "step": "comment"},
+    
 
     {"step": "panel_motor_degrees_reset","threadKey": "threadKey", "speed": "0"},
 
