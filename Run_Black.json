@@ -1,0 +1,7 @@
+{"steps": [
+    {"comment": "___step counter___", "step": "comment"},
+    {"step": "steering_rotations", "speed": "1000", "rotations":"4", "steering": "0"},
+    {"step": "steering_seconds", "speed": "300", "seconds":"2", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-1000", "rotations":"5", "steering": "-5"},
+    {"step": "do_nothing"}
+]}

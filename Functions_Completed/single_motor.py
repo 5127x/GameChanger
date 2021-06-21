@@ -120,4 +120,4 @@ def motor_onForSeconds(stop, threadKey, motor, speed, seconds):
 #stopProcessing=False
 #motor_onForRotations(lambda:stopProcessing, 0, motor = panel, speed = 200, rotations = 2, gearRatio = 1)
 #Motor_onForSeconds(lambda:stopProcessing, 0, motor = panel, speed = 200, seconds = 3)
-#print(colourkey.rgb())
+print(colourkey.rgb())
