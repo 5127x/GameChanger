@@ -109,11 +109,11 @@ def colourAttachment_values():
     print("Values")
     '''
     # R3 sensor 
-    # empty: (8, 13, 27)
+    # empty: (11, 16, 21)
     ev3.speaker.play_file(SoundFile.GO)
-    blue = [5, 16, 69]
+    blue = [5, 19, 36] 
     yellow = [52, 39, 9]
-    white = [49, 63, 100]
+    white = [58, 69, 72]
     red = [38, 9, 5]
     black = [4, 9, 3]
     print("Values")
