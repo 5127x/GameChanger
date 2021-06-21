@@ -6,19 +6,17 @@
     {"step": "turn_current_degrees", "speed": "180", "target_degrees":"100"},
     
     {"comment": "_____drive out of base______________2nd line 186 speed?____________", "step": "comment"},
-    {"step": "run_to_blackline", "speed": "180", "sensor":"RIGHT"},
-    {"step": "blackline_rotations", "speed": "120", "rotations": "6.5", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": ".8"},
-    {"step": "blackline_to_line", "speed": "60", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.5"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
+    {"step": "run_to_blackline", "speed": "200", "sensor":"RIGHT"},
+    {"step": "blackline_rotations", "speed": "180", "rotations": "6.3", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": ".9"},
+    {"step": "blackline_to_line", "speed": "50", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.5"},
 
     {"comment": "_____rowing machine__________________________", "step": "comment"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1.5"},
     {"step": "steering_rotations", "speed": "60", "rotations":".25", "steering": "0"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1"},
-    {"step": "steering_rotations", "speed": "-120", "rotations":"0.5", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"0"},
-
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1.2"},
+    {"step": "steering_rotations", "speed": "-180", "rotations":"0.35", "steering": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "-100", "seconds": "1.5"},
+    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"0"},
 
     {"comment": "_____preperation collection of the wheel__________________________", "step": "comment"},
 
@@ -26,9 +24,13 @@
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": "1"},
 
     {"step": "steering_rotations", "speed": "-120", "rotations":"1", "steering": "0"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".5"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".7"},
 
-    {"step": "steering_rotations", "speed": "-60", "rotations":"1", "steering": "0"},
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "steering_rotations", "speed": "-60", "rotations":"1", "steering": "0"},
+            {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".3"}
+        ]},
 
     {"step": "steering_rotations", "speed": "-400", "rotations":"5", "steering": "0"},
 

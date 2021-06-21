@@ -5,7 +5,11 @@
     {"step": "blackline_rotations", "speed": "150", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".65"},
     {"step": "blackline_to_line", "speed": "150", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".65"},
     
+<<<<<<< HEAD
+    {"comment": "___turn to go under bridge, degrees changed from -80___", "step": "comment"},
+=======
     {"comment": "___turn to go under bridge-thingie", "step": "comment"},
+>>>>>>> b1d42accbb745839606231cc9a74c489e4f01eb0
     {"step": "gyro_turning", "speed": "60", "degrees":"-90"},
     {"step": "steering_rotations", "speed": "100", "rotations":"0.08", "steering": "0"},
     {"step": "waiting", "seconds": "0.1"},
