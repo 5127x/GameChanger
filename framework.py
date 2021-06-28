@@ -82,11 +82,12 @@ def colourAttachment_values():
     #ev3.speaker.say('Insert blue')
 
     '''
+    
     while True: 
         if Button.CENTER in ev3.buttons.pressed():
             print("{} colour Value".format (colourkey.rgb()))
-            break
-    '''
+    '''     
+    
 
     '''
     # 47N7
@@ -97,13 +98,14 @@ def colourAttachment_values():
     red = [65, 20, 30] #autonomous run (no json file made)
     black = [7, 13, 25] #step counter
     print("Values")
+    '''
 
-
+    '''
     # 50N7
     ev3.speaker.play_file(SoundFile.GO)
-    blue = [4,11,34] #treadmill
-    yellow = [55, 30, 9] #boccia cubes
-    white = [59, 48, 66] #basketball & shared mission
+    blue = [6,20,38] #treadmill
+    yellow = [44,37,25] #boccia cubes
+    white = [62, 75, 74] #basketball & shared mission
     red = [36, 6, 4] #autonomous run (no json file made)
     black = [3, 4, 3] #step counter
     print("Values")
@@ -117,7 +119,7 @@ def colourAttachment_values():
     red = [38, 9, 5]
     black = [4, 9, 3]
     print("Values")
-
+    
 
     # return the values for the different keys 
     attachment_values = [blue, yellow, white, red, black]
