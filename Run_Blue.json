@@ -19,15 +19,15 @@
 
     {"comment": "_____preperation collection of the wheel__________________________", "step": "comment"},
 
-    {"step": "steering_rotations", "speed": "-120", "rotations":".4", "steering": "0"},
+    {"step": "gyro_target", "speed": "-120","correction":".6", "rotations":".4", "target": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".325"},
 
-    {"step": "steering_rotations", "speed": "-120", "rotations":".95", "steering": "0"},
+    {"step": "gyro_target", "speed": "-120", "correction":".6", "rotations":".95", "target": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".575"},
 
     {"step": "launchInParallel", 
         "subSteps": [
-            {"step": "steering_rotations", "speed": "-60", "rotations":"1", "steering": "0"},
+            {"step": "gyro_target", "speed": "-60", "correction":".6", "rotations":"1", "target": "0"},
             {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".9"}
         ]},
 
