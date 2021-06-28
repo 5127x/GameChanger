@@ -1,9 +1,10 @@
 {"steps": [
+    {"step": "panel_motor_degrees_reset","threadKey": "threadKey", "speed": "0"},
     {"comment": "___follow black line___", "step": "comment"},
     {"step": "steering_rotations", "speed": "180", "rotations":"2.6", "steering": "0"},
-    {"step": "blackline_rotations", "speed": "65", "rotations": ".5", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".8"},
-    {"step": "blackline_rotations", "speed": "150", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".65"},
-    {"step": "blackline_to_line", "speed": "150", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".65"},
+    {"step": "blackline_rotations", "speed": "65", "rotations": ".5", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".75"},
+    {"step": "blackline_rotations", "speed": "150", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".75"},
+    {"step": "blackline_to_line", "speed": "150", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".7"},
     
     {"comment": "___turn to go under bridge-thingie", "step": "comment"},
     {"step": "gyro_turning", "speed": "60", "degrees":"-90"},
@@ -11,7 +12,7 @@
     {"step": "waiting", "seconds": "0.1"},
 
     {"comment": "___follow black line under bridge", "step": "comment"},
-    {"step": "blackline_rotations", "speed": "120", "rotations": "1.9", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".7"},
+    {"step": "blackline_rotations", "speed": "120", "rotations": "1.9", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".65"},
     
     {"comment": "___drive into wall to release cubes___", "step": "comment"},
     {"step": "launchInParallel", 
@@ -36,19 +37,20 @@
     {"step": "steering_rotations", "speed": "100", "rotations":"0.2", "steering": "0"},
     {"step": "steering_rotations", "speed": "70", "rotations":"0.2", "steering": "5"},
     {"step": "steering_rotations", "speed": "-60", "rotations":"0.15", "steering": "0"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-700", "seconds": "0.4", "gearRatio": "1.4"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-650", "seconds": "0.4", "gearRatio": "1.4"},
     {"step": "waiting", "seconds": "0.2"},
     {"step": "motor_onForRotations", "motor": "panel", "speed": "200", "rotations": "0.1", "gearRatio": "1.4"},
     
     {"comment": "___return to line___", "step": "comment"},
     {"step": "steering_to_line", "speed": "-120", "sensor":"RIGHT", "steering": "0"},
-    {"step": "waiting", "seconds": "0.1"},
+    {"step": "turn_current_degrees", "speed": "150", "target_degrees":"0"},
     {"step": "gyro_turning", "speed": "80", "degrees":"-35"},
 
     {"comment": "___turn and follow black line to slide___", "step": "comment"},
     {"step": "steering_rotations", "speed": "80", "rotations":"0.2", "steering": "0"},
     {"step": "gyro_turning", "speed": "80", "degrees":"-75"},
     {"step": "steering_rotations", "speed": "-60", "rotations":"0.1", "steering": "0"},
+    {"step": "turn_current_degrees", "speed": "150", "target_degrees":"-30"},
 
     {"step": "waiting", "seconds": "0.1"},
     {"step": "blackline_rotations", "speed": "70", "rotations": "0.55", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".8"},
@@ -57,13 +59,13 @@
     {"step": "launchInParallel", 
         "subSteps": [
             {"step": "blackline_rotations", "speed": "60", "rotations": "0.8", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
-            {"step": "motor_onForSeconds", "motor": "panel", "speed": "-100", "seconds": "3.6", "gearRatio": "1.4"}
+            {"step": "motor_onForSeconds", "motor": "panel", "speed": "-100", "seconds": "3.65", "gearRatio": "1.4"}
     ]},
 
     {"comment": "___return to base___", "step": "comment"},
     {"step": "blackline_to_line", "speed": "60", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".9"},
-    {"step": "steering_rotations", "speed": "120", "rotations":"0.3", "steering": "-70"},
-    {"step": "steering_rotations", "speed": "1000", "rotations":"7", "steering": "10"},
+    {"step": "steering_rotations", "speed": "120", "rotations":"0.4", "steering": "-80"},
+    {"step": "steering_rotations", "speed": "1000", "rotations":"7", "steering": "10.5"},
 
     {"step": "do_nothing"}
 ]}
