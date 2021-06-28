@@ -5,50 +5,53 @@
 
     {"step": "panel_motor_degrees_reset","threadKey": "threadKey", "speed": "0"},
 
-    {"comment": "___________ run towardd the blackline_________", "step": "comment"},
+    {"comment": "___________ run toward the blackline_________", "step": "comment"},
 
+    {"step": "steering_rotations", "speed": "220", "rotations":".7", "steering": "0"},
+    {"step": "turn_current_degrees", "speed": "200", "target_degrees":"-40"},
 
-    {"step": "steering_rotations", "speed": "200", "rotations":".5", "steering": "0"},
-    {"step": "turn_current_degrees", "speed": "180", "target_degrees":"-40"},
+    {"step": "gyro_turning", "speed": "150", "degrees":"45"},
 
-    {"step": "gyro_turning", "speed": "110", "degrees":"22.5"},
+    {"comment": "___{step: run_to_blackline, speed: 180, sensor:RIGHT},__", "step": "comment"},
+    {"step": "steering_to_line", "speed": "180", "sensor":"RIGHT", "steering": "0"},
+    {"step": "waiting", "seconds": "0.1"},
 
-    {"step": "run_to_blackline", "speed": "150", "sensor":"RIGHT"},
-
-    {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.8"},
-    {"step": "steering_rotations", "speed": "-60", "rotations":".15", "steering": "0"},
+    {"step": "blackline_to_line", "speed": "70", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.75"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":".12", "steering": "0"},
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
+    {"step": "gyro_turning", "speed": "60", "degrees":"1"},
 
     {"comment": "___________ going toward the shared mission_________", "step": "comment"},
 
-    {"step": "blackline_rotations", "speed": "120", "rotations": "1.8", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".9"},
-    {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.9"},
+    {"step": "blackline_rotations", "speed": "160", "rotations": "1.8", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".7"},
+    {"step": "blackline_to_line", "speed": "100", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.7"},
 
     {"comment": "___________ reverse back to line up to the panel - moving away from the basketball & shared_________", "step": "comment"},
-    {"step": "steering_rotations", "speed": "-60", "rotations":".06", "steering": "0"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-350", "seconds": ".5"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "200", "seconds": ".4"},
-    {"step": "steering_rotations", "speed": "-60", "rotations":"1.2", "steering": "0"},    
+    {"step": "steering_rotations", "speed": "-150", "rotations":".03", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-0.05"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-450", "seconds": ".55"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "200", "seconds": ".3"},
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
+    {"step": "steering_rotations", "speed": "-200", "rotations":"1.2", "steering": "0"},    
 
     {"comment": "__________________________________________________________________________________________________", "step": "comment"},
 
     {"comment": "________ continuing on to the second part of the run --> pushing bench ________", "step": "comment"},
 
-    {"step": "turn_current_degrees", "speed": "180", "target_degrees":"-180"},
+    {"step": "turn_current_degrees", "speed": "80", "target_degrees":"-180"},
 
-    {"step": "run_to_blackline", "speed": "-110", "sensor":"LEFT"},
+    {"step": "run_to_blackline", "speed": "-150", "sensor":"LEFT"},
 
-    {"step": "steering_rotations", "speed": "120", "rotations":".4", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "100", "degrees":"-80"},
+    {"step": "steering_rotations", "speed": "200", "rotations":".4", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "100", "degrees":"-45"},
 
 
     {"comment": "________ driving toward health unit ________", "step": "comment"},
-    {"step": "turn_current_degrees", "speed": "-180", "target_degrees":"180"},
+    {"step": "turn_current_degrees", "speed": "-180", "target_degrees":"100"},
+    {"step": "blackline_rotations", "speed": "120", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
+    {"step": "blackline_to_line", "speed": "110", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
 
-    {"step": "blackline_rotations", "speed": "100", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
-    {"step": "blackline_to_line", "speed": "100", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
-
-    {"step": "steering_rotations", "speed": "120", "rotations":"2.5", "steering": "0"},
+    {"step": "steering_rotations", "speed": "300", "rotations":"2.5", "steering": "0"},
 
 
     {"step": "do_nothing"}

@@ -79,8 +79,8 @@ def turn_current_degrees(stop, threadKey, speed, target_degrees):
     if float(target_degrees) < 0:
         panel.run(speed = -speed)
         while float(speed) > 0:
-            print("speed is positive", file = stderr)
-            print(current_degrees, file = stderr)
+            #print("speed is positive", file = stderr)
+            #print(current_degrees, file = stderr)
             current_degrees = panel.angle()
 
             if float(current_degrees) <= float(target_degrees):

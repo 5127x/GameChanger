@@ -60,8 +60,7 @@ print("")
 
 ev3.speaker.set_volume(100, which = '_all_')
 
-if 'Debugging' in os.environ:
-    debugging = int(os.environ['Debugging'])
+
 print(gyro.angle())
     
 # check if the key has been removed from the robot
@@ -126,8 +125,6 @@ def colourAttachment_values():
     return attachment_values
 
     
-    os.environ['Debugging'] = True
-    print ("debug activated")
 
 
 # launch actions using threads
