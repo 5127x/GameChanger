@@ -11,7 +11,7 @@
     {"step": "steering_rotations", "speed": "150", "rotations":".5", "steering": "0"},
     {"step": "turn_current_degrees", "speed": "180", "target_degrees":"-40"},
 
-    {"step": "gyro_turn_to_target", "speed": "110", "degrees":"22.5"},
+    {"step": "gyro_turning", "speed": "110", "degrees":"22.5"},
 
     {"step": "run_to_blackline", "speed": "110", "sensor":"RIGHT"},
 
