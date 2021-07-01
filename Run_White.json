@@ -28,7 +28,6 @@
 
     {"comment": "___________ reverse back to line up to the panel - moving away from the basketball & shared_________", "step": "comment"},
     {"step": "steering_rotations", "speed": "-150", "rotations":".03", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-0.05"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "-450", "seconds": ".55"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "200", "seconds": ".3"},
     {"step": "gyro_turn_to_target", "speed": "60", "degrees":"0"},
@@ -39,17 +38,15 @@
     {"comment": "________ continuing on to the second part of the run --> pushing bench ________", "step": "comment"},
 
     {"step": "turn_current_degrees", "speed": "80", "target_degrees":"-180"},
-
-    {"step": "run_to_blackline", "speed": "-150", "sensor":"LEFT"},
-
-    {"step": "steering_rotations", "speed": "200", "rotations":".4", "steering": "0"},
-    {"step": "gyro_turn_to_target", "speed": "100", "degrees":"-45"},
+    {"step": "run_to_blackline", "speed": "-60", "sensor":"LEFT"},
+    {"step": "steering_rotations", "speed": "60", "rotations":".4", "steering": "0"},
+    {"step": "gyro_turn_to_target", "speed": "60", "degrees":"-50"},
 
 
     {"comment": "________ driving toward health unit ________", "step": "comment"},
     {"step": "turn_current_degrees", "speed": "-180", "target_degrees":"100"},
-    {"step": "blackline_rotations", "speed": "120", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
-    {"step": "blackline_to_line", "speed": "110", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.9"},
+    {"step": "blackline_rotations", "speed": "100", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.95"},
+    {"step": "blackline_to_line", "speed": "100", "sensor":"LEFT", "lineSide":"LEFT", "correction": "0.95"},
 
     {"step": "steering_rotations", "speed": "300", "rotations":"2.5", "steering": "0"},
 

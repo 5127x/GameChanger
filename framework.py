@@ -80,12 +80,13 @@ def colourAttachment_values():
     # collect the blue value 
     #ev3.speaker.say('Insert blue')
 
+    
     '''
     
     while True: 
         if Button.CENTER in ev3.buttons.pressed():
             print("{} colour Value".format (colourkey.rgb()))
-    '''     
+    '''
     
 
     '''

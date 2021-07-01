@@ -4,8 +4,8 @@
     {"comment": "___follow black line___", "step": "comment"},
     {"step": "steering_rotations", "speed": "180", "rotations":"2.6", "steering": "0"},
     {"step": "blackline_rotations", "speed": "65", "rotations": ".5", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".7"},
-    {"step": "blackline_rotations", "speed": "150", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".8"},
-    {"step": "blackline_to_line", "speed": "150", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".7"},
+    {"step": "blackline_rotations", "speed": "120", "rotations": "1.6", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".8"},
+    {"step": "blackline_to_line", "speed": "120", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".7"},
     {"step": "waiting", "seconds": "0.1"},
 
     {"comment": "___turn to go under bridge-thingie", "step": "comment"},

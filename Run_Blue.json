@@ -6,31 +6,41 @@
     {"step": "turn_current_degrees", "speed": "180", "target_degrees":"100"},
     
     {"comment": "_____drive out of base______________2nd line 186 speed?____________", "step": "comment"},
-    {"step": "run_to_blackline", "speed": "200", "sensor":"RIGHT"},
-    {"step": "blackline_rotations", "speed": "150", "rotations": "2", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": ".65"},
-    {"step": "blackline_rotations", "speed": "150", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".65"},
+    {"step": "run_to_blackline", "speed": "120", "sensor":"RIGHT"},
+    {"step": "steering_rotations", "speed": "60", "rotations":".15", "steering": "0"},
+    {"step": "blackline_rotations", "speed": "120", "rotations": "2", "sensor":"RIGHT", "lineSide":"RIGHT", "correction": ".7"},
+    {"step": "blackline_rotations", "speed": "150", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".7"},
     {"step": "blackline_rotations", "speed": "100", "rotations": "2", "sensor":"RIGHT", "lineSide":"LEFT", "correction": ".65"},
     {"step": "blackline_to_line", "speed": "90", "sensor":"RIGHT", "lineSide":"LEFT", "correction": "0.7"},
 
     {"comment": "_____rowing machine__________________________", "step": "comment"},
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1.5"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1.3"},
     {"step": "steering_rotations", "speed": "60", "rotations":".268", "steering": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1.2"},
-    {"step": "steering_rotations", "speed": "-180", "rotations":"0.35", "steering": "0"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":"0.45", "steering": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-100", "seconds": "1.5"},
+
+    {"step": "steering_rotations", "speed": "60", "rotations":".4", "steering": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "100", "seconds": "1.2"},
+    {"step": "steering_rotations", "speed": "-60", "rotations":"0.45", "steering": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "-100", "seconds": "1.5"},
 
     {"comment": "_____preperation collection of the wheel__________________________", "step": "comment"},
 
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "steering_rotations", "speed": "-60", "rotations":"0.8", "steering": "0"},
+            {"step": "motor_onForSeconds", "motor": "panel", "speed": "150", "seconds": "1"}
+            ]},
+
+    {"step": "gyro_turning", "speed": "120", "degrees":"-1"},
     {"step": "steering_to_line", "speed": "-60", "sensor":"LEFT", "steering": "0"},
-
-    {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".8"},
-
-    {"step": "gyro_turning", "speed": "120", "degrees":"-10"},
+    {"step": "gyro_turning", "speed": "120", "degrees":"-5"},
 
     {"step": "launchInParallel", 
         "subSteps": [
-            {"step": "steering_rotations", "speed": "-60", "rotations":".8", "steering": "-5"},
-            {"step": "motor_onForSeconds", "motor": "panel", "speed": "120", "seconds": ".7"}
+            {"step": "steering_rotations", "speed": "-60", "rotations":".8", "steering": "0"},
+            {"step": "motor_onForSeconds", "motor": "panel", "speed": "140", "seconds": ".7"}
         ]},
 
     {"step": "steering_rotations", "speed": "-10000", "rotations":"6", "steering": "0"},
