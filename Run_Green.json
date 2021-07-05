@@ -1,7 +1,7 @@
 {"steps": [
     {"comment": "___head to drop cubes, rotations might change to 2.7 w/ attachment___", "step": "comment"},
     {"step": "steering_rotations", "speed": "292.5", "rotations":"2.42", "steering": "-3"},
-    {"step": "waiting", "seconds": "0.1"}
+    {"step": "waiting", "seconds": "0.1"},
     
 
     {"step": "steering_rotations", "speed": "-150", "rotations":"0.2", "steering": "0"},
@@ -17,9 +17,15 @@
     {"step": "steering_rotations", "speed": "-100", "rotations":".5", "steering": "0"},    
     {"step": "gyro_turning", "speed": "70", "degrees":"55"},
 
-    {"step": "steering_rotations", "speed": "200", "rotations":"1.525", "steering": "0"},
+    {"step": "launchInParallel", 
+        "subSteps": [
+            {"step": "steering_rotations", "speed": "200", "rotations":"1.525", "steering": "0"},
+    {"step": "motor_onForSeconds", "motor": "panel", "speed": "-200", "seconds": ".7"}
+    ]},
+
     {"step": "steering_rotations", "speed": "50", "rotations":"0.05", "steering": "0"},
-    {"step": "gyro_turning", "speed": "70", "degrees":"-220"},
+    {"step": "gyro_turning", "speed": "70", "degrees":"140"},
+    {"step": "steering_rotations", "speed": "50", "rotations":"0.1", "steering": "0"},
 
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "69", "seconds": "1.5", "gearRatio": "1.4"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "-69", "seconds": "1.5", "gearRatio": "1.4"},

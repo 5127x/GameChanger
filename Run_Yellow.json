@@ -27,7 +27,7 @@
     {"step": "waiting", "seconds": "0.1"},
     {"step": "steering_rotations", "speed": "-100", "rotations":"0.5", "steering": "0"},
     {"step": "steering_to_line", "speed": "-130", "sensor":"LEFT", "steering": "0"},
-    {"step": "motor_onForRotations", "motor": "panel", "speed": "60", "rotations": "0.1", "gearRatio": "1.4"}
+    {"step": "motor_onForRotations", "motor": "panel", "speed": "60", "rotations": "0.1", "gearRatio": "1.4"},
             
     {"step": "steering_rotations", "speed": "130", "rotations":"0.1", "steering": "0"},
 
