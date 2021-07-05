@@ -20,13 +20,14 @@
     {"step": "launchInParallel", 
         "subSteps": [
             {"step": "steering_rotations", "speed": "160", "rotations":"2", "steering": "0"},
-            {"step": "motor_onForRotations", "motor": "panel", "speed": "-70", "rotations": "0.15", "gearRatio": "1.4"}
+            {"step": "motor_onForRotations", "motor": "panel", "speed": "-75", "rotations": "0.17", "gearRatio": "1.4"}
     ]},
 
     {"comment": "___return to line___", "step": "comment"},
     {"step": "waiting", "seconds": "0.1"},
     {"step": "steering_rotations", "speed": "-100", "rotations":"0.5", "steering": "0"},
     {"step": "steering_to_line", "speed": "-130", "sensor":"LEFT", "steering": "0"},
+    {"step": "motor_onForRotations", "motor": "panel", "speed": "60", "rotations": "0.1", "gearRatio": "1.4"}
             
     {"step": "steering_rotations", "speed": "130", "rotations":"0.1", "steering": "0"},
 
@@ -38,7 +39,7 @@
     {"step": "steering_rotations", "speed": "-60", "rotations":"0.15", "steering": "0"},
     {"step": "motor_onForSeconds", "motor": "panel", "speed": "-700", "seconds": "0.4", "gearRatio": "1.4"},
     {"step": "waiting", "seconds": "0.2"},
-    {"step": "motor_onForRotations", "motor": "panel", "speed": "200", "rotations": "0.11", "gearRatio": "1.4"},
+    {"step": "motor_onForRotations", "motor": "panel", "speed": "200", "rotations": "0.15", "gearRatio": "1.4"},
     
     {"comment": "___return to line___", "step": "comment"},
     {"step": "steering_to_line", "speed": "-120", "sensor":"RIGHT", "steering": "0"},
@@ -50,7 +51,6 @@
     {"step": "gyro_turning", "speed": "80", "degrees":"-75"},
     {"step": "steering_rotations", "speed": "-60", "rotations":"0.1", "steering": "0"},
 
-    {"step": "waiting", "seconds": "0.1"},
     {"step": "blackline_rotations", "speed": "70", "rotations": "0.55", "sensor":"LEFT", "lineSide":"LEFT", "correction": ".8"},
     
     {"comment": "___knock ppl off slide___", "step": "comment"},
